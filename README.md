@@ -1,2 +1,6 @@
 # Dat1-SP4
-SP4 opgave
+
+Peter<br>
+Magnus K<br>
+Yusuf<br>
+Sidsel
