@@ -4,5 +4,3 @@ Peter<br>
 Magnus K<br>
 Yusuf<br>
 Sidsel
-
-Plz don't steal
