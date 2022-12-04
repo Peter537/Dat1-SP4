@@ -28,3 +28,9 @@ hs_err_pid*
 
 # Data
 /Data/databasepassword.txt
+
+# Shelf
+/shelf/
+
+# Ignore Output
+/out/
