@@ -1,7 +1,5 @@
 @startuml
 
-(Main) <-- (FormulaOne)
-
-(FormulaOne) <-- (Race)
+(Main) o-- (FormulaOne)
 
 @enduml
