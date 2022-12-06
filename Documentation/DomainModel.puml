@@ -1,0 +1,7 @@
+@startuml
+
+(Main) <|-- (FormulaOne)
+
+(FormulaOne) <|-- (Race)
+
+@enduml
