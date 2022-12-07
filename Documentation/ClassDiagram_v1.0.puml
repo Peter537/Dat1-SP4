@@ -130,6 +130,10 @@ class DriverLeaderboard {
     + ArrayList<IDriver> getLeaderboard()
 }
 
+' ******************
+' DataBase Classes
+' ******************
+
 class DataBaseIO {
     - static final int saveID
     - static final String dbPassword
@@ -152,14 +156,14 @@ class MySQL {
 }
 
 ' ******************
-' Race
+' Race Classes
 ' ******************
 
 class RaceImpl implements IRace {
     - final int id
     - final ICircuit circuit
-    - RaceResult raceResult
-    - QualifierResult qualifierResult
+    - IRaceResult raceResult
+    - IRaceResult qualifierResult
 
     - boolean isFinished
     - boolean isStarted
@@ -189,15 +193,42 @@ class RaceResult implements IRaceResult {
 }
 
 class QualifierResult implements IRaceResult {
+    - final ArrayList<DriverResult> sortedResult
 
-}
+    + QualifierResult(ArrayList<DriverResult> driverResults)
+    ' TODO: Vi skal sorterer resultatet vi får ind her
 
-class Lap {
+    + int getDriverPlacement(IDriver driver)
+    + DriverResult getDriverResult(IDriver driver)
 
+    + accessor methods()
 }
 
 class DriverResult {
+    - final IRace race
+    - final IDriver driver
+    - final ArrayList<Lap> laps
 
+    - float time
+    - boolean hasCrashed
+
+    - int placement
+    - int points
+    - boolean hasFastestLap
+
+    + DriverResult(IRace race, IDriver driver)
+
+    + accessor methods()
+}
+
+class Lap {
+    - final IRace race
+    - final IDriver driver
+    - final float time
+
+    + Lap(IRace race, IDriver driver, float time)
+
+    + accessor methods()
 }
 
 ' ******************
@@ -205,15 +236,15 @@ class DriverResult {
 ' ******************
 
 class ChooseSaveGameUI extends AUI {
-
+    ' TODO: Når de laves
 }
 
 class MenuUI extends AUI {
-
+    ' TODO: Når de laves
 }
 
 class CircuitUI extends AUI {
-
+    ' TODO: Når de laves
 }
 
 ' ******************
@@ -221,39 +252,48 @@ class CircuitUI extends AUI {
 ' ******************
 
 abstract class AUI implements IUI {
-
+    ' TODO: Når de laves
 }
 
 ' ******************
 ' Interfaces
 ' ******************
 
-interface IDriver {
-
-}
-
 interface ITeam {
+    + void addPoints(int points)
 
+    + accessor methods()
 }
 
-interface ICircuit {
+interface IDriver {
+    + void addPoints(int points)
 
+    + accessor methods()
 }
 
 interface ICar {
-
-}
-
-interface IUI {
-
+    + accessor methods()
 }
 
 interface IRace {
+    + void nextAction() throws Exception
 
+    + accessor methods()
+}
+
+interface ICircuit {
+    + accessor methods()
 }
 
 interface IRaceResult {
+    + int getDriverPlacement(IDriver driver)
+    + DriverResult getDriverResult(IDriver driver)
 
+    + accessor methods()
+}
+
+interface IUI {
+    ' TODO: Når de laves
 }
 
 ' ******************
@@ -285,6 +325,7 @@ RaceImpl --> ICircuit
 RaceImpl --> IRaceResult
 
 RaceResult --> DriverResult
+QualifierResult --> DriverResult
 DriverImpl --> DriverResult
 
 DriverResult --> Lap
