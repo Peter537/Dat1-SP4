@@ -1,5 +1,14 @@
 @startuml
 
-(Main) o-- (FormulaOne)
+Main o-- (Login)
+
+(Login) o-- (FormulaOne Main Menu)
+
+(FormulaOne Main Menu) o-- (History menu)
+(FormulaOne Main Menu) o-- (Race menu)
+(FormulaOne Main Menu) o-- (Team information menu)
+(FormulaOne Main Menu) o-- (Driver information menu)
+
+(Race menu) o-- (Race calculations)
 
 @enduml
