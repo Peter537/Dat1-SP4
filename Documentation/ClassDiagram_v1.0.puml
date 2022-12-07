@@ -6,29 +6,191 @@
 
 class Main {
     + static void main(String[] args)
+    - static String getDBPassword()
+}
+
+class FormulaOne {
+    - final SessionCache sessionCache
+    - static JFrame page
+
+    + FormulaOne(String dbPassword)
+
+    - void loadDB()
+    - void chooseSaveGame()
+
+    - void run()
+
+    + SessionCache getSessionCache()
+    + static JFrame getPage()
+}
+
+class SessionCache {
+    - final FormulaOne formulaOne
+    - final int saveID
+    - ArrayList<Season> seasons
+    - Season currentSeason
+
+    + SessionCache(FormulaOne formulaOne, int saveID)
+
+    + int getSaveID()
+    + ArrayList<Season> getSeasons()
+    + Season getCurrentSeason()
+}
+
+class Season {
+    - final int year
+    - final ArrayList<IRace> races
+    - final ArrayList<ITeam> teams
+    - final ALeaderboard teamLeaderboard
+    - final ALeaderboard driverLeaderboard
+
+    + Season()
+
+    + boolean nextAction()
+
+    + boolean isFinished()
+
+    + int getYear()
+    + ArrayList<IRace> getRaces()
+    + ArrayList<ITeam> getTeams()
+    + ALeaderboard getTeamLeaderboard()
+    + ALeaderboard getDriverLeaderboard()
+}
+
+class TeamImpl implements ITeam {
+
+}
+
+class DriverImpl implements IDriver {
+
+}
+
+class CarImpl implements ICar {
+
+}
+
+class CircuitImpl implements ICircuit {
+
+}
+
+class DataBaseIO {
+
+}
+
+class TeamLeaderboardImpl implements ALeaderboard {
+
+}
+
+class DriverLeaderboardImpl implements ALeaderboard {
+
+}
+' ******************
+' Race
+' ******************
+
+class RaceImpl implements IRace { }
+
+class RaceResult implements IRaceResult { }
+
+class QualifierResult implements IRaceResult { }
+
+class Lap { }
+
+class DriverResult { }
+
+' ******************
+' UI Classes
+' ******************
+
+class ChooseSaveGameUI extends AUI {
+
+}
+
+class MenuUI extends AUI {
+
+}
+
+class CircuitUI extends AUI {
+
 }
 
 ' ******************
 ' Abstract Classes
 ' ******************
 
+abstract class ALeaderboard {
 
+}
+
+abstract class AUI implements IUI {
+
+}
 
 ' ******************
 ' Interfaces
 ' ******************
 
+interface IDriver {
 
+}
+
+interface ITeam {
+
+}
+
+interface ICircuit {
+
+}
+
+interface ICar {
+
+}
+
+interface IUI {
+
+}
+
+interface IRace {
+
+}
+
+interface IRaceResult {
+
+}
 
 ' ******************
 ' Enums
 ' ******************
 
-
+enum WeatherCondition {
+    SUNNY,
+    RAINY
+}
 
 ' ******************
 ' Relations
 ' ******************
 
+Main --> FormulaOne
+
+FormulaOne --> SessionCache
+FormulaOne --> IUI
+
+SessionCache --> Season
+
+Season --> ITeam
+Season --> IRace
+Season --> ALeaderboard
+
+RaceImpl --> ICircuit
+RaceImpl --> IRaceResult
+
+RaceResult --> DriverResult
+DriverImpl --> DriverResult
+
+DriverResult --> Lap
+
+TeamImpl --> ICar
+TeamImpl --> IDriver
 
 @enduml
