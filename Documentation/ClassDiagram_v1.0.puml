@@ -277,6 +277,7 @@ interface ICar {
 
 interface IRace {
     + void nextAction() throws Exception
+    ' TODO: Hvilken exception skal smides? evt. lav en custom exception
 
     + accessor methods()
 }
