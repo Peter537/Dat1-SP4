@@ -134,37 +134,71 @@ class DataBaseIO {
     - static final int saveID
     - static final String dbPassword
     - static final MySQL mySQL
+    - static final FormulaOne formulaOne
 
-    + static void initSQL(String dbPassword, boolean isNewSave)
+    + static void initSQL(String dbPassword, boolean isNewSave, FormulaOne formulaOne)
     + static void saveData()
     + static void newSave()
 
-    + static ArrayList<ITeam> loadTeams()
-    + static ArrayList<IDriver> loadDrivers()
-    + static ArrayList<ICircuit> loadCircuits()
-    + static ArrayList<IRace> loadRaces()
-    + static ArrayList<ICar> loadCar()
-    + static ArrayList<Season> loadSeasons()
-    
+    + static ArrayList<ITeam> loadTeamData()
+    + static ArrayList<IDriver> loadDriverData()
+    + static ArrayList<ICar> loadCarData()
+    + static ArrayList<IRace> loadRaceData()
+    + static ArrayList<ICircuit> loadCircuitData()
 }
 
 class MySQL {
-
+    + helper methods()
 }
 
 ' ******************
 ' Race
 ' ******************
 
-class RaceImpl implements IRace { }
+class RaceImpl implements IRace {
+    - final int id
+    - final ICircuit circuit
+    - RaceResult raceResult
+    - QualifierResult qualifierResult
 
-class RaceResult implements IRaceResult { }
+    - boolean isFinished
+    - boolean isStarted
 
-class QualifierResult implements IRaceResult { }
+    + RaceImpl(int id, ICircuit circuit)
 
-class Lap { }
+    + void nextAction() throws Exception
+    ' TODO: Hvilken exception skal smides? evt. lav en custom exception
 
-class DriverResult { }
+    - void startQualifier()
+    - void startRace()
+
+    + accessor methods()
+}
+
+class RaceResult implements IRaceResult {
+    - final ArrayList<DriverResult> sortedResult
+    - final Lap fastestLap
+
+    + RaceResult(ArrayList<DriverResult> driverResults, Lap fastestLap)
+    ' TODO: Vi skal sorterer resultatet vi får ind her
+
+    + int getDriverPlacement(IDriver driver)
+    + DriverResult getDriverResult(IDriver driver)
+
+    + accessor methods()
+}
+
+class QualifierResult implements IRaceResult {
+
+}
+
+class Lap {
+
+}
+
+class DriverResult {
+
+}
 
 ' ******************
 ' UI Classes
