@@ -1,4 +1,9 @@
 package main.data.impl;
 
-public class TeamImpl {
+import main.data.ITeam;
+
+public class TeamImpl implements ITeam {
+
+
+
 }

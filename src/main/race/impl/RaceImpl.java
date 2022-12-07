@@ -4,4 +4,6 @@ import main.race.IRace;
 
 public class RaceImpl implements IRace {
 
+
+
 }
