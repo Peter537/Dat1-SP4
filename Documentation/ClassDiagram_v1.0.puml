@@ -41,8 +41,8 @@ class Season {
     - final int year
     - final ArrayList<IRace> races
     - final ArrayList<ITeam> teams
-    - final ALeaderboard teamLeaderboard
-    - final ALeaderboard driverLeaderboard
+    - final TeamLeaderboard teamLeaderboard
+    - final DriverLeaderboard driverLeaderboard
 
     + Season()
 
@@ -53,37 +53,105 @@ class Season {
     + int getYear()
     + ArrayList<IRace> getRaces()
     + ArrayList<ITeam> getTeams()
-    + ALeaderboard getTeamLeaderboard()
-    + ALeaderboard getDriverLeaderboard()
+    + TeamLeaderboard getTeamLeaderboard()
+    + DriverLeaderboard getDriverLeaderboard()
 }
 
 class TeamImpl implements ITeam {
+    - final int id
+    - final String name
+    - final Car car
+    - final IDriver driver1
+    - final IDriver driver2
 
+    - int point
+
+    + TeamImpl(int id, String name, Car car, IDriver driver1, IDriver driver2)
+
+    + void addPoints(int points)
+    + accessor methods()
 }
 
 class DriverImpl implements IDriver {
+    ' TODO: TILFØJE ATTRIBUTES (Skal det være en klasse for sig selv?)
+    - final int id
+    - final String name
+    - final int teamID
 
+    - int points
+
+    + DriverImpl(int id, String name)
+
+    + void addPoints(int points)
+
+    + accessor methods()
 }
 
 class CarImpl implements ICar {
+    ' TODO: TILFØJE ATTRIBUTES (Skal det være en klasse for sig selv?)
+    - final int id
+    - final String name
 
+    + CarImpl(int id, String name)
+
+    + accessor methods()
 }
 
 class CircuitImpl implements ICircuit {
+    ' TODO: TILFØJE ATTRIBUTES (Skal det være en klasse for sig selv?)
+    - final int id
+    - final String name
+    - final String country
+    - final int laps
+    - final int lapLength
 
+    + CircuitImpl(int id, String name, String country, int laps, int lapLength)
+
+    + accessor methods()
+}
+
+class TeamLeaderboard {
+    - final ArrayList<ITeam> teams
+
+    + void update()
+
+    + int getIndex(ITeam team)
+    + ITeam getByIndex(int index)
+    + ArrayList<ITeam> getLeaderboard()
+}
+
+class DriverLeaderboard {
+    - final ArrayList<IDriver> drivers
+
+    + void update()
+
+    + int getIndex(IDriver driver)
+    + IDriver getByIndex(int index)
+    + ArrayList<IDriver> getLeaderboard()
 }
 
 class DataBaseIO {
+    - static final int saveID
+    - static final String dbPassword
+    - static final MySQL mySQL
+
+    + static void initSQL(String dbPassword, boolean isNewSave)
+    + static void saveData()
+    + static void newSave()
+
+    + static ArrayList<ITeam> loadTeams()
+    + static ArrayList<IDriver> loadDrivers()
+    + static ArrayList<ICircuit> loadCircuits()
+    + static ArrayList<IRace> loadRaces()
+    + static ArrayList<ICar> loadCar()
+    + static ArrayList<Season> loadSeasons()
+    
+}
+
+class MySQL {
 
 }
 
-class TeamLeaderboardImpl implements ALeaderboard {
-
-}
-
-class DriverLeaderboardImpl implements ALeaderboard {
-
-}
 ' ******************
 ' Race
 ' ******************
@@ -117,10 +185,6 @@ class CircuitUI extends AUI {
 ' ******************
 ' Abstract Classes
 ' ******************
-
-abstract class ALeaderboard {
-
-}
 
 abstract class AUI implements IUI {
 
@@ -180,7 +244,8 @@ SessionCache --> Season
 
 Season --> ITeam
 Season --> IRace
-Season --> ALeaderboard
+Season --> TeamLeaderboard
+Season --> DriverLeaderboard
 
 RaceImpl --> ICircuit
 RaceImpl --> IRaceResult
@@ -192,5 +257,7 @@ DriverResult --> Lap
 
 TeamImpl --> ICar
 TeamImpl --> IDriver
+
+DataBaseIO --> MySQL
 
 @enduml
