@@ -15,10 +15,10 @@ class FormulaOne {
 
     + FormulaOne(String dbPassword)
 
-    - void loadDB()
-    - void chooseSaveGame()
+    - void loadDB(String dbPassword)
 
-    - void run()
+    + void run()
+    - void chooseSaveGame()
 
     + SessionCache getSessionCache()
     + static JFrame getPage()
