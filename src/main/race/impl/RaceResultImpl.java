@@ -15,10 +15,13 @@ public class RaceResultImpl implements IRaceResult {
         this.sortedResults = driverResults;
         this.fastestLap = fastestLap;
     }
+
+    @Override
     public int getDriverPlacement(IDriverResult driver) {
         return sortedResults.indexOf(driver);
     }
 
+    @Override
     public IDriverResult getDriverResult(IDriverResult driver) {
         return sortedResults.get(sortedResults.indexOf(driver));
     }

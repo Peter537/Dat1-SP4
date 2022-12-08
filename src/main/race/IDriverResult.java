@@ -14,7 +14,7 @@ public interface IDriverResult {
 
     float getTime();
 
-    boolean HasCrashed();
+    boolean hasCrashed();
 
     int getPlacement();
 

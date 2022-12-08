@@ -31,26 +31,32 @@ public class RaceImpl implements IRace {
         // TODO: Flesh out this method
     }
 
+    @Override
     public int getID() {
         return this.id;
     }
 
+    @Override
     public ICircuit getCircuit() {
         return this.circuit;
     }
 
+    @Override
     public IResult getRaceResult() {
         return this.raceResult;
     }
 
+    @Override
     public IResult getQualifierResult() {
         return this.qualifierResult;
     }
 
+    @Override
     public boolean isFinished() {
         return this.isFinished;
     }
 
+    @Override
     public boolean isStarted() {
         return this.isStarted;
     }

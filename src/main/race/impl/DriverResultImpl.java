@@ -1,12 +1,13 @@
 package main.race.impl;
 
 import main.data.IDriver;
+import main.race.IDriverResult;
 import main.race.ILap;
 import main.race.IRace;
 
 import java.util.ArrayList;
 
-public class DriverResultImpl {
+public class DriverResultImpl implements IDriverResult {
 
     private final IRace race;
     private final IDriver driver;
@@ -16,7 +17,7 @@ public class DriverResultImpl {
     private boolean hasCrashed;
 
     private int placement;
-    private int point;
+    private int points;
     private boolean hasFastestLap;
 
     public DriverResultImpl(IRace race, IDriver driver, ArrayList<ILap> laps) {
@@ -25,6 +26,7 @@ public class DriverResultImpl {
         this.laps = laps;
     }
 
+    @Override
     public IRace getRace() {
         return race;
     }
@@ -41,7 +43,7 @@ public class DriverResultImpl {
         return time;
     }
 
-    public boolean isHasCrashed() {
+    public boolean hasCrashed() {
         return hasCrashed;
     }
 
@@ -49,11 +51,11 @@ public class DriverResultImpl {
         return placement;
     }
 
-    public int getPoint() {
-        return point;
+    public int getPoints() {
+        return points;
     }
 
-    public boolean isHasFastestLap() {
+    public boolean hasFastestLap() {
         return hasFastestLap;
     }
 }
