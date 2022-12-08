@@ -254,6 +254,27 @@ class LapImpl implements ILap {
 }
 
 ' ******************
+' Circuit Classes
+' ******************
+
+class CircuitComponentCornerImpl implements ICircuitComponent {
+    - final int radius
+    - final int angle
+
+    + CircuitComponentCornerImpl(int radius, int angle)
+
+    + accessor methods()
+}
+
+class CircuitComponentStraightImpl implements ICircuitComponent {
+    - final int length
+
+    + CircuitComponentStraightImpl(int length)
+
+    + accessor methods()
+}
+
+' ******************
 ' UI Classes
 ' ******************
 
@@ -320,7 +341,7 @@ interface ICircuit {
 }
 
 interface ICircuitComponent {
-
+    + accessor methods()
 }
 
 interface IResult {
