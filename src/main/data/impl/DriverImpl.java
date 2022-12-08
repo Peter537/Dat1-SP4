@@ -22,18 +22,21 @@ public class DriverImpl implements IDriver {
 
     @Override
     public int getPoints() {
-        return point;
+        return this.point;
     }
 
-    public int getId() {
-        return id;
+    @Override
+    public int getID() {
+        return this.id;
     }
 
+    @Override
     public String getName() {
-        return name;
+        return this.name;
     }
 
+    @Override
     public int getTeamID() {
-        return teamID;
+        return this.teamID;
     }
 }

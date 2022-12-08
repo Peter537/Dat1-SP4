@@ -2,14 +2,14 @@ package main.race.impl;
 
 import main.data.ICircuit;
 import main.race.IRace;
-import main.race.IRaceResult;
+import main.race.IResult;
 
 public class RaceImpl implements IRace {
 
 private final int id;
 private final ICircuit circuit;
-private IRaceResult raceResult;
-private IRaceResult qualifierResult;
+private IResult raceResult;
+private IResult qualifierResult;
 
 private boolean isFinished;
 private boolean isStarted;
@@ -34,32 +34,27 @@ private boolean isStarted;
     }
 
 
-    @Override
-    public IRace getRace() {
-        return RaceImpl.this;
-    }
-
-    public int getId() {
-        return id;
+    public int getID() {
+        return this.id;
     }
 
     public ICircuit getCircuit() {
-        return circuit;
+        return this.circuit;
     }
 
-    public IRaceResult getRaceResult() {
-        return raceResult;
+    public IResult getRaceResult() {
+        return this.raceResult;
     }
 
-    public IRaceResult getQualifierResult() {
-        return qualifierResult;
+    public IResult getQualifierResult() {
+        return this.qualifierResult;
     }
 
     public boolean isFinished() {
-        return isFinished;
+        return this.isFinished;
     }
 
     public boolean isStarted() {
-        return isStarted;
+        return this.isStarted;
     }
 }

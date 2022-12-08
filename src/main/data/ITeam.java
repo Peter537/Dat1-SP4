@@ -2,8 +2,20 @@ package main.data;
 
 public interface ITeam {
 
-    public void addPoints(int points);
+    void addPoints(int points);
 
-    public int getPoints();
+    int getPoints();
+
+    int getId();
+
+    String getName();
+
+    ICar getCar();
+
+    IDriver getDriver1();
+
+    IDriver getDriver2();
+
+
 
 }

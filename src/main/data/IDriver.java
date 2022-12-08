@@ -2,9 +2,15 @@ package main.data;
 
 public interface IDriver {
 
-    public void addPoints(int points);
+    void addPoints(int points);
 
-    public int getPoints();
+    int getPoints();
+
+    int getID();
+
+    String getName();
+
+    int getTeamID();
 
 
 }

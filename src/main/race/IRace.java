@@ -2,8 +2,24 @@ package main.race;
 
 public interface IRace {
 
-public void nextAction() throws Exception;
+void nextAction() throws Exception;
 
-public IRace getRace();
+void startQualifier();
+
+void startRace();
+
+int id();
+
+ICircuit getCircuit();
+
+IResult getRaceResult();
+
+IResult getQualifierResult();
+
+boolean isFinished();
+
+boolean isStarted();
+
+
 
 }

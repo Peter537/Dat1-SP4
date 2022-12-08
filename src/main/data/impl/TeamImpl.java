@@ -29,26 +29,31 @@ public class TeamImpl implements ITeam {
 
     @Override
     public int getPoints() {
-        return point;
+        return this.point;
     }
 
+    @Override
     public int getId() {
-        return id;
+        return this.id;
     }
 
+    @Override
     public String getName() {
-        return name;
+        return this.name;
     }
 
+    @Override
     public ICar getCar() {
-        return car;
+        return this.car;
     }
 
+    @Override
     public IDriver getDriver1() {
-        return driver1;
+        return this.driver1;
     }
 
+    @Override
     public IDriver getDriver2() {
-        return driver2;
+        return this.driver2;
     }
 }

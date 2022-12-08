@@ -3,17 +3,18 @@ package main.race.impl;
 import main.data.IDriver;
 import main.race.IDriverResult;
 import main.race.ILap;
-import main.race.IRaceResult;
+import main.race.IResult;
 
 import java.util.ArrayList;
 
-public class RaceResult implements IRaceResult {
+public class ResultImpl implements IResult {
 
-private final ArrayList<IDriverResult> sortedResults;
-private final ILap fastestLap;
+    private final ArrayList<IDriverResult> sortedResults;
+    private final ILap fastestLap;
 
-    public RaceResult(ArrayList<IDriverResult> sortedResults, ILap fastestLap) {
-        this.sortedResults = sortedResults;
+    public ResultImpl(ArrayList<IDriverResult> driverResults, ILap fastestLap) {
+        // TODO: sort the driverResults by placement
+        this.sortedResults = driverResults;
         this.fastestLap = fastestLap;
     }
     public int getDriverPlacement(IDriverResult driver) {
@@ -33,17 +34,28 @@ private final ILap fastestLap;
     }
 
     @Override
+    public boolean isQualifier() {
+        return false;
+    }
+
+    @Override
+    public boolean isRace() {
+        return true;
+    }
+
+    @Override
     public int getDriverPlacement(IDriver driver) {
-        return sortedResults.indexOf(driver);
+        return getSortedResult().indexOf(driver) + 1;
     }
 
     @Override
     public IDriverResult getDriverResult(IDriver driver) {
-        return sortedResults.get(sortedResults.indexOf(driver));
+        return getSortedResult().get(getDriverPlacement(driver) - 1);
     }
 
     @Override
-    public IRaceResult getRaceResult() {
-        return RaceResult.this;
+    public ArrayList<IDriverResult> getSortedResult() {
+        return this.sortedResults;
     }
+
 }

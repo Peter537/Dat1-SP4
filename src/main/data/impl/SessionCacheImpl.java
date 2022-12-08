@@ -17,11 +17,14 @@ private SeasonImpl season;
         this.saveID = saveID;
     }
 
-    public int getSaveID() {
-        return saveID;
+    @Override
+    int getSaveID() {
+        return this.saveID;
     }
+
+    @Override
     public ArrayList<ISeason> getSeasons() {
-        return seasons;
+        return this.seasons;
     }
 
 }

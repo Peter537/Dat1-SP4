@@ -12,10 +12,10 @@ public class SeasonImpl implements ISeason {
 private final int year;
 private final ArrayList<IRace> races;
 private final ArrayList<ITeam> teams;
-private final TeamLeaderboard teamLeaderboard;
-private final DriverLeaderboard driverLeaderboard;
+private final ITeamLeaderboard teamLeaderboard;
+private final IDriverLeaderboard driverLeaderboard;
 
-    public SeasonImpl(int year, ArrayList<IRace> races, ArrayList<ITeam> teams, TeamLeaderboard teamLeaderboard, DriverLeaderboard driverLeaderboard) {
+    public SeasonImpl(int year, ArrayList<IRace> races, ArrayList<ITeam> teams, ITeamLeaderboard teamLeaderboard, IDriverLeaderboard driverLeaderboard) {
         this.year = year;
         this.races = races;
         this.teams = teams;
