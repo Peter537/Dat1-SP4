@@ -405,6 +405,14 @@ enum WeatherCondition {
     RAINY
 }
 
+enum RaceState {
+    NOT_STARTED,
+    QUALIFIER_STARTED,
+    QUALIFIER_FINISHED,
+    RACE_STARTED,
+    RACE_FINISHED
+}
+
 ' ******************
 ' Relations
 ' ******************
