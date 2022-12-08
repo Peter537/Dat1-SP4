@@ -1,9 +1,6 @@
 package main.data.impl;
 
-import main.data.IDriverLeaderboard;
-import main.data.ISeason;
-import main.data.ITeam;
-import main.data.ITeamLeaderboard;
+import main.data.*;
 import main.race.IRace;
 
 import java.util.ArrayList;
@@ -15,23 +12,40 @@ public class SeasonImpl implements ISeason {
     private final ArrayList<ITeam> teams;
     private final ITeamLeaderboard teamLeaderboard;
     private final IDriverLeaderboard driverLeaderboard;
+    private IRace currentRace;
 
-    public SeasonImpl(int year, ArrayList<IRace> races, ArrayList<ITeam> teams, ITeamLeaderboard teamLeaderboard, IDriverLeaderboard driverLeaderboard) {
+    public SeasonImpl(int year, ArrayList<IRace> races, ArrayList<ITeam> teams) {
         this.year = year;
         this.races = races;
         this.teams = teams;
-        this.teamLeaderboard = teamLeaderboard;
-        this.driverLeaderboard = driverLeaderboard;
+        this.teamLeaderboard = new TeamLeaderboardImpl(getTeams());
+        ArrayList<IDriver> drivers = new ArrayList<>();
+        for (ITeam team : getTeams()) {
+            drivers.add(team.getDriver1());
+            drivers.add(team.getDriver2());
+        }
+        this.driverLeaderboard = new DriverLeaderboardImpl(drivers);
     }
 
     @Override
     public boolean nextAction() {
+        if (!hasNextAction()) {
+            for (IRace race : getRaces()) {
+                if (!race.isFinished()) {
+                    setCurrentRace(race);
+                    break;
+                }
+            }
+            return false;
+        }
+
+        getCurrentRace().nextAction();
         return false;
     }
 
     @Override
     public boolean hasNextAction() {
-        return false;
+        return getCurrentRace() != null || getCurrentRace().isFinished();
     }
 
     @Override
@@ -57,5 +71,15 @@ public class SeasonImpl implements ISeason {
     @Override
     public IDriverLeaderboard getDriverLeaderboard() {
         return this.driverLeaderboard;
+    }
+
+    @Override
+    public IRace getCurrentRace() {
+        return currentRace;
+    }
+
+    @Override
+    public void setCurrentRace(IRace currentRace) {
+        this.currentRace = currentRace;
     }
 }

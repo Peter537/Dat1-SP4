@@ -19,4 +19,8 @@ public interface ISeason {
     ITeamLeaderboard getTeamLeaderboard();
 
     IDriverLeaderboard getDriverLeaderboard();
+
+    IRace getCurrentRace();
+
+    void setCurrentRace(IRace currentRace);
 }
