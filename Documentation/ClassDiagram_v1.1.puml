@@ -42,6 +42,7 @@ class SeasonImpl implements ISeason {
     - final ITeamLeaderboard teamLeaderboard
     - final IDriverLeaderboard driverLeaderboard
 
+
     + SeasonImpl(int year, ArrayList<IRace> races, ArrayList<ITeam> teams)
 
     + boolean nextAction()
@@ -70,6 +71,7 @@ class DriverImpl implements IDriver {
     - final int id
     - final String name
     - final int teamID
+    - final
 
     - int points
 
@@ -350,12 +352,14 @@ interface ILap {
 }
 
 interface IDriverLeaderboard {
+    + void update()
     + int getIndex(IDriver driver)
     + IDriver getByIndex(int index)
     + ArrayList<IDriver> getLeaderboard()
 }
 
 interface ITeamLeaderboard {
+    + void update()
     + int getIndex(ITeam team)
     + ITeam getByIndex(int index)
     + ArrayList<ITeam> getLeaderboard()

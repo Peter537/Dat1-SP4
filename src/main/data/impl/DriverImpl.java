@@ -52,18 +52,22 @@ public class DriverImpl implements IDriver {
         return this.teamID;
     }
 
+    @Override
     public int getExperience() {
         return experience;
     }
 
+    @Override
     public int getCorner() {
         return corner;
     }
 
+    @Override
     public int getConsistency() {
         return consistency;
     }
 
+    @Override
     public int getAcceleration() {
         return acceleration;
     }
