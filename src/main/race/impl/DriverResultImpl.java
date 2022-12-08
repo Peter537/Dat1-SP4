@@ -8,16 +8,16 @@ import java.util.ArrayList;
 
 public class DriverResultImpl {
 
-private final IRace race;
-private final IDriver driver;
-private final ArrayList<ILap> laps;
+    private final IRace race;
+    private final IDriver driver;
+    private final ArrayList<ILap> laps;
 
-private float time;
-private boolean hasCrashed;
+    private float time;
+    private boolean hasCrashed;
 
-private int placement;
-private int point;
-private boolean hasFastestLap;
+    private int placement;
+    private int point;
+    private boolean hasFastestLap;
 
     public DriverResultImpl(IRace race, IDriver driver, ArrayList<ILap> laps) {
         this.race = race;

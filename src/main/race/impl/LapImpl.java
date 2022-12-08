@@ -6,9 +6,9 @@ import main.race.IRace;
 
 public class LapImpl {
 
-private final IRace race;
-private final IDriver driver;
-final float time;
+    private final IRace race;
+    private final IDriver driver;
+    final float time;
 
     public LapImpl(IRace race, IDriver driver, float time) {
         this.race = race;

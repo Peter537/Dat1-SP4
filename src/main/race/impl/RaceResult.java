@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 public class RaceResult implements IRaceResult {
 
-private final ArrayList<IDriverResult> sortedResults;
-private final ILap fastestLap;
+    private final ArrayList<IDriverResult> sortedResults;
+    private final ILap fastestLap;
 
     public RaceResult(ArrayList<IDriverResult> sortedResults, ILap fastestLap) {
         this.sortedResults = sortedResults;

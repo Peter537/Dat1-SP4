@@ -6,13 +6,13 @@ import main.race.IRaceResult;
 
 public class RaceImpl implements IRace {
 
-private final int id;
-private final ICircuit circuit;
-private IRaceResult raceResult;
-private IRaceResult qualifierResult;
+    private final int id;
+    private final ICircuit circuit;
+    private IRaceResult raceResult;
+    private IRaceResult qualifierResult;
 
-private boolean isFinished;
-private boolean isStarted;
+    private boolean isFinished;
+    private boolean isStarted;
 
     public RaceImpl(int id, ICircuit circuit) {
         this.id = id;

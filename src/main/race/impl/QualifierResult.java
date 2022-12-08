@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class QualifierResult implements IRaceResult {
 
-private final ArrayList<IDriverResult> driverResults;
+    private final ArrayList<IDriverResult> driverResults;
 
     public QualifierResult(ArrayList<IDriverResult> driverResults) {
         this.driverResults = driverResults;

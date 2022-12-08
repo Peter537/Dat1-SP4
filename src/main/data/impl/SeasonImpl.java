@@ -9,11 +9,12 @@ import main.utils.TeamLeaderboard;
 import java.util.ArrayList;
 
 public class SeasonImpl implements ISeason {
-private final int year;
-private final ArrayList<IRace> races;
-private final ArrayList<ITeam> teams;
-private final TeamLeaderboard teamLeaderboard;
-private final DriverLeaderboard driverLeaderboard;
+
+    private final int year;
+    private final ArrayList<IRace> races;
+    private final ArrayList<ITeam> teams;
+    private final TeamLeaderboard teamLeaderboard;
+    private final DriverLeaderboard driverLeaderboard;
 
     public SeasonImpl(int year, ArrayList<IRace> races, ArrayList<ITeam> teams, TeamLeaderboard teamLeaderboard, DriverLeaderboard driverLeaderboard) {
         this.year = year;
