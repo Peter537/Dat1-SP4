@@ -19,8 +19,4 @@ public interface ISeason {
     ITeamLeaderboard getTeamLeaderboard();
 
     IDriverLeaderboard getDriverLeaderboard();
-
-
-
-
 }

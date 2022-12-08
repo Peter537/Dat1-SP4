@@ -21,7 +21,6 @@ public class TeamImpl implements ITeam {
         this.driver2 = driver2;
     }
 
-
     @Override
     public void addPoints(int points) {
         point += points;
