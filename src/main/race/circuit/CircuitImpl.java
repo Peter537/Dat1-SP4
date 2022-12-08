@@ -21,22 +21,22 @@ public class CircuitImpl implements ICircuit {
     }
 
     public int getID() {
-        return id;
+        return this.id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getCountry() {
-        return country;
+        return this.country;
     }
 
     public int getLaps() {
-        return laps;
+        return this.laps;
     }
 
     public ArrayList<ICircuitComponent> getComponents() {
-        return components;
+        return this.components;
     }
 }

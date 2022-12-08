@@ -4,9 +4,9 @@ import main.data.IDriver;
 
 public interface ILap {
 
-IRace getRace();
+    IRace getRace();
 
-IDriver getDriver();
+    IDriver getDriver();
 
-float getTime();
+    float getTime();
 }

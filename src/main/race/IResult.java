@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public interface IResult {
 
-
     int getDriverPlacement(IDriver driver);
+
     IDriverResult getDriverResult(IDriver driver);
 
     boolean isQualifier();
@@ -17,7 +17,6 @@ public interface IResult {
     IRaceResult asRaceResult();
 
     IQualifierResult asQualifierResult();
-    ArrayList<IDriverResult> getSortedResult();
 
-
+    ArrayList<IDriverResult> getSortedResults();
 }

@@ -5,9 +5,9 @@ import main.race.*;
 
 import java.util.ArrayList;
 
-public class RaceResultImpl implements IResult {
+public class RaceResultImpl implements IRaceResult {
 
-    private ArrayList<IDriverResult> sortedResults;
+    private final ArrayList<IDriverResult> sortedResults;
     private final ILap fastestLap;
 
     public RaceResultImpl(ArrayList<IDriverResult> driverResults, ILap fastestLap) {
@@ -23,10 +23,12 @@ public class RaceResultImpl implements IResult {
         return sortedResults.get(sortedResults.indexOf(driver));
     }
 
+    @Override
     public ArrayList<IDriverResult> getSortedResults() {
         return sortedResults;
     }
 
+    @Override
     public ILap getFastestLap() {
         return fastestLap;
     }
@@ -65,5 +67,4 @@ public class RaceResultImpl implements IResult {
     public ArrayList<IDriverResult> getSortedResult() {
         return this.sortedResults;
     }
-
 }

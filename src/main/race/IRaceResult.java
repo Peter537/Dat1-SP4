@@ -10,5 +10,7 @@ public interface IRaceResult extends IResult {
 
     IDriverResult getDriverResult(IDriver driver);
 
+    ILap getFastestLap();
+
     ArrayList<IDriverResult> getSortedResult();
 }

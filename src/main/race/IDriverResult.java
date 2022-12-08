@@ -6,19 +6,19 @@ import java.util.ArrayList;
 
 public interface IDriverResult {
 
-IRace getRace();
+    IRace getRace();
 
-IDriver getDriver();
+    IDriver getDriver();
 
-ArrayList<ILap> getLaps();
+    ArrayList<ILap> getLaps();
 
-float getTime();
+    float getTime();
 
-boolean HasCrashed();
+    boolean HasCrashed();
 
-int getPlacement();
+    int getPlacement();
 
-int getPoints();
+    int getPoints();
 
-boolean hasFastestLap();
+    boolean hasFastestLap();
 }

@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 public class QualifierResultImpl implements IQualifierResult {
 
-
     private final ArrayList<IDriverResult> sortedResults;
 
     public QualifierResultImpl(ArrayList<IDriverResult> driverResults) {
@@ -46,7 +45,7 @@ public class QualifierResultImpl implements IQualifierResult {
     }
 
     @Override
-    public ArrayList<IDriverResult> getSortedResult() {
+    public ArrayList<IDriverResult> getSortedResults() {
         return sortedResults;
     }
 }
