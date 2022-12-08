@@ -25,12 +25,12 @@ public class SeasonImpl implements ISeason {
     }
 
     @Override
-    public boolean hasNextAction() {
+    public boolean nextAction() {
         return false;
     }
 
     @Override
-    public boolean isFinished() {
+    public boolean hasNextAction() {
         return false;
     }
 

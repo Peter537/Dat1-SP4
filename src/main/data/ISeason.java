@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 public interface ISeason {
 
-    boolean hasNextAction();
+    boolean nextAction();
 
-    boolean isFinished();
+    boolean hasNextAction();
 
     int getYear();
 
