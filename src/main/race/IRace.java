@@ -1,7 +1,7 @@
 package main.race;
 
 public interface IRace {
-    
+
 void nextAction() throws Exception;
 
 void startQualifier();
