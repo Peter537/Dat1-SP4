@@ -1,6 +1,7 @@
-package main.race.circuit;
+package main.race.impl;
 
 import main.race.ICircuit;
+import main.race.circuit.ICircuitComponent;
 
 import java.util.ArrayList;
 
