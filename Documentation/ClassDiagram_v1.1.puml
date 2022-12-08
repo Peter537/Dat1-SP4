@@ -24,7 +24,7 @@ class FormulaOne {
     + static JFrame getPage()
 }
 
-class SessionCache {
+class SessionCacheImpl implements ISessionCache {
     - final FormulaOne formulaOne
     - final int saveID
     - ArrayList<Season> seasons
@@ -32,35 +32,28 @@ class SessionCache {
 
     + SessionCache(FormulaOne formulaOne, int saveID)
 
-    + int getSaveID()
-    + ArrayList<Season> getSeasons()
-    + Season getCurrentSeason()
+    + accessor methods()
 }
 
-class Season {
+class SeasonImpl implements ISeason {
     - final int year
     - final ArrayList<IRace> races
     - final ArrayList<ITeam> teams
-    - final TeamLeaderboard teamLeaderboard
-    - final DriverLeaderboard driverLeaderboard
+    - final ITeamLeaderboard teamLeaderboard
+    - final IDriverLeaderboard driverLeaderboard
 
-    + Season()
+    + Season(int year, ArrayList<IRace> races, ArrayList<ITeam> teams)
 
     + boolean nextAction()
-
     + boolean isFinished()
 
-    + int getYear()
-    + ArrayList<IRace> getRaces()
-    + ArrayList<ITeam> getTeams()
-    + TeamLeaderboard getTeamLeaderboard()
-    + DriverLeaderboard getDriverLeaderboard()
+    + accessor methods()
 }
 
 class TeamImpl implements ITeam {
     - final int id
     - final String name
-    - final Car car
+    - final ICar car
     - final IDriver driver1
     - final IDriver driver2
 
@@ -80,7 +73,7 @@ class DriverImpl implements IDriver {
 
     - int points
 
-    + DriverImpl(int id, String name)
+    + DriverImpl(int id, String name, int teamID)
 
     + void addPoints(int points)
 
@@ -110,7 +103,7 @@ class CircuitImpl implements ICircuit {
     + accessor methods()
 }
 
-class TeamLeaderboard {
+class TeamLeaderboardImpl implements ITeamLeaderboard {
     - final ArrayList<ITeam> teams
 
     + void update()
@@ -120,7 +113,7 @@ class TeamLeaderboard {
     + ArrayList<ITeam> getLeaderboard()
 }
 
-class DriverLeaderboard {
+class DriverLeaderboardImpl implements IDriverLeaderboard {
     - final ArrayList<IDriver> drivers
 
     + void update()
@@ -204,7 +197,7 @@ class QualifierResult implements IRaceResult {
     + accessor methods()
 }
 
-class DriverResult {
+class DriverResultImpl implements IDriverResult {
     - final IRace race
     - final IDriver driver
     - final ArrayList<Lap> laps
@@ -221,7 +214,7 @@ class DriverResult {
     + accessor methods()
 }
 
-class Lap {
+class LapImpl implements ILap {
     - final IRace race
     - final IDriver driver
     - final float time
@@ -275,8 +268,15 @@ interface ICar {
     + accessor methods()
 }
 
-interface ISeason {
+interface ISessionCache {
+    + accessor methods()
+}
 
+interface ISeason {
+    + boolean nextAction()
+    + boolean hasNextAction()
+
+    + accessor methods()
 }
 
 interface IRace {
@@ -298,11 +298,23 @@ interface IRaceResult {
 }
 
 interface IDriverResult {
-
+    + accessor methods()
 }
 
 interface ILap {
+    + accessor methods()
+}
 
+interface IDriverLeaderboard {
+    + int getIndex(IDriver driver)
+    + IDriver getByIndex(int index)
+    + ArrayList<IDriver> getLeaderboard()
+}
+
+interface ITeamLeaderboard {
+    + int getIndex(ITeam team)
+    + ITeam getByIndex(int index)
+    + ArrayList<ITeam> getLeaderboard()
 }
 
 interface IUI {
@@ -324,15 +336,15 @@ enum WeatherCondition {
 
 Main --> FormulaOne
 
-FormulaOne --> SessionCache
+FormulaOne --> ISessionCache
 FormulaOne --> IUI
 
-SessionCache --> Season
+SessionCacheImpl --> ISeason
 
-Season --> ITeam
-Season --> IRace
-Season --> TeamLeaderboard
-Season --> DriverLeaderboard
+SeasonImpl --> ITeam
+SeasonImpl --> IRace
+SeasonImpl --> ITeamLeaderboard
+SeasonImpl --> IDriverLeaderboard
 
 RaceImpl --> ICircuit
 RaceImpl --> IRaceResult
@@ -341,7 +353,7 @@ RaceResult --> IDriverResult
 QualifierResult --> IDriverResult
 DriverImpl --> IDriverResult
 
-IDriverResult --> Lap
+DriverResultImpl --> ILap
 
 TeamImpl --> ICar
 TeamImpl --> IDriver
