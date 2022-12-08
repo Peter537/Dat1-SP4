@@ -17,13 +17,15 @@ public class RaceResultImpl implements IRaceResult {
     }
 
     @Override
-    public int getDriverPlacement(IDriverResult driver) {
-        return sortedResults.indexOf(driver);
+    public int getDriverPlacement(IDriver driver) {
+        // TODO: implement this
+        return 0;
     }
 
     @Override
-    public IDriverResult getDriverResult(IDriverResult driver) {
-        return sortedResults.get(sortedResults.indexOf(driver));
+    public IDriverResult getDriverResult(IDriver driver) {
+        // TODO: implement this
+        return null;
     }
 
     @Override
@@ -54,20 +56,5 @@ public class RaceResultImpl implements IRaceResult {
     @Override
     public IQualifierResult asQualifierResult() {
         return null;
-    }
-
-    @Override
-    public int getDriverPlacement(IDriver driver) {
-        return getSortedResult().indexOf(driver) + 1;
-    }
-
-    @Override
-    public IDriverResult getDriverResult(IDriver driver) {
-        return getSortedResult().get(getDriverPlacement(driver) - 1);
-    }
-
-    @Override
-    public ArrayList<IDriverResult> getSortedResult() {
-        return this.sortedResults;
     }
 }
