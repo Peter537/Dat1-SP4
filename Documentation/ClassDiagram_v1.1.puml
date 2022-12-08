@@ -172,11 +172,11 @@ class RaceImpl implements IRace {
     + accessor methods()
 }
 
-class RaceResult implements IRaceResult {
+class RaceResultImpl implements IRaceResult {
     - final ArrayList<DriverResult> sortedResult
     - final Lap fastestLap
 
-    + RaceResult(ArrayList<DriverResult> driverResults, Lap fastestLap)
+    + RaceResultImpl(ArrayList<DriverResult> driverResults, Lap fastestLap)
     ' TODO: Vi skal sorterer resultatet vi får ind her
 
     + int getDriverPlacement(IDriver driver)
@@ -185,10 +185,10 @@ class RaceResult implements IRaceResult {
     + accessor methods()
 }
 
-class QualifierResult implements IRaceResult {
+class QualifierResultImpl implements IRaceResult {
     - final ArrayList<DriverResult> sortedResult
 
-    + QualifierResult(ArrayList<DriverResult> driverResults)
+    + QualifierResultImpl(ArrayList<DriverResult> driverResults)
     ' TODO: Vi skal sorterer resultatet vi får ind her
 
     + int getDriverPlacement(IDriver driver)
