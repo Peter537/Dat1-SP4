@@ -107,25 +107,23 @@ class TeamLeaderboardImpl implements ITeamLeaderboard {
     - final ArrayList<ITeam> leaderboard
 
     + TeamLeaderboardImpl(ArrayList<ITeam> teams)
-    ' TODO: update() skal kaldes ved konstruktion af objektet
 
     + void update()
 
-    + int getIndex(ITeam team)
-    + ITeam getByIndex(int index)
+    + int getPlacement(ITeam team)
+    + ITeam getByPlacement(int placement)
     + ArrayList<ITeam> getLeaderboard()
 }
 
 class DriverLeaderboardImpl implements IDriverLeaderboard {
-    - final ArrayList<IDriver> drivers
+    - final ArrayList<IDriver> leaderboard
 
     + DriverLeaderboardImpl(ArrayList<IDriver> drivers)
-    ' TODO: update() skal kaldes ved konstruktion af objektet
 
     + void update()
 
-    + int getIndex(IDriver driver)
-    + IDriver getByIndex(int index)
+    + int getPlacement(IDriver driver)
+    + IDriver getByPlacement(int placement)
     + ArrayList<IDriver> getLeaderboard()
 }
 
