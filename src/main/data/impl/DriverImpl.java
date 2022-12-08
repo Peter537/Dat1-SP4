@@ -9,13 +9,13 @@ public class DriverImpl implements IDriver {
     private final int teamID;
     private int point;
 
-    private int experience;
+    private final int experience;
 
-    private int corner;
+    private final int corner;
 
-    private int consistency;
+    private final int consistency;
 
-    private int acceleration;
+    private final int acceleration;
 
     public DriverImpl(int id, String name, int teamID, int experience, int corner, int consistency, int acceleration) {
         this.id = id;
@@ -50,5 +50,21 @@ public class DriverImpl implements IDriver {
     @Override
     public int getTeamID() {
         return this.teamID;
+    }
+
+    public int getExperience() {
+        return experience;
+    }
+
+    public int getCorner() {
+        return corner;
+    }
+
+    public int getConsistency() {
+        return consistency;
+    }
+
+    public int getAcceleration() {
+        return acceleration;
     }
 }
