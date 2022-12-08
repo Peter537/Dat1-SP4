@@ -11,7 +11,7 @@ public class FormulaOne {
     private static JFrame page;
 
     public FormulaOne(String dbPassword) {
-        sessionCache = new SessionCacheImpl(this, 1);
+        this.sessionCache = new SessionCacheImpl(this, 1);
         loadDB(dbPassword);
     }
 
