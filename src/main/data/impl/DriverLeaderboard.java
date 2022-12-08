@@ -1,4 +1,4 @@
-package main.utils;
+package main.data.impl;
 
 public class DriverLeaderboard {
 
