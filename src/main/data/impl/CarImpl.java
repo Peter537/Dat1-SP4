@@ -15,7 +15,7 @@ public class CarImpl implements ICar {
 
     private final double traction;
 
-    public CarImpl(int id, String name, int horsePower, int weight, int aerodynamics, int traction) {
+    public CarImpl(int id, String name, int horsePower, int weight, double aerodynamics, double traction) {
         this.id = id;
         this.name = name;
         this.horsePower = horsePower;
