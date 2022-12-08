@@ -10,7 +10,7 @@ class Main {
 }
 
 class FormulaOne {
-    - final SessionCache sessionCache
+    - final ISessionCache sessionCache
     - static JFrame page
 
     + FormulaOne(String dbPassword)
@@ -20,7 +20,7 @@ class FormulaOne {
     + void run()
     - void chooseSaveGame()
 
-    + SessionCache getSessionCache()
+    + ISessionCache getSessionCache()
     + static JFrame getPage()
 }
 
@@ -43,11 +43,10 @@ class SeasonImpl implements ISeason {
     - final ITeamLeaderboard teamLeaderboard
     - final IDriverLeaderboard driverLeaderboard
 
-
     + SeasonImpl(int year, ArrayList<IRace> races, ArrayList<ITeam> teams)
 
     + boolean nextAction()
-    + boolean isFinished()
+    + boolean hasNextAction()
 
     + accessor methods()
 }
@@ -68,7 +67,6 @@ class TeamImpl implements ITeam {
 }
 
 class DriverImpl implements IDriver {
-    ' TODO: TILFØJE ATTRIBUTES (Skal det være en klasse for sig selv?)
     - final int id
     - final String name
     - final int teamID
@@ -87,7 +85,6 @@ class DriverImpl implements IDriver {
 }
 
 class CarImpl implements ICar {
-    ' TODO: TILFØJE ATTRIBUTES (Skal det være en klasse for sig selv?)
     - final int id
     - final String name
     - final int horsePower
@@ -101,7 +98,6 @@ class CarImpl implements ICar {
 }
 
 class CircuitImpl implements ICircuit {
-    ' TODO: TILFØJE ATTRIBUTES (Skal det være en klasse for sig selv?)
     - final int id
     - final String name
     - final String country
@@ -194,7 +190,6 @@ class RaceResultImpl implements IRaceResult {
     - final Lap fastestLap
 
     + RaceResultImpl(ArrayList<IDriverResult> driverResults, Lap fastestLap)
-    ' TODO: Vi skal sorterer resultatet vi får ind her
 
     + int getDriverPlacement(IDriver driver)
     + IDriverResult getDriverResult(IDriver driver)
@@ -212,7 +207,6 @@ class QualifierResultImpl implements IQualifierResult {
     - final ArrayList<IDriverResult> sortedResult
 
     + QualifierResultImpl(ArrayList<IDriverResult> driverResults)
-    ' TODO: Vi skal sorterer resultatet vi får ind her
 
     + int getDriverPlacement(IDriver driver)
     + IDriverResult getDriverResult(IDriver driver)
