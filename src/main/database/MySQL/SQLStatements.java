@@ -1,4 +1,4 @@
-package MySQL;
+package main.database.MySQL;
 
 public class SQLStatements {
     public static String allCountries() {

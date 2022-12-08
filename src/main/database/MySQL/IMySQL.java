@@ -1,4 +1,4 @@
-package MySQL;
+package main.database.MySQL;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
