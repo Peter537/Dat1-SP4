@@ -59,11 +59,11 @@ public class RaceResultImpl implements IRaceResult {
 
     @Override
     public IRaceResult asRaceResult() {
-        return null;
+        return this;
     }
 
     @Override
     public IQualifierResult asQualifierResult() {
-        return null;
+        throw new UnsupportedOperationException("This is a qualifier result");
     }
 }
