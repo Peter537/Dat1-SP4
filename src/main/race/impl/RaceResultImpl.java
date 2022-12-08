@@ -4,6 +4,7 @@ import main.data.IDriver;
 import main.race.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class RaceResultImpl implements IRaceResult {
 
@@ -11,20 +12,28 @@ public class RaceResultImpl implements IRaceResult {
     private final ILap fastestLap;
 
     public RaceResultImpl(ArrayList<IDriverResult> driverResults, ILap fastestLap) {
-        // TODO: sort the driverResults by placement
         this.sortedResults = driverResults;
+        sortedResults.sort(Comparator.comparingInt(IDriverResult::getPlacement));
         this.fastestLap = fastestLap;
     }
 
     @Override
     public int getDriverPlacement(IDriver driver) {
-        // TODO: implement this
+        for (IDriverResult driverResult : sortedResults) {
+            if (driverResult.getDriver().equals(driver)) {
+                return driverResult.getPlacement();
+            }
+        }
         return 0;
     }
 
     @Override
     public IDriverResult getDriverResult(IDriver driver) {
-        // TODO: implement this
+        for (IDriverResult driverResult : sortedResults) {
+            if (driverResult.getDriver().equals(driver)) {
+                return driverResult;
+            }
+        }
         return null;
     }
 

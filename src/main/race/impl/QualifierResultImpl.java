@@ -6,6 +6,7 @@ import main.race.IQualifierResult;
 import main.race.IRaceResult;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class QualifierResultImpl implements IQualifierResult {
 
@@ -14,6 +15,7 @@ public class QualifierResultImpl implements IQualifierResult {
     public QualifierResultImpl(ArrayList<IDriverResult> driverResults) {
         // TODO: sort the driverResults by placement
         this.sortedResults = driverResults;
+        sortedResults.sort(Comparator.comparingInt(IDriverResult::getPlacement));
     }
 
     @Override
@@ -38,13 +40,21 @@ public class QualifierResultImpl implements IQualifierResult {
 
     @Override
     public int getDriverPlacement(IDriver driver) {
-        // TODO: implement this
+        for (IDriverResult driverResult : sortedResults) {
+            if (driverResult.getDriver().equals(driver)) {
+                return driverResult.getPlacement();
+            }
+        }
         return 0;
     }
 
     @Override
     public IDriverResult getDriverResult(IDriver driver) {
-        // TODO: implement this
+        for (IDriverResult driverResult : sortedResults) {
+            if (driverResult.getDriver().equals(driver)) {
+                return driverResult;
+            }
+        }
         return null;
     }
 
