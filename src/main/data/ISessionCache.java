@@ -13,4 +13,6 @@ public interface ISessionCache {
     ISeason getCurrentSeason();
 
     FormulaOne getFormulaOne();
+
+    void setCurrentSeason(ISeason season);
 }

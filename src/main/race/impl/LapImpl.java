@@ -18,16 +18,16 @@ public class LapImpl implements ILap {
 
     @Override
     public IRace getRace() {
-        return race;
+        return this.race;
     }
 
     @Override
     public IDriver getDriver() {
-        return driver;
+        return this.driver;
     }
 
     @Override
     public float getTime() {
-        return time;
+        return this.time;
     }
 }

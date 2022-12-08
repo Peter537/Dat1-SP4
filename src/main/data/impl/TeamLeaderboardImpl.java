@@ -16,21 +16,21 @@ public class TeamLeaderboardImpl implements ITeamLeaderboard {
 
     @Override
     public void update() {
-        leaderboard.sort((d1, d2) -> Integer.compare(d2.getPoints(), d1.getPoints()));
+        getLeaderboard().sort((d1, d2) -> Integer.compare(d2.getPoints(), d1.getPoints()));
     }
 
     @Override
     public int getPlacement(ITeam team) {
-        return leaderboard.indexOf(team) + 1;
+        return getLeaderboard().indexOf(team) + 1;
     }
 
     @Override
     public ITeam getByPlacement(int placement) {
-        return leaderboard.get(placement - 1);
+        return getLeaderboard().get(placement - 1);
     }
 
     @Override
     public ArrayList<ITeam> getLeaderboard() {
-        return leaderboard;
+        return this.leaderboard;
     }
 }

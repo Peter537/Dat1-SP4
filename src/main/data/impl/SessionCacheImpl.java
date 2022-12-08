@@ -11,13 +11,13 @@ public class SessionCacheImpl implements ISessionCache {
     private final FormulaOne formulaOne;
     private final int saveID;
     private final ArrayList<ISeason> seasons;
-    private SeasonImpl season;
+    private ISeason currentSeason;
 
     public SessionCacheImpl(FormulaOne formulaOne, int saveID) {
         this.formulaOne = formulaOne;
         this.saveID = saveID;
         this.seasons = new ArrayList<>();
-        this.season = null;
+        this.currentSeason = null;
     }
 
     @Override
@@ -32,11 +32,16 @@ public class SessionCacheImpl implements ISessionCache {
 
     @Override
     public ISeason getCurrentSeason() {
-        return this.season;
+        return this.currentSeason;
     }
 
     @Override
     public FormulaOne getFormulaOne() {
         return this.formulaOne;
+    }
+
+    @Override
+    public void setCurrentSeason(ISeason currentSeason) {
+        this.currentSeason = currentSeason;
     }
 }

@@ -101,7 +101,7 @@ public class DriverResultImpl implements IDriverResult {
 
     @Override
     public void addLap(ILap lap) {
-        laps.add(lap);
-        time += lap.getTime();
+        getLaps().add(lap);
+        this.time += lap.getTime();
     }
 }

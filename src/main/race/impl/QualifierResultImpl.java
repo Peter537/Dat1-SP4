@@ -15,7 +15,7 @@ public class QualifierResultImpl implements IQualifierResult {
     public QualifierResultImpl(ArrayList<IDriverResult> driverResults) {
         // TODO: sort the driverResults by placement
         this.sortedResults = driverResults;
-        sortedResults.sort(Comparator.comparingInt(IDriverResult::getPlacement));
+        this.sortedResults.sort(Comparator.comparingInt(IDriverResult::getPlacement));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class QualifierResultImpl implements IQualifierResult {
 
     @Override
     public int getDriverPlacement(IDriver driver) {
-        for (IDriverResult driverResult : sortedResults) {
+        for (IDriverResult driverResult : getSortedResults()) {
             if (driverResult.getDriver().equals(driver)) {
                 return driverResult.getPlacement();
             }
@@ -50,7 +50,7 @@ public class QualifierResultImpl implements IQualifierResult {
 
     @Override
     public IDriverResult getDriverResult(IDriver driver) {
-        for (IDriverResult driverResult : sortedResults) {
+        for (IDriverResult driverResult : getSortedResults()) {
             if (driverResult.getDriver().equals(driver)) {
                 return driverResult;
             }
@@ -60,6 +60,6 @@ public class QualifierResultImpl implements IQualifierResult {
 
     @Override
     public ArrayList<IDriverResult> getSortedResults() {
-        return sortedResults;
+        return this.sortedResults;
     }
 }

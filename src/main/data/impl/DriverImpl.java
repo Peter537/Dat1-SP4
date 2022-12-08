@@ -7,7 +7,7 @@ public class DriverImpl implements IDriver {
     private final int id;
     private final String name;
     private final int teamID;
-    private int point;
+    private int points;
 
     private final int experience;
 
@@ -28,13 +28,13 @@ public class DriverImpl implements IDriver {
     }
 
     @Override
-    public void addPoints(int points) {
-        point += points;
+    public void addPoints(int newPoints) {
+        this.points += newPoints;
     }
 
     @Override
     public int getPoints() {
-        return this.point;
+        return this.points;
     }
 
     @Override
@@ -54,21 +54,21 @@ public class DriverImpl implements IDriver {
 
     @Override
     public int getExperience() {
-        return experience;
+        return this.experience;
     }
 
     @Override
     public int getCorner() {
-        return corner;
+        return this.corner;
     }
 
     @Override
     public int getConsistency() {
-        return consistency;
+        return this.consistency;
     }
 
     @Override
     public int getAcceleration() {
-        return acceleration;
+        return this.acceleration;
     }
 }

@@ -35,18 +35,18 @@ public class CarImpl implements ICar {
     }
 
     public int getHorsePower() {
-        return horsePower;
+        return this.horsePower;
     }
 
     public int getWeight() {
-        return weight;
+        return this.weight;
     }
 
     public double getAerodynamics() {
-        return aerodynamics;
+        return this.aerodynamics;
     }
 
     public double getTraction() {
-        return traction;
+        return this.traction;
     }
 }

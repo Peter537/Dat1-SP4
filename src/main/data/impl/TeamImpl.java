@@ -11,7 +11,7 @@ public class TeamImpl implements ITeam {
     private final ICar car;
     private final IDriver driver1;
     private final IDriver driver2;
-    private int point;
+    private int points;
 
     public TeamImpl(int id, String name, ICar car, IDriver driver1, IDriver driver2) {
         this.id = id;
@@ -22,13 +22,13 @@ public class TeamImpl implements ITeam {
     }
 
     @Override
-    public void addPoints(int points) {
-        point += points;
+    public void addPoints(int newPoints) {
+        this.points += newPoints;
     }
 
     @Override
     public int getPoints() {
-        return this.point;
+        return this.points;
     }
 
     @Override
