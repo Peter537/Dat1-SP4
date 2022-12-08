@@ -11,4 +11,12 @@ public interface IDriver {
     String getName();
 
     int getTeamID();
+
+    int getExperience();
+
+    int getCorner();
+
+    int getConsistency();
+
+    int getAcceleration();
 }

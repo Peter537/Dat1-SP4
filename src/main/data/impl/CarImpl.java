@@ -11,9 +11,9 @@ public class CarImpl implements ICar {
 
     private final int weight;
 
-    private final int aerodynamics;
+    private final double aerodynamics;
 
-    private final int traction;
+    private final double traction;
 
     public CarImpl(int id, String name, int horsePower, int weight, int aerodynamics, int traction) {
         this.id = id;
@@ -42,11 +42,11 @@ public class CarImpl implements ICar {
         return weight;
     }
 
-    public int getAerodynamics() {
+    public double getAerodynamics() {
         return aerodynamics;
     }
 
-    public int getTraction() {
+    public double getTraction() {
         return traction;
     }
 }
