@@ -73,20 +73,8 @@ public class RaceImpl implements IRace {
         return this.qualifierResult;
     }
 
-    // Todo: Add to interface
+    @Override
     public RaceState getState() {
         return this.state;
-    }
-
-    @Override
-    public boolean isFinished() {
-        return false;
-        // TODO: Remove this method
-    }
-
-    @Override
-    public boolean isStarted() {
-        return false;
-        // TODO: Remove this method
     }
 }

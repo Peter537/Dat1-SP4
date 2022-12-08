@@ -1,6 +1,7 @@
 package main.data.impl;
 
 import main.data.*;
+import main.enums.RaceState;
 import main.race.IRace;
 
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class SeasonImpl implements ISeason {
     public boolean nextAction() {
         if (!hasNextAction()) {
             for (IRace race : getRaces()) {
-                if (!race.isFinished()) {
+                if (race.getState() == RaceState.NOT_STARTED) {
                     setCurrentRace(race);
                     break;
                 }
@@ -47,7 +48,7 @@ public class SeasonImpl implements ISeason {
 
     @Override
     public boolean hasNextAction() {
-        return getCurrentRace() != null || getCurrentRace().isFinished();
+        return getCurrentRace() != null || getCurrentRace().getState() == RaceState.NOT_STARTED;
     }
 
     @Override

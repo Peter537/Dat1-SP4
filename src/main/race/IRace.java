@@ -1,5 +1,7 @@
 package main.race;
 
+import main.enums.RaceState;
+
 import java.util.ArrayList;
 
 public interface IRace {
@@ -14,7 +16,5 @@ public interface IRace {
 
     IResult getQualifierResult();
 
-    boolean isFinished();
-
-    boolean isStarted();
+    RaceState getState();
 }
