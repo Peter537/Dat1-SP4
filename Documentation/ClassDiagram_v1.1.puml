@@ -181,8 +181,7 @@ class RaceImpl implements IRace {
 
     + RaceImpl(int id, ICircuit circuit)
 
-    + void nextAction() throws Exception
-    ' TODO: Hvilken exception skal smides? evt. lav en custom exception
+    + void nextAction()
 
     - void startQualifier()
     - void startRace()
@@ -331,8 +330,7 @@ interface ISeason {
 }
 
 interface IRace {
-    + void nextAction() throws Exception
-    ' TODO: Hvilken exception skal smides? evt. lav en custom exception
+    + void nextAction()
 
     + accessor methods()
 }

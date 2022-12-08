@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public interface IRace {
 
-    void nextAction() throws Exception;
+    void nextAction();
 
     int getID();
 

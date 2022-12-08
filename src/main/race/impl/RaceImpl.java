@@ -19,7 +19,7 @@ public class RaceImpl implements IRace {
     }
 
     @Override
-    public void nextAction() throws Exception {
+    public void nextAction() {
        // TODO: Flesh out this method
     }
 
