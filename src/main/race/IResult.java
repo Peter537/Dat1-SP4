@@ -7,13 +7,16 @@ import java.util.ArrayList;
 public interface IResult {
 
 
+    int getDriverPlacement(IDriver driver);
+    IDriverResult getDriverResult(IDriver driver);
+
     boolean isQualifier();
 
     boolean isRace();
 
-    int getDriverPlacement(IDriver driver);
-    IDriverResult getDriverResult(IDriver driver);
+    IRaceResult asRaceResult();
 
+    IQualifierResult asQualifierResult();
     ArrayList<IDriverResult> getSortedResult();
 
 

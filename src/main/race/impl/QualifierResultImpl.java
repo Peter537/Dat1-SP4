@@ -2,11 +2,12 @@ package main.race.impl;
 
 import main.data.IDriver;
 import main.race.IDriverResult;
-import main.race.IResult;
+import main.race.IQualifierResult;
+import main.race.IRaceResult;
 
 import java.util.ArrayList;
 
-public class QualifierResultImpl implements IResult {
+public class QualifierResultImpl implements IQualifierResult {
 
 
     private final ArrayList<IDriverResult> sortedResults;
@@ -24,6 +25,16 @@ public class QualifierResultImpl implements IResult {
     @Override
     public boolean isRace() {
         return false;
+    }
+
+    @Override
+    public IRaceResult asRaceResult() {
+        throw new UnsupportedOperationException("This is a qualifier result");
+    }
+
+    @Override
+    public IQualifierResult asQualifierResult() {
+        return this;
     }
 
     public int getDriverPlacement(IDriver driver) {
