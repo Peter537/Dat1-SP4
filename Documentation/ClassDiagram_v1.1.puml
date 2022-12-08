@@ -27,10 +27,10 @@ class FormulaOne {
 class SessionCacheImpl implements ISessionCache {
     - final FormulaOne formulaOne
     - final int saveID
-    - ArrayList<Season> seasons
-    - Season currentSeason
+    - ArrayList<ISeason> seasons
+    - ISeason currentSeason
 
-    + SessionCache(FormulaOne formulaOne, int saveID)
+    + SessionCacheImpl(FormulaOne formulaOne, int saveID)
 
     + accessor methods()
 }
@@ -42,7 +42,7 @@ class SeasonImpl implements ISeason {
     - final ITeamLeaderboard teamLeaderboard
     - final IDriverLeaderboard driverLeaderboard
 
-    + Season(int year, ArrayList<IRace> races, ArrayList<ITeam> teams)
+    + SeasonImpl(int year, ArrayList<IRace> races, ArrayList<ITeam> teams)
 
     + boolean nextAction()
     + boolean isFinished()
@@ -96,15 +96,18 @@ class CircuitImpl implements ICircuit {
     - final String name
     - final String country
     - final int laps
-    - final int lapLength
+    - final ArrayList<ICircuitComponent> components
 
-    + CircuitImpl(int id, String name, String country, int laps, int lapLength)
+    + CircuitImpl(int id, String name, String country, int laps, ArrayList<ICircuitComponent> components)
 
     + accessor methods()
 }
 
 class TeamLeaderboardImpl implements ITeamLeaderboard {
-    - final ArrayList<ITeam> teams
+    - final ArrayList<ITeam> leaderboard
+
+    + TeamLeaderboardImpl(ArrayList<ITeam> teams)
+    ' TODO: update() skal kaldes ved konstruktion af objektet
 
     + void update()
 
@@ -115,6 +118,9 @@ class TeamLeaderboardImpl implements ITeamLeaderboard {
 
 class DriverLeaderboardImpl implements IDriverLeaderboard {
     - final ArrayList<IDriver> drivers
+
+    + DriverLeaderboardImpl(ArrayList<IDriver> drivers)
+    ' TODO: update() skal kaldes ved konstruktion af objektet
 
     + void update()
 
@@ -148,6 +154,10 @@ class MySQL {
     + helper methods()
 }
 
+class SQLStatements {
+    + helper methods()
+}
+
 ' ******************
 ' Race Classes
 ' ******************
@@ -173,26 +183,38 @@ class RaceImpl implements IRace {
 }
 
 class RaceResultImpl implements IRaceResult {
-    - final ArrayList<DriverResult> sortedResult
+    - final ArrayList<IDriverResult> sortedResult
     - final Lap fastestLap
 
-    + RaceResultImpl(ArrayList<DriverResult> driverResults, Lap fastestLap)
+    + RaceResultImpl(ArrayList<IDriverResult> driverResults, Lap fastestLap)
     ' TODO: Vi skal sorterer resultatet vi får ind her
 
     + int getDriverPlacement(IDriver driver)
-    + DriverResult getDriverResult(IDriver driver)
+    + IDriverResult getDriverResult(IDriver driver)
+
+    + boolean isQualifier()
+    + boolean isRace()
+
+    + IRaceResult asRaceResult()
+    + IQualifierResult asQualifierResult()
 
     + accessor methods()
 }
 
-class QualifierResultImpl implements IRaceResult {
-    - final ArrayList<DriverResult> sortedResult
+class QualifierResultImpl implements IQualifierResult {
+    - final ArrayList<IDriverResult> sortedResult
 
-    + QualifierResultImpl(ArrayList<DriverResult> driverResults)
+    + QualifierResultImpl(ArrayList<IDriverResult> driverResults)
     ' TODO: Vi skal sorterer resultatet vi får ind her
 
     + int getDriverPlacement(IDriver driver)
-    + DriverResult getDriverResult(IDriver driver)
+    + IDriverResult getDriverResult(IDriver driver)
+
+    + boolean isQualifier()
+    + boolean isRace()
+
+    + IRaceResult asRaceResult()
+    + IQualifierResult asQualifierResult()
 
     + accessor methods()
 }
@@ -290,9 +312,33 @@ interface ICircuit {
     + accessor methods()
 }
 
-interface IRaceResult {
+interface ICircuitComponent {
+
+}
+
+interface IResult {
     + int getDriverPlacement(IDriver driver)
-    + DriverResult getDriverResult(IDriver driver)
+    + IDriverResult getDriverResult(IDriver driver)
+
+    + boolean isQualifier()
+    + boolean isRace()
+
+    + IRaceResult asRaceResult()
+    + IQualifierResult asQualifierResult()
+
+    + accessor methods()
+}
+
+interface IRaceResult extends IResult {
+    + int getDriverPlacement(IDriver driver)
+    + IDriverResult getDriverResult(IDriver driver)
+
+    + accessor methods()
+}
+
+interface IQualifierResult extends IResult {
+    + int getDriverPlacement(IDriver driver)
+    + IDriverResult getDriverResult(IDriver driver)
 
     + accessor methods()
 }
@@ -347,16 +393,18 @@ SeasonImpl --> ITeamLeaderboard
 SeasonImpl --> IDriverLeaderboard
 
 RaceImpl --> ICircuit
-RaceImpl --> IRaceResult
+RaceImpl --> IResult
 
-RaceResult --> IDriverResult
-QualifierResult --> IDriverResult
+RaceResultImpl --> IDriverResult
+QualifierResultImpl --> IDriverResult
 DriverImpl --> IDriverResult
 
 DriverResultImpl --> ILap
 
 TeamImpl --> ICar
 TeamImpl --> IDriver
+
+CircuitImpl --> ICircuitComponent
 
 DataBaseIO --> MySQL
 
