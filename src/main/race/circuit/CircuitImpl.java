@@ -20,22 +20,27 @@ public class CircuitImpl implements ICircuit {
         this.components = components;
     }
 
+    @Override
     public int getID() {
         return this.id;
     }
 
+    @Override
     public String getName() {
         return this.name;
     }
 
+    @Override
     public String getCountry() {
         return this.country;
     }
 
+    @Override
     public int getLaps() {
         return this.laps;
     }
 
+    @Override
     public ArrayList<ICircuitComponent> getComponents() {
         return this.components;
     }

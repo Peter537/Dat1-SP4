@@ -31,30 +31,37 @@ public class DriverResultImpl implements IDriverResult {
         return race;
     }
 
+    @Override
     public IDriver getDriver() {
         return driver;
     }
 
+    @Override
     public ArrayList<ILap> getLaps() {
         return laps;
     }
 
+    @Override
     public float getTime() {
         return time;
     }
 
+    @Override
     public boolean hasCrashed() {
         return hasCrashed;
     }
 
+    @Override
     public int getPlacement() {
         return placement;
     }
 
+    @Override
     public int getPoints() {
         return points;
     }
 
+    @Override
     public boolean hasFastestLap() {
         return hasFastestLap;
     }

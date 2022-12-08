@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 public interface ITeamLeaderboard {
 
-    int getIndex(ITeam team);
+    void update();
 
-    ITeam getByIndex(int index);
+    int getPlacement(ITeam team);
+
+    ITeam getByPlacement(int placement);
 
     ArrayList<ITeam> getLeaderboard();
 }

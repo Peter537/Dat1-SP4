@@ -4,7 +4,7 @@ import main.data.IDriver;
 import main.race.ILap;
 import main.race.IRace;
 
-public class LapImpl {
+public class LapImpl implements ILap {
 
     private final IRace race;
     private final IDriver driver;
@@ -16,14 +16,17 @@ public class LapImpl {
         this.time = time;
     }
 
+    @Override
     public IRace getRace() {
         return race;
     }
 
+    @Override
     public IDriver getDriver() {
         return driver;
     }
 
+    @Override
     public float getTime() {
         return time;
     }

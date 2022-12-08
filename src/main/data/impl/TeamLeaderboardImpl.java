@@ -1,10 +1,11 @@
 package main.data.impl;
 
 import main.data.ITeam;
+import main.data.ITeamLeaderboard;
 
 import java.util.ArrayList;
 
-public class TeamLeaderboardImpl {
+public class TeamLeaderboardImpl implements ITeamLeaderboard {
 
     private final ArrayList<ITeam> leaderboard;
 
@@ -13,18 +14,22 @@ public class TeamLeaderboardImpl {
         update();
     }
 
+    @Override
     public void update() {
-        leaderboard.sort((o1, o2) -> Integer.compare(o2.getPoints(), o1.getPoints()));
+        leaderboard.sort((d1, d2) -> Integer.compare(d2.getPoints(), d1.getPoints()));
     }
 
+    @Override
     public int getPlacement(ITeam team) {
         return leaderboard.indexOf(team) + 1;
     }
 
+    @Override
     public ITeam getByPlacement(int placement) {
         return leaderboard.get(placement - 1);
     }
 
+    @Override
     public ArrayList<ITeam> getLeaderboard() {
         return leaderboard;
     }

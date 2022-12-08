@@ -4,9 +4,11 @@ import java.util.ArrayList;
 
 public interface IDriverLeaderboard {
 
-    int getIndex(IDriver driver);
+    void update();
 
-    IDriver getByIndex(int index);
+    int getPlacement(IDriver driver);
+
+    IDriver getByPlacement(int placement);
 
     ArrayList<IDriver> getLeaderboard();
 }
