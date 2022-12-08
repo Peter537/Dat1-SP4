@@ -32,6 +32,7 @@ class SessionCacheImpl implements ISessionCache {
 
     + SessionCacheImpl(FormulaOne formulaOne, int saveID)
 
+    + void setCurrentSeason(ISeason currentSeason)
     + accessor methods()
 }
 
