@@ -71,7 +71,10 @@ class DriverImpl implements IDriver {
     - final int id
     - final String name
     - final int teamID
-    - final
+    - final int experience
+    - final int corner
+    - final int consistency
+    - final int acceleration
 
     - int points
 
@@ -86,6 +89,10 @@ class CarImpl implements ICar {
     ' TODO: TILFØJE ATTRIBUTES (Skal det være en klasse for sig selv?)
     - final int id
     - final String name
+    - final int horsePower
+    - final int weight
+    - final double aerodynamics
+    - final double traction
 
     + CarImpl(int id, String name)
 
