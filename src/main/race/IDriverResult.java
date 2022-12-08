@@ -21,4 +21,12 @@ public interface IDriverResult {
     int getPoints();
 
     boolean hasFastestLap();
+
+    void setPlacement(int placement);
+
+    void setHasFastestLap(boolean hasFastestLap);
+
+    void setHasCrashed(boolean hasCrashed);
+
+    void addLap(ILap lap);
 }

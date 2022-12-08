@@ -24,6 +24,11 @@ public class DriverResultImpl implements IDriverResult {
         this.race = race;
         this.driver = driver;
         this.laps = laps;
+        this.time = 0;
+        this.hasCrashed = false;
+        this.placement = 0;
+        this.points = 0;
+        this.hasFastestLap = false;
     }
 
     @Override
@@ -64,5 +69,39 @@ public class DriverResultImpl implements IDriverResult {
     @Override
     public boolean hasFastestLap() {
         return hasFastestLap;
+    }
+
+    @Override
+    public void setPlacement(int placement) {
+        this.placement = placement;
+        switch (placement) {
+            case 1 -> this.points = 25;
+            case 2 -> this.points = 18;
+            case 3 -> this.points = 15;
+            case 4 -> this.points = 12;
+            case 5 -> this.points = 10;
+            case 6 -> this.points = 8;
+            case 7 -> this.points = 6;
+            case 8 -> this.points = 4;
+            case 9 -> this.points = 2;
+            case 10 -> this.points = 1;
+            default -> this.points = 0;
+        }
+    }
+
+    @Override
+    public void setHasFastestLap(boolean hasFastestLap) {
+        this.hasFastestLap = hasFastestLap;
+    }
+
+    @Override
+    public void setHasCrashed(boolean hasCrashed) {
+        this.hasCrashed = hasCrashed;
+    }
+
+    @Override
+    public void addLap(ILap lap) {
+        laps.add(lap);
+        time += lap.getTime();
     }
 }
