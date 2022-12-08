@@ -1,0 +1,351 @@
+@startuml
+
+' ******************
+' Classes
+' ******************
+
+class Main {
+    + static void main(String[] args)
+    - static String getDBPassword()
+}
+
+class FormulaOne {
+    - final SessionCache sessionCache
+    - static JFrame page
+
+    + FormulaOne(String dbPassword)
+
+    - void loadDB(String dbPassword)
+
+    + void run()
+    - void chooseSaveGame()
+
+    + SessionCache getSessionCache()
+    + static JFrame getPage()
+}
+
+class SessionCache {
+    - final FormulaOne formulaOne
+    - final int saveID
+    - ArrayList<Season> seasons
+    - Season currentSeason
+
+    + SessionCache(FormulaOne formulaOne, int saveID)
+
+    + int getSaveID()
+    + ArrayList<Season> getSeasons()
+    + Season getCurrentSeason()
+}
+
+class Season {
+    - final int year
+    - final ArrayList<IRace> races
+    - final ArrayList<ITeam> teams
+    - final TeamLeaderboard teamLeaderboard
+    - final DriverLeaderboard driverLeaderboard
+
+    + Season()
+
+    + boolean nextAction()
+
+    + boolean isFinished()
+
+    + int getYear()
+    + ArrayList<IRace> getRaces()
+    + ArrayList<ITeam> getTeams()
+    + TeamLeaderboard getTeamLeaderboard()
+    + DriverLeaderboard getDriverLeaderboard()
+}
+
+class TeamImpl implements ITeam {
+    - final int id
+    - final String name
+    - final Car car
+    - final IDriver driver1
+    - final IDriver driver2
+
+    - int point
+
+    + TeamImpl(int id, String name, Car car, IDriver driver1, IDriver driver2)
+
+    + void addPoints(int points)
+    + accessor methods()
+}
+
+class DriverImpl implements IDriver {
+    ' TODO: TILFØJE ATTRIBUTES (Skal det være en klasse for sig selv?)
+    - final int id
+    - final String name
+    - final int teamID
+
+    - int points
+
+    + DriverImpl(int id, String name)
+
+    + void addPoints(int points)
+
+    + accessor methods()
+}
+
+class CarImpl implements ICar {
+    ' TODO: TILFØJE ATTRIBUTES (Skal det være en klasse for sig selv?)
+    - final int id
+    - final String name
+
+    + CarImpl(int id, String name)
+
+    + accessor methods()
+}
+
+class CircuitImpl implements ICircuit {
+    ' TODO: TILFØJE ATTRIBUTES (Skal det være en klasse for sig selv?)
+    - final int id
+    - final String name
+    - final String country
+    - final int laps
+    - final int lapLength
+
+    + CircuitImpl(int id, String name, String country, int laps, int lapLength)
+
+    + accessor methods()
+}
+
+class TeamLeaderboard {
+    - final ArrayList<ITeam> teams
+
+    + void update()
+
+    + int getIndex(ITeam team)
+    + ITeam getByIndex(int index)
+    + ArrayList<ITeam> getLeaderboard()
+}
+
+class DriverLeaderboard {
+    - final ArrayList<IDriver> drivers
+
+    + void update()
+
+    + int getIndex(IDriver driver)
+    + IDriver getByIndex(int index)
+    + ArrayList<IDriver> getLeaderboard()
+}
+
+' ******************
+' DataBase Classes
+' ******************
+
+class DataBaseIO {
+    - static final int saveID
+    - static final String dbPassword
+    - static final MySQL mySQL
+    - static final FormulaOne formulaOne
+
+    + static void initSQL(String dbPassword, boolean isNewSave, FormulaOne formulaOne)
+    + static void saveData()
+    + static void newSave()
+
+    + static ArrayList<ITeam> loadTeamData()
+    + static ArrayList<IDriver> loadDriverData()
+    + static ArrayList<ICar> loadCarData()
+    + static ArrayList<IRace> loadRaceData()
+    + static ArrayList<ICircuit> loadCircuitData()
+}
+
+class MySQL {
+    + helper methods()
+}
+
+' ******************
+' Race Classes
+' ******************
+
+class RaceImpl implements IRace {
+    - final int id
+    - final ICircuit circuit
+    - IRaceResult raceResult
+    - IRaceResult qualifierResult
+
+    - boolean isFinished
+    - boolean isStarted
+
+    + RaceImpl(int id, ICircuit circuit)
+
+    + void nextAction() throws Exception
+    ' TODO: Hvilken exception skal smides? evt. lav en custom exception
+
+    - void startQualifier()
+    - void startRace()
+
+    + accessor methods()
+}
+
+class RaceResult implements IRaceResult {
+    - final ArrayList<DriverResult> sortedResult
+    - final Lap fastestLap
+
+    + RaceResult(ArrayList<DriverResult> driverResults, Lap fastestLap)
+    ' TODO: Vi skal sorterer resultatet vi får ind her
+
+    + int getDriverPlacement(IDriver driver)
+    + DriverResult getDriverResult(IDriver driver)
+
+    + accessor methods()
+}
+
+class QualifierResult implements IRaceResult {
+    - final ArrayList<DriverResult> sortedResult
+
+    + QualifierResult(ArrayList<DriverResult> driverResults)
+    ' TODO: Vi skal sorterer resultatet vi får ind her
+
+    + int getDriverPlacement(IDriver driver)
+    + DriverResult getDriverResult(IDriver driver)
+
+    + accessor methods()
+}
+
+class DriverResult {
+    - final IRace race
+    - final IDriver driver
+    - final ArrayList<Lap> laps
+
+    - float time
+    - boolean hasCrashed
+
+    - int placement
+    - int points
+    - boolean hasFastestLap
+
+    + DriverResult(IRace race, IDriver driver)
+
+    + accessor methods()
+}
+
+class Lap {
+    - final IRace race
+    - final IDriver driver
+    - final float time
+
+    + Lap(IRace race, IDriver driver, float time)
+
+    + accessor methods()
+}
+
+' ******************
+' UI Classes
+' ******************
+
+class ChooseSaveGameUI extends AUI {
+    ' TODO: Når de laves
+}
+
+class MenuUI extends AUI {
+    ' TODO: Når de laves
+}
+
+class CircuitUI extends AUI {
+    ' TODO: Når de laves
+}
+
+' ******************
+' Abstract Classes
+' ******************
+
+abstract class AUI implements IUI {
+    ' TODO: Når de laves
+}
+
+' ******************
+' Interfaces
+' ******************
+
+interface ITeam {
+    + void addPoints(int points)
+
+    + accessor methods()
+}
+
+interface IDriver {
+    + void addPoints(int points)
+
+    + accessor methods()
+}
+
+interface ICar {
+    + accessor methods()
+}
+
+interface ISeason {
+
+}
+
+interface IRace {
+    + void nextAction() throws Exception
+    ' TODO: Hvilken exception skal smides? evt. lav en custom exception
+
+    + accessor methods()
+}
+
+interface ICircuit {
+    + accessor methods()
+}
+
+interface IRaceResult {
+    + int getDriverPlacement(IDriver driver)
+    + DriverResult getDriverResult(IDriver driver)
+
+    + accessor methods()
+}
+
+interface IDriverResult {
+
+}
+
+interface ILap {
+
+}
+
+interface IUI {
+    ' TODO: Når de laves
+}
+
+' ******************
+' Enums
+' ******************
+
+enum WeatherCondition {
+    SUNNY,
+    RAINY
+}
+
+' ******************
+' Relations
+' ******************
+
+Main --> FormulaOne
+
+FormulaOne --> SessionCache
+FormulaOne --> IUI
+
+SessionCache --> Season
+
+Season --> ITeam
+Season --> IRace
+Season --> TeamLeaderboard
+Season --> DriverLeaderboard
+
+RaceImpl --> ICircuit
+RaceImpl --> IRaceResult
+
+RaceResult --> IDriverResult
+QualifierResult --> IDriverResult
+DriverImpl --> IDriverResult
+
+IDriverResult --> Lap
+
+TeamImpl --> ICar
+TeamImpl --> IDriver
+
+DataBaseIO --> MySQL
+
+@enduml
