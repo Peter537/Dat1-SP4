@@ -6,7 +6,7 @@ public interface ITeam {
 
     int getPoints();
 
-    int getId();
+    int getID();
 
     String getName();
 
@@ -15,7 +15,4 @@ public interface ITeam {
     IDriver getDriver1();
 
     IDriver getDriver2();
-
-
-
 }

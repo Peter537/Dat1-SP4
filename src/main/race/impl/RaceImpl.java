@@ -11,8 +11,8 @@ private final ICircuit circuit;
 private IResult raceResult;
 private IResult qualifierResult;
 
-private boolean isFinished;
-private boolean isStarted;
+    private boolean isFinished;
+    private boolean isStarted;
 
     public RaceImpl(int id, ICircuit circuit) {
         this.id = id;

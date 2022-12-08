@@ -11,11 +11,13 @@ public class CarImpl implements ICar {
         this.id = id;
         this.name = name;
     }
+
     @Override
     public int getID() {
         return this.id;
     }
     @Override
+
     public String getName() {
         return this.name;
     }

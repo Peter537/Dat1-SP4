@@ -15,6 +15,7 @@ private final ArrayList<ITeam> teams;
 private final ITeamLeaderboard teamLeaderboard;
 private final IDriverLeaderboard driverLeaderboard;
 
+
     public SeasonImpl(int year, ArrayList<IRace> races, ArrayList<ITeam> teams, ITeamLeaderboard teamLeaderboard, IDriverLeaderboard driverLeaderboard) {
         this.year = year;
         this.races = races;

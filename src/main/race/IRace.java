@@ -1,7 +1,7 @@
 package main.race;
 
 public interface IRace {
-
+    
 void nextAction() throws Exception;
 
 void startQualifier();
@@ -20,6 +20,6 @@ boolean isFinished();
 
 boolean isStarted();
 
-
+    void nextAction() throws Exception;
 
 }
