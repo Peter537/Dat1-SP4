@@ -13,7 +13,6 @@ public class QualifierResultImpl implements IQualifierResult {
     private final ArrayList<IDriverResult> sortedResults;
 
     public QualifierResultImpl(ArrayList<IDriverResult> driverResults) {
-        // TODO: sort the driverResults by placement
         this.sortedResults = driverResults;
         this.sortedResults.sort(Comparator.comparingInt(IDriverResult::getPlacement));
     }
