@@ -10,33 +10,26 @@ double dtime = 0.1;
 double maxdistance = 1000;
 
 
-while (distance < maxdistance)
+private void runrace()
 {
-currentAcceleration = getAcceleration(currentSpeed);
-currentSpeed = getSpeed(currentSpeed, currentAcceleration);
-distance = getDistance(distance, currentSpeed);
-time = getTime(time, dtime);
-}
-
-private double getTime(double time, double dtime)
-{
-return time + dtime;
-}
-
-private double getDistance(double distance, double currentSpeed)
-{
-return distance + currentSpeed * dtime;
-}
-
-private double getSpeed(double currentSpeed, double currentAcceleration)
-{
-return currentSpeed + currentAcceleration * dtime;
+	while (distance < maxdistance)
+	{
+		currentAcceleration = getAcceleration(currentSpeed);
+		currentSpeed = currentSpeed + currentAcceleration * dtime;
+		distance = distance + currentSpeed * dtime;
+		time = time + dtime;
+	}
 }
 
 private double getAcceleration(double currentSpeed)
 {
+	int power = 1000; // 1000 hp
+	double mass = 1000; // 1000 kg
+	double drag = 0.1; // 10% drag
+	double rollresistance = 0.1; // 10% roll resistance
+	double acceleration = (power - drag * currentSpeed * currentSpeed - rollresistance * currentSpeed) / mass;
+	return acceleration;
 
 }
-
 
 }
