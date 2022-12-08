@@ -10,6 +10,8 @@ public interface IResult {
 
     IDriverResult getDriverResult(IDriver driver);
 
+    ArrayList<IDriverResult> getSortedResults();
+
     boolean isQualifier();
 
     boolean isRace();
@@ -17,6 +19,4 @@ public interface IResult {
     IRaceResult asRaceResult();
 
     IQualifierResult asQualifierResult();
-
-    ArrayList<IDriverResult> getSortedResults();
 }

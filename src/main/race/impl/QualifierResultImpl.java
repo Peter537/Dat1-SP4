@@ -38,12 +38,14 @@ public class QualifierResultImpl implements IQualifierResult {
 
     @Override
     public int getDriverPlacement(IDriver driver) {
-        return sortedResults.indexOf(driver);
+        // TODO: implement this
+        return 0;
     }
 
     @Override
     public IDriverResult getDriverResult(IDriver driver) {
-        return sortedResults.get(sortedResults.indexOf(driver));
+        // TODO: implement this
+        return null;
     }
 
     @Override
