@@ -33,7 +33,7 @@ public class TeamImpl implements ITeam {
     }
 
     @Override
-    public int getId() {
+    public int getID() {
         return this.id;
     }
 
