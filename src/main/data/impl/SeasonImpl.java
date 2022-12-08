@@ -36,11 +36,13 @@ public class SeasonImpl implements ISeason {
                     break;
                 }
             }
-            return false;
+            if (getCurrentRace() == null) {
+                return false;
+            }
         }
 
         getCurrentRace().nextAction();
-        return false;
+        return true;
     }
 
     @Override
