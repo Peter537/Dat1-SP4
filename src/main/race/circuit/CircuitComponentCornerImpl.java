@@ -24,10 +24,12 @@ public class CircuitComponentCornerImpl implements ICircuitComponent {
         return this.angle;
     }
 
+    @Override
     public Direction getFrom() {
         return this.from;
     }
 
+    @Override
     public Direction getTo() {
         return this.to;
     }

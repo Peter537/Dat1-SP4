@@ -8,11 +8,8 @@ public class CarImpl implements ICar {
     private final String name;
 
     private final int horsePower;
-
     private final int weight;
-
     private final double aerodynamics;
-
     private final double traction;
 
     public CarImpl(int id, String name, int horsePower, int weight, double aerodynamics, double traction) {
@@ -34,18 +31,22 @@ public class CarImpl implements ICar {
         return this.name;
     }
 
+    @Override
     public int getHorsePower() {
         return this.horsePower;
     }
 
+    @Override
     public int getWeight() {
         return this.weight;
     }
 
+    @Override
     public double getAerodynamics() {
         return this.aerodynamics;
     }
 
+    @Override
     public double getTraction() {
         return this.traction;
     }

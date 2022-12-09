@@ -18,10 +18,12 @@ public class CircuitComponentStraightImpl implements ICircuitComponent {
         return this.length;
     }
 
+    @Override
     public Direction getFrom() {
         return this.from;
     }
 
+    @Override
     public Direction getTo() {
         return this.to;
     }
