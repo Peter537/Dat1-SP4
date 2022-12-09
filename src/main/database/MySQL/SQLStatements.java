@@ -1,11 +1,31 @@
 package main.database.MySQL;
 
 public class SQLStatements {
-    public static String allCountries() {
-        return "SELECT * FROM country";
+    public static String getAllDefCars() {
+        return "SELECT * FROM def_car";
     }
 
-    public static String setACountry(String code, String name, String continent, String region, int surfaceArea, int population, String localName, String governmentForm, int code2) {
-        return "INSERT INTO country (Code, Name, Continent, Region, SurfaceArea, IndepYear, Population, LifeExpectancy, GNP, GNPOld, LocalName, GovernmentForm, HeadOfState, Capital, Code2) VALUES ('" + code + "', '" + name + "', '" + continent + "', '" + region + "', " + surfaceArea + ", " + population + ", '" + localName + "', '" + governmentForm + "', " + code2 + ")";
+    public static String getAllDefDrivers() {
+        return "SELECT * FROM def_driver";
+    }
+
+    public static String getAllDefTeams() {
+        return "SELECT * FROM def_teams";
+    }
+
+    public static String getAllDefTeamsData() {
+        return "SELECT * FROM def_team AS t JOIN def_driver_team AS dt ON dt.dt_team_id = t.team_id JOIN def_team_car AS tc ON tc.tc_team_id = t.team_id";
+    }
+
+    public static String getDefTeamDriverByTeamID(int teamID) {
+        return "SELECT * FROM def_driver_team WHERE team_id = " + teamID;
+    }
+
+    public static String getAllDefResults() {
+        return "SELECT * FROM results";
+    }
+
+    public static String getDriverAndResultDescending() {
+        return "SELECT r.*, d.* FROM def_result r JOIN def_driver d ON r.result_driver_id = d.driver_id";
     }
 }

@@ -5,28 +5,24 @@ import java.sql.*;
 public class MySQL implements IMySQL {
     public Connection con;
 
-    public boolean openConnection(String url, String name, String password) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            //Example: "jdbc:mysql://localhost:/world", "root", "12321"
-            con = DriverManager.getConnection("jdbc:mysql://" + url + "?autoReconnect=true&useSSL=false", name, password);
-            return true;
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }
+    public boolean openConnection(String url, String name, String password) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        //Example: "jdbc:mysql://localhost:/world", "root", "12321"
+        con = DriverManager.getConnection("jdbc:mysql://" + url + "?autoReconnect=true&useSSL=false", name, password);
+        return true;
     }
 
-    public boolean openConnection(String IP, String Schema, String name, String password) {
-        try {
+    public boolean openConnection(String IP, String Schema, String name, String password) throws SQLException, ClassNotFoundException {
+//
+//        try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             //Example: "jdbc:mysql://localhost:/world", "root", "12321"
             con = DriverManager.getConnection("jdbc:mysql://" + IP + ":/" + Schema + "?autoReconnect=true&useSSL=false", name, password);
-            return true;
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return false;
-        }
+//        } catch (SQLException | ClassNotFoundException e) {
+//            e.printStackTrace();
+//            return false;
+//        }
+        return true;
     }
 
     public boolean closeConnection() {
