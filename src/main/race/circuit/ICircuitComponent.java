@@ -1,3 +1,10 @@
 package main.race.circuit;
 
-public interface ICircuitComponent { }
+import main.enums.Direction;
+
+public interface ICircuitComponent {
+
+    Direction getFrom();
+
+    Direction getTo();
+}
