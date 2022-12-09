@@ -10,12 +10,11 @@ public class FormulaOne {
     private final ISessionCache sessionCache;
     private static JFrame page;
 
-    public FormulaOne(String dbPassword) {
+    public FormulaOne() {
         this.sessionCache = new SessionCacheImpl(this, 1);
-        loadDB(dbPassword);
     }
 
-    private void loadDB(String dbPassword) {
+    private void loadDB() {
         // TODO
     }
 
