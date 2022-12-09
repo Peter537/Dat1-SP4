@@ -10,11 +10,8 @@ public class DriverImpl implements IDriver {
     private int points;
 
     private final int experience;
-
     private final int corner;
-
     private final int consistency;
-
     private final int acceleration;
 
     public DriverImpl(int id, String name, int teamID, int experience, int corner, int consistency, int acceleration) {
