@@ -18,6 +18,26 @@ public class RaceResultImpl implements IRaceResult {
     }
 
     @Override
+    public boolean isRace() {
+        return true;
+    }
+
+    @Override
+    public boolean isQualifier() {
+        return false;
+    }
+
+    @Override
+    public IRaceResult asRaceResult() {
+        return this;
+    }
+
+    @Override
+    public IQualifierResult asQualifierResult() {
+        throw new UnsupportedOperationException("This is a race result");
+    }
+
+    @Override
     public int getDriverPlacement(IDriver driver) {
         for (IDriverResult driverResult : getSortedResults()) {
             if (driverResult.getDriver().equals(driver)) {
@@ -38,32 +58,12 @@ public class RaceResultImpl implements IRaceResult {
     }
 
     @Override
-    public ILap getFastestLap() {
-        return this.fastestLap;
-    }
-
-    @Override
-    public boolean isQualifier() {
-        return false;
-    }
-
-    @Override
-    public boolean isRace() {
-        return true;
-    }
-
-    @Override
-    public IRaceResult asRaceResult() {
-        return this;
-    }
-
-    @Override
-    public IQualifierResult asQualifierResult() {
-        throw new UnsupportedOperationException("This is a qualifier result");
-    }
-
-    @Override
     public ArrayList<IDriverResult> getSortedResults() {
         return this.sortedResults;
+    }
+
+    @Override
+    public ILap getFastestLap() {
+        return this.fastestLap;
     }
 }

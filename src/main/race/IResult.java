@@ -6,17 +6,17 @@ import java.util.ArrayList;
 
 public interface IResult {
 
+    boolean isRace();
+
+    boolean isQualifier();
+
+    IRaceResult asRaceResult();
+
+    IQualifierResult asQualifierResult();
+
     int getDriverPlacement(IDriver driver);
 
     IDriverResult getDriverResult(IDriver driver);
 
     ArrayList<IDriverResult> getSortedResults();
-
-    boolean isQualifier();
-
-    boolean isRace();
-
-    IRaceResult asRaceResult();
-
-    IQualifierResult asQualifierResult();
 }

@@ -18,13 +18,13 @@ public class QualifierResultImpl implements IQualifierResult {
     }
 
     @Override
-    public boolean isQualifier() {
-        return true;
+    public boolean isRace() {
+        return false;
     }
 
     @Override
-    public boolean isRace() {
-        return false;
+    public boolean isQualifier() {
+        return true;
     }
 
     @Override
