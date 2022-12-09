@@ -78,7 +78,7 @@ public class SeasonImpl implements ISeason {
 
     @Override
     public IRace getCurrentRace() {
-        return currentRace;
+        return this.currentRace;
     }
 
     @Override
