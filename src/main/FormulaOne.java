@@ -2,8 +2,10 @@ package main;
 
 import main.data.ISessionCache;
 import main.data.impl.SessionCacheImpl;
+import main.database.DataBaseIO;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 
 public class FormulaOne {
 
@@ -15,7 +17,7 @@ public class FormulaOne {
     }
 
     private void loadDB() {
-        // TODO
+        DataBaseIO.initSQL(true, this); //TODO: Make 'isNewSave' variable
     }
 
     public void run() {
