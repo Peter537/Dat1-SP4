@@ -101,8 +101,8 @@ public class RaceImpl implements IRace {
     }
 
     @Override
-    public int getID() {
-        return this.year; // Todo: Ændre navn til getYear()
+    public int getYear() {
+        return this.year;
     }
 
     @Override

@@ -8,7 +8,7 @@ public interface IRace {
 
     void nextAction();
 
-    int getID();
+    int getYear();
 
     ICircuit getCircuit();
 
