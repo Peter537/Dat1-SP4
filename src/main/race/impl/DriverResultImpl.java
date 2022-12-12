@@ -23,7 +23,11 @@ public class DriverResultImpl implements IDriverResult {
     public DriverResultImpl(IRace race, IDriver driver, ArrayList<ILap> laps) {
         this.race = race;
         this.driver = driver;
-        this.laps = laps;
+        if (laps.size() == 0) {
+            this.laps = new ArrayList<>();
+        } else {
+            this.laps = laps;
+        }
         this.time = 0;
         this.hasCrashed = false;
         this.placement = 0;

@@ -8,5 +8,7 @@ public interface ILap {
 
     IDriver getDriver();
 
+    int getLapNumber();
+
     float getTime();
 }

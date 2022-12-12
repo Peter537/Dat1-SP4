@@ -1,23 +1,36 @@
 package main.race.impl;
 
+import main.data.IDriver;
+import main.data.ITeam;
 import main.enums.RaceState;
-import main.race.ICircuit;
-import main.race.IRace;
-import main.race.IResult;
+import main.race.*;
+
+import java.sql.Driver;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 
 public class RaceImpl implements IRace {
 
-    private final int id;
+    private final int year;
     private final ICircuit circuit;
-    private IResult raceResult;
-    private IResult qualifierResult;
+    private final ArrayList<ITeam> teams;
+    private final ArrayList<IDriver> drivers;
+    private final IResult raceResult;
+    private final IResult qualifierResult;
     private RaceState state;
 
-    public RaceImpl(int id, ICircuit circuit) {
-        this.id = id;
+    public RaceImpl(int year, ICircuit circuit, ArrayList<ITeam> teams) {
+        this.year = year;
         this.circuit = circuit;
+        this.teams = teams;
         this.raceResult = null;
         this.qualifierResult = null;
+        drivers = new ArrayList<>();
+        for (ITeam team : getTeams()) {
+            drivers.add(team.getDriver1());
+            drivers.add(team.getDriver2());
+        }
         this.state = RaceState.NOT_STARTED;
     }
 
@@ -28,6 +41,7 @@ public class RaceImpl implements IRace {
             return;
         } else if (getState() == RaceState.QUALIFIER_FINISHED) {
             startRace();
+            return;
         } else if (getState() == RaceState.QUALIFIER_STARTED || getState() == RaceState.RACE_STARTED) {
             return;
         }
@@ -36,7 +50,35 @@ public class RaceImpl implements IRace {
     }
 
     private void startQualifier() {
+        if (getState() != RaceState.NOT_STARTED) {
+            throw new RuntimeException("Fejl");
+            // TODO: Vælg den rigtige exception, evt. custom exception: Qualify er allerede startet / færdig
+        }
+
         this.state = RaceState.QUALIFIER_STARTED;
+
+        HashMap<IDriver, ILap> fastestLaps = new HashMap<>();
+        Random random = new Random();
+        for (IDriver driver : getDrivers()) {
+            for (int i = 0; i < 3; i++) {
+                float time = random.nextFloat() * 60; // TODO: Change to actual Race algorithm time
+                if (fastestLaps.containsKey(driver)) {
+                    if (fastestLaps.get(driver).getTime() > time) {
+                        fastestLaps.put(driver, new LapImpl(this, driver, i, time));
+                    }
+                } else {
+                    fastestLaps.put(driver, new LapImpl(this, driver, i, time));
+                }
+            }
+        }
+
+        ArrayList<IDriverResult> results = new ArrayList<>();
+        for (IDriver driver : fastestLaps.keySet()) {
+            ArrayList<ILap> lap = new ArrayList<>();
+            lap.add(fastestLaps.get(driver));
+            results.add(new DriverResultImpl(this, driver, lap));
+        }
+
 
         // TODO: Flesh out this method
         System.out.println("qualifier");
@@ -45,6 +87,11 @@ public class RaceImpl implements IRace {
     }
 
     private void startRace() {
+        if (getState() != RaceState.QUALIFIER_FINISHED) {
+            throw new RuntimeException("Fejl");
+            // TODO: Vælg den rigtige exception, evt. custom exception: Qualify er ikke færdig
+        }
+
         this.state = RaceState.RACE_STARTED;
 
         // TODO: Flesh out this method
@@ -55,7 +102,7 @@ public class RaceImpl implements IRace {
 
     @Override
     public int getID() {
-        return this.id;
+        return this.year; // Todo: Ændre navn til getYear()
     }
 
     @Override
@@ -76,5 +123,13 @@ public class RaceImpl implements IRace {
     @Override
     public RaceState getState() {
         return this.state;
+    }
+
+    private ArrayList<ITeam> getTeams() {
+        return this.teams;
+    }
+
+    private ArrayList<IDriver> getDrivers() {
+        return this.drivers;
     }
 }
