@@ -61,4 +61,13 @@ public class QualifierResultImpl implements IQualifierResult {
     public ArrayList<IDriverResult> getSortedResults() {
         return this.sortedResults;
     }
+
+    @Override
+    public ArrayList<IDriver> getGridList() {
+        ArrayList<IDriver> gridList = new ArrayList<>();
+        for (IDriverResult driverResult : getSortedResults()) {
+            gridList.add(driverResult.getDriver());
+        }
+        return gridList;
+    }
 }
