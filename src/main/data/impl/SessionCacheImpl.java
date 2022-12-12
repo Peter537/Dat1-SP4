@@ -10,7 +10,7 @@ public class SessionCacheImpl implements ISessionCache {
 
     private final FormulaOne formulaOne;
     private final int saveID;
-    private final ArrayList<ISeason> seasons;
+    private final ArrayList<ISeason> seasons; // TODO: Maybe add constructor parameter to this? Vi skal jo have data ud fra databasen
     private ISeason currentSeason;
 
     public SessionCacheImpl(FormulaOne formulaOne, int saveID) {

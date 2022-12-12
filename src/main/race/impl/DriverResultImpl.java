@@ -93,11 +93,16 @@ public class DriverResultImpl implements IDriverResult {
         }
     }
 
+    // TODO: New method name: setFastestLapStatus?
     @Override
     public void setHasFastestLap(boolean hasFastestLap) {
         this.hasFastestLap = hasFastestLap;
+        if (hasFastestLap) {
+            this.points += 1;
+        }
     }
 
+    // TODO: New method name: setCrashStatus?
     @Override
     public void setHasCrashed(boolean hasCrashed) {
         this.hasCrashed = hasCrashed;
