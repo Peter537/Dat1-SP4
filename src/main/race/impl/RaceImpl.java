@@ -5,7 +5,6 @@ import main.data.ITeam;
 import main.enums.RaceState;
 import main.race.*;
 
-import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -77,13 +76,21 @@ public class RaceImpl implements IRace {
             results.add(new DriverResultImpl(this, driver, lap));
         }
 
+        results.sort((driver1, driver2) -> Float.compare(driver1.getTime(), driver2.getTime()));
+
+        int i = 1;
+        for (IDriverResult result : results) {
+            result.setPlacement(i);
+            i++;
+        }
+
         this.qualifierResult = new QualifierResultImpl(results);
 
         // TODO: Remove these print statements
         System.out.println();
         System.out.println(" Kvalifikation til " + getCircuit().getName());
         System.out.println(" ===============================");
-        for (IDriverResult result : getQualifierResult().asQualifierResult().getSortedResults()) {
+        for (IDriverResult result : getQualifierResult().getSortedResults()) {
             System.out.println(" " + result.getDriver().getName() + " - " + result.getLaps().get(0).getTime());
         }
 
@@ -98,11 +105,66 @@ public class RaceImpl implements IRace {
 
         this.state = RaceState.RACE_STARTED;
 
-        // TODO: Flesh out this method
-        System.out.println("race");
+        ArrayList<IDriver> gridList = getQualifierResult().asQualifierResult().getGridList();
+        ArrayList<IDriverResult> results = new ArrayList<>();
+        for (IDriver driver : gridList) {
+            results.add(new DriverResultImpl(this, driver, new ArrayList<>()));
+        }
+        ILap fastestLap = null;
 
+        Random random = new Random();
+        for (int lap = 1; lap <= getCircuit().getLaps(); lap++) {
+            System.out.println(" Lap: " + lap);
+            for (IDriverResult result : results) {
+                if (random.nextDouble() < 0.0018) { // TODO: Add the actual crash algorithm
+                    System.out.println(" " + result.getDriver().getName() + " er ude af løbet"); // TODO: Remove this debug message
+                    result.setHasCrashed(true);
+                }
+                if (result.hasCrashed()) {
+                    continue;
+                }
 
-        this.raceResult = new RaceResultImpl(new ArrayList<>(), null);
+                ILap l = new LapImpl(this, result.getDriver(), lap, random.nextFloat() * 60);
+                result.addLap(l);
+                if (fastestLap == null || fastestLap.getTime() > l.getTime()) {
+                    fastestLap = l;
+                }
+            }
+        }
+
+        for (IDriverResult result : results) {
+            result.setHasFastestLap(fastestLap != null && fastestLap.getDriver().equals(result.getDriver()));
+        }
+
+        results.sort((driver1, driver2) -> {
+            if (driver1.getLaps().size() < driver2.getLaps().size()) {
+                return 1;
+            } else if (driver1.getLaps().size() > driver2.getLaps().size()) {
+                return -1;
+            } else {
+                return Float.compare(driver1.getTime(), driver2.getTime());
+            }
+        });
+
+        int i = 1;
+        for (IDriverResult result : results) {
+            if (result.hasCrashed()) {
+                result.setPlacement(20);
+            } else {
+                result.setPlacement(i);
+                i++;
+            }
+        }
+
+        this.raceResult = new RaceResultImpl(results, fastestLap);
+
+        // TODO: Remove these print statements
+        System.out.println();
+        System.out.println(" Løb til " + getCircuit().getName());
+        System.out.println(" ===============================");
+        for (IDriverResult result : getRaceResult().getSortedResults()) {
+            System.out.println(" " + result.getPlacement() + ": " + result.getDriver().getName() + " - " + result.getPoints() + " : " + result.getTime());
+        }
 
         this.state = RaceState.RACE_FINISHED;
     }
