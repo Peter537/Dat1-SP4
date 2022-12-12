@@ -1,6 +1,8 @@
 # Dat1-SP4
 
-Peter<br>
-Magnus K<br>
-Yusuf<br>
-Sidsel
+Gruppemedlemmer:
+
+- Peter<br>
+- Magnus K<br>
+- Yusuf<br>
+- Sidsel<br>
