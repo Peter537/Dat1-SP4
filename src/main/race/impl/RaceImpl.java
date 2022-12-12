@@ -16,8 +16,8 @@ public class RaceImpl implements IRace {
     private final ICircuit circuit;
     private final ArrayList<ITeam> teams;
     private final ArrayList<IDriver> drivers;
-    private final IResult raceResult;
-    private final IResult qualifierResult;
+    private IResult raceResult;
+    private IResult qualifierResult;
     private RaceState state;
 
     public RaceImpl(int year, ICircuit circuit, ArrayList<ITeam> teams) {
@@ -62,12 +62,10 @@ public class RaceImpl implements IRace {
         for (IDriver driver : getDrivers()) {
             for (int i = 0; i < 3; i++) {
                 float time = random.nextFloat() * 60; // TODO: Change to actual Race algorithm time
-                if (fastestLaps.containsKey(driver)) {
-                    if (fastestLaps.get(driver).getTime() > time) {
-                        fastestLaps.put(driver, new LapImpl(this, driver, i, time));
-                    }
-                } else {
-                    fastestLaps.put(driver, new LapImpl(this, driver, i, time));
+                if (!fastestLaps.containsKey(driver)) {
+                    fastestLaps.put(driver, new LapImpl(this, driver, 1, time));
+                } else if (fastestLaps.get(driver).getTime() > time) {
+                    fastestLaps.put(driver, new LapImpl(this, driver, 1, time));
                 }
             }
         }
@@ -79,9 +77,15 @@ public class RaceImpl implements IRace {
             results.add(new DriverResultImpl(this, driver, lap));
         }
 
+        this.qualifierResult = new QualifierResultImpl(results);
 
-        // TODO: Flesh out this method
-        System.out.println("qualifier");
+        // TODO: Remove these print statements
+        System.out.println();
+        System.out.println(" Kvalifikation til " + getCircuit().getName());
+        System.out.println(" ===============================");
+        for (IDriverResult result : getQualifierResult().asQualifierResult().getSortedResults()) {
+            System.out.println(" " + result.getDriver().getName() + " - " + result.getLaps().get(0).getTime());
+        }
 
         this.state = RaceState.QUALIFIER_FINISHED;
     }
@@ -96,6 +100,9 @@ public class RaceImpl implements IRace {
 
         // TODO: Flesh out this method
         System.out.println("race");
+
+
+        this.raceResult = new RaceResultImpl(new ArrayList<>(), null);
 
         this.state = RaceState.RACE_FINISHED;
     }
