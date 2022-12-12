@@ -23,12 +23,15 @@ public class DriverResultImpl implements IDriverResult {
     public DriverResultImpl(IRace race, IDriver driver, ArrayList<ILap> laps) {
         this.race = race;
         this.driver = driver;
+        this.time = 0;
         if (laps.size() == 0) {
             this.laps = new ArrayList<>();
         } else {
             this.laps = laps;
+            for (ILap lap : laps) {
+                this.time += lap.getTime();
+            }
         }
-        this.time = 0;
         this.hasCrashed = false;
         this.placement = 0;
         this.points = 0;
@@ -112,5 +115,19 @@ public class DriverResultImpl implements IDriverResult {
     public void addLap(ILap lap) {
         getLaps().add(lap);
         this.time += lap.getTime();
+    }
+
+    @Override
+    public String toString() {
+        return "DriverResultImpl{" +
+                "race=" + getRace() +
+                ", driver=" + getDriver() +
+                ", laps=" + getLaps() +
+                ", time=" + getTime() +
+                ", hasCrashed=" + hasCrashed() +
+                ", placement=" + getPlacement() +
+                ", points=" + getPoints() +
+                ", hasFastestLap=" + hasFastestLap() +
+                '}';
     }
 }
