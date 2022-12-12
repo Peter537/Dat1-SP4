@@ -59,12 +59,12 @@ public class RaceImpl implements IRace {
         HashMap<IDriver, ILap> fastestLaps = new HashMap<>();
         Random random = new Random();
         for (IDriver driver : getDrivers()) {
-            for (int i = 0; i < 3; i++) {
+            for (int i = 1; i <= 3; i++) { // Everyone gets 3 laps during qualifier
                 float time = random.nextFloat() * 60; // TODO: Change to actual Race algorithm time
                 if (!fastestLaps.containsKey(driver)) {
-                    fastestLaps.put(driver, new LapImpl(this, driver, 1, time));
+                    fastestLaps.put(driver, new LapImpl(this, driver, i, time));
                 } else if (fastestLaps.get(driver).getTime() > time) {
-                    fastestLaps.put(driver, new LapImpl(this, driver, 1, time));
+                    fastestLaps.put(driver, new LapImpl(this, driver, i, time));
                 }
             }
         }
