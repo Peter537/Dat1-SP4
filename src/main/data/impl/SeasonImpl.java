@@ -37,7 +37,7 @@ public class SeasonImpl implements ISeason {
                     break;
                 }
             }
-            if (getCurrentRace() == null) {
+            if (!hasNextAction()) {
                 return false;
             }
         }
