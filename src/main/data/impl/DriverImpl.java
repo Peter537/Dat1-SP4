@@ -22,6 +22,7 @@ public class DriverImpl implements IDriver {
         this.corner = corner;
         this.consistency = consistency;
         this.acceleration = acceleration;
+        this.points = 0;
     }
 
     @Override
@@ -67,5 +68,19 @@ public class DriverImpl implements IDriver {
     @Override
     public int getAcceleration() {
         return this.acceleration;
+    }
+
+    @Override
+    public String toString() {
+        return "DriverImpl{" +
+                "id=" + getID() +
+                ", name='" + getName() + '\'' +
+                ", teamID=" + getTeamID() +
+                ", points=" + getPoints() +
+                ", experience=" + getExperience() +
+                ", corner=" + getCorner() +
+                ", consistency=" + getConsistency() +
+                ", acceleration=" + getAcceleration() +
+                '}';
     }
 }

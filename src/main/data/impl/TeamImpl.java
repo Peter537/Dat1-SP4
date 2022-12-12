@@ -19,6 +19,7 @@ public class TeamImpl implements ITeam {
         this.car = car;
         this.driver1 = driver1;
         this.driver2 = driver2;
+        this.points = 0;
     }
 
     @Override
@@ -54,5 +55,17 @@ public class TeamImpl implements ITeam {
     @Override
     public IDriver getDriver2() {
         return this.driver2;
+    }
+
+    @Override
+    public String toString() {
+        return "TeamImpl{" +
+                "id=" + getID() +
+                ", name='" + getName() + '\'' +
+                ", car=" + getCar() +
+                ", driver1=" + getDriver1() +
+                ", driver2=" + getDriver2() +
+                ", points=" + getPoints() +
+                '}';
     }
 }
