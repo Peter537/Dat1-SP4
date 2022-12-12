@@ -45,4 +45,16 @@ public class CircuitImpl implements ICircuit {
     public ArrayList<ICircuitComponent> getComponents() {
         return this.components;
     }
+
+
+    @Override
+    public String toString() {
+        return "CircuitImpl{" +
+                "id=" + getID() +
+                ", name='" + getName() + '\'' +
+                ", country='" + getCountry() + '\'' +
+                ", laps=" + getLaps() +
+                ", components=" + getComponents() +
+                '}';
+    }
 }

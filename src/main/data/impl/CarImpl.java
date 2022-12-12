@@ -50,4 +50,16 @@ public class CarImpl implements ICar {
     public double getTraction() {
         return this.traction;
     }
+
+    @Override
+    public String toString() {
+        return "CarImpl{" +
+                "id=" + getID() +
+                ", name='" + getName() + '\'' +
+                ", horsePower=" + getHorsePower() +
+                ", weight=" + getWeight() +
+                ", aerodynamics=" + getAerodynamics() +
+                ", traction=" + getTraction() +
+                '}';
+    }
 }

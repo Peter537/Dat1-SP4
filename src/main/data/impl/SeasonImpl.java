@@ -87,4 +87,16 @@ public class SeasonImpl implements ISeason {
     public void setCurrentRace(IRace currentRace) {
         this.currentRace = currentRace;
     }
+
+    @Override
+    public String toString() {
+        return "SeasonImpl{" +
+                "year=" + getYear() +
+                ", races=" + getRaces() +
+                ", teams=" + getTeams() +
+                ", teamLeaderboard=" + getTeamLeaderboard() +
+                ", driverLeaderboard=" + getDriverLeaderboard() +
+                ", currentRace=" + getCurrentRace() +
+                '}';
+    }
 }
