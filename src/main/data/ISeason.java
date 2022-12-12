@@ -1,12 +1,13 @@
 package main.data;
 
+import main.enums.Action;
 import main.race.IRace;
 
 import java.util.ArrayList;
 
 public interface ISeason {
 
-    boolean nextAction();
+    Action nextAction();
 
     boolean hasNextAction();
 

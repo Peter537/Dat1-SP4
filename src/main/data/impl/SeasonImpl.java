@@ -1,6 +1,7 @@
 package main.data.impl;
 
 import main.data.*;
+import main.enums.Action;
 import main.enums.RaceState;
 import main.race.IRace;
 
@@ -29,8 +30,9 @@ public class SeasonImpl implements ISeason {
     }
 
     @Override
-    public boolean nextAction() {
-        if (!hasNextAction()) {
+    public Action nextAction() {
+        if (!(getCurrentRace().getState() == RaceState.NOT_STARTED) || !(getCurrentRace().getState() == RaceState.QUALIFIER_FINISHED)) {
+            if (getCurrentRace().getState() != RaceState.RACE_FINISHED) return Action.RACE_NOT_FINISHED;
             for (IRace race : getRaces()) {
                 if (race.getState() == RaceState.NOT_STARTED) {
                     setCurrentRace(race);
@@ -38,17 +40,17 @@ public class SeasonImpl implements ISeason {
                 }
             }
             if (!hasNextAction()) {
-                return false;
+                return Action.SEASON_FINISHED;
             }
         }
 
         getCurrentRace().nextAction();
-        return true;
+        return Action.COMPLETE;
     }
 
     @Override
     public boolean hasNextAction() {
-        return getCurrentRace() != null || getCurrentRace().getState() == RaceState.NOT_STARTED;
+        return getCurrentRace() != null;
     }
 
     @Override
