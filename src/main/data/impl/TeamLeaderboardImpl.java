@@ -16,7 +16,7 @@ public class TeamLeaderboardImpl implements ITeamLeaderboard {
 
     @Override
     public void update() {
-        getLeaderboard().sort((d1, d2) -> Integer.compare(d2.getPoints(), d1.getPoints()));
+        getLeaderboard().sort((t1, t2) -> Integer.compare(t2.getPoints(), t1.getPoints()));
     }
 
     @Override
