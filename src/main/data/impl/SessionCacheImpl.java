@@ -3,6 +3,7 @@ package main.data.impl;
 import main.FormulaOne;
 import main.data.ISeason;
 import main.data.ISessionCache;
+import main.data.IUser;
 
 import java.util.ArrayList;
 
@@ -12,6 +13,7 @@ public class SessionCacheImpl implements ISessionCache {
     private final int saveID;
     private final ArrayList<ISeason> seasons; // TODO: Maybe add constructor parameter to this? Vi skal jo have data ud fra databasen
     private ISeason currentSeason;
+    private IUser currentUser;
 
     public SessionCacheImpl(FormulaOne formulaOne, int saveID) {
         this.formulaOne = formulaOne;
@@ -43,5 +45,10 @@ public class SessionCacheImpl implements ISessionCache {
     @Override
     public void setCurrentSeason(ISeason currentSeason) {
         this.currentSeason = currentSeason;
+    }
+
+    @Override
+    public IUser getCurrentUser() {
+        return this.currentUser;
     }
 }
