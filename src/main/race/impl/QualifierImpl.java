@@ -84,7 +84,7 @@ public class QualifierImpl implements IQualifier {
     }
 
     // TODO: Denne metode skal slettes når vi har UI på plads
-    public void printResult() {
+    private void printResult() {
         System.out.println(" =========================");
         System.out.println("Resultat af kvalifikationen:");
         for (IDriverResult result : getQualifierResult().getSortedResults()) {
