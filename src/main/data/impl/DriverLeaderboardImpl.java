@@ -16,21 +16,21 @@ public class DriverLeaderboardImpl implements IDriverLeaderboard {
 
     @Override
     public void update() {
-        leaderboard.sort((d1, d2) -> Integer.compare(d2.getPoints(), d1.getPoints()));
+        getLeaderboard().sort((d1, d2) -> Integer.compare(d2.getPoints(), d1.getPoints()));
     }
 
     @Override
     public int getPlacement(IDriver driver) {
-        return leaderboard.indexOf(driver) + 1;
+        return getLeaderboard().indexOf(driver) + 1;
     }
 
     @Override
     public IDriver getByPlacement(int placement) {
-        return leaderboard.get(placement - 1);
+        return getLeaderboard().get(placement - 1);
     }
 
     @Override
     public ArrayList<IDriver> getLeaderboard() {
-        return leaderboard;
+        return this.leaderboard;
     }
 }
