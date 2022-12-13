@@ -70,7 +70,7 @@ public class RaceImpl implements IRace {
         for (IDriver driver : fastestLaps.keySet()) {
             ArrayList<ILap> lap = new ArrayList<>();
             lap.add(fastestLaps.get(driver));
-            results.add(new DriverResultImpl(this, driver, lap));
+            results.add(new DriverResultImpl(this, driver, lap, false));
         }
 
         results.sort((driver1, driver2) -> Float.compare(driver1.getTime(), driver2.getTime()));
@@ -107,7 +107,7 @@ public class RaceImpl implements IRace {
         ArrayList<IDriver> gridList = getQualifierResult().asQualifierResult().getGridList();
         ArrayList<IDriverResult> results = new ArrayList<>();
         for (IDriver driver : gridList) {
-            results.add(new DriverResultImpl(this, driver, new ArrayList<>()));
+            results.add(new DriverResultImpl(this, driver, new ArrayList<>(), true));
         }
         ILap fastestLap = null;
 
@@ -131,10 +131,6 @@ public class RaceImpl implements IRace {
             }
         }
 
-        for (IDriverResult result : results) {
-            result.setHasFastestLap(fastestLap != null && fastestLap.getDriver().equals(result.getDriver()));
-        }
-
         results.sort((driver1, driver2) -> {
             if (driver1.getLaps().size() < driver2.getLaps().size()) {
                 return 1;
@@ -153,6 +149,11 @@ public class RaceImpl implements IRace {
                 result.setPlacement(i);
                 i++;
             }
+        }
+
+        for (IDriverResult result : results) {
+            result.setHasFastestLap(fastestLap != null && fastestLap.getDriver().equals(result.getDriver()));
+            result.addPointsToDriver();
         }
 
         this.raceResult = new RaceResultImpl(results, fastestLap);
