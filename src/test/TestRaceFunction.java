@@ -6,7 +6,6 @@ import main.data.ITeam;
 import main.data.impl.CarImpl;
 import main.data.impl.DriverImpl;
 import main.data.impl.TeamImpl;
-import main.database.DataBaseIO;
 import main.race.ICircuit;
 import main.race.IRace;
 import main.race.impl.CircuitImpl;
