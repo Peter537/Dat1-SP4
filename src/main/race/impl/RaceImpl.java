@@ -11,6 +11,7 @@ import java.util.Random;
 
 public class RaceImpl implements IRace {
 
+    private final Random random = new Random();
     private final int year;
     private final ICircuit circuit;
     private final ArrayList<ITeam> teams;
@@ -54,51 +55,15 @@ public class RaceImpl implements IRace {
         this.state = RaceState.RACE_STARTED;
 
         ArrayList<IDriver> gridList = getQualifier().getQualifierResult().asQualifierResult().getGridList();
-        ArrayList<IDriverResult> results = new ArrayList<>();
-        for (IDriver driver : gridList) {
-            results.add(new DriverResultImpl(this, driver, new ArrayList<>(), true));
-        }
+        ArrayList<IDriverResult> results = createDriverResults(gridList);
         ILap fastestLap = null;
 
-        Random random = new Random();
         for (int lap = 1; lap <= getCircuit().getLaps(); lap++) {
-            System.out.println(" Lap: " + lap);
-            for (IDriverResult result : results) {
-                if (random.nextDouble() < 0.0018) { // TODO: Add the actual crash algorithm
-                    System.out.println(" " + result.getDriver().getName() + " er ude af løbet"); // TODO: Remove this debug message
-                    result.setHasCrashed(true);
-                }
-                if (result.hasCrashed()) {
-                    continue;
-                }
-
-                ILap l = new LapImpl(this, result.getDriver(), lap, random.nextFloat() * 60);
-                result.addLap(l);
-                if (fastestLap == null || fastestLap.getTime() > l.getTime()) {
-                    fastestLap = l;
-                }
-            }
+            fastestLap = driveLap(lap, results, fastestLap);
         }
 
-        results.sort((driver1, driver2) -> {
-            if (driver1.getLaps().size() < driver2.getLaps().size()) {
-                return 1;
-            } else if (driver1.getLaps().size() > driver2.getLaps().size()) {
-                return -1;
-            } else {
-                return Float.compare(driver1.getTime(), driver2.getTime());
-            }
-        });
-
-        int i = 1;
-        for (IDriverResult result : results) {
-            if (result.hasCrashed()) {
-                result.setPlacement(20);
-            } else {
-                result.setPlacement(i);
-                i++;
-            }
-        }
+        sortDriverResults(results);
+        setPlacements(results);
 
         for (IDriverResult result : results) {
             result.setHasFastestLap(fastestLap != null && fastestLap.getDriver().equals(result.getDriver()));
@@ -111,6 +76,77 @@ public class RaceImpl implements IRace {
         printResult(raceResult);
 
         this.state = RaceState.RACE_FINISHED;
+    }
+
+    private ILap driveLap(int lap, ArrayList<IDriverResult> results, ILap fastestLap) {
+        System.out.println(" Lap: " + lap);
+        for (IDriverResult result : results) {
+            if (result.hasCrashed()) {
+                continue;
+            } else if (crashesThisLap(result)) {
+                System.out.println(" " + result.getDriver().getName() + " er ude af løbet"); // TODO: Remove this debug message
+                continue;
+            }
+
+            ILap l = new LapImpl(this, result.getDriver(), lap, getLapTime());
+            result.addLap(l);
+            fastestLap = getFastestLap(fastestLap, l);
+        }
+        return fastestLap;
+    }
+
+    @Override
+    public float getLapTime() {
+        // TODO: Add actual lap time calculation
+        return random.nextFloat() * 60;
+    }
+
+    private boolean crashesThisLap(IDriverResult result) {
+        // TODO: Add the actual crash algorithm
+        if (random.nextDouble() < 0.0018) {
+            result.setHasCrashed(true);
+            return true;
+        }
+        return false;
+    }
+
+    private ILap getFastestLap(ILap fastestLap, ILap newLap) {
+        if (fastestLap == null || fastestLap.getTime() > newLap.getTime()) {
+            fastestLap = newLap;
+        }
+        return fastestLap;
+    }
+
+    private void setPlacements(ArrayList<IDriverResult> results) {
+        int i = 1;
+        for (IDriverResult result : results) {
+            if (result.hasCrashed()) {
+                result.setPlacement(20);
+            } else {
+                result.setPlacement(i);
+                i++;
+            }
+        }
+    }
+
+    private void sortDriverResults(ArrayList<IDriverResult> results) {
+        results.sort((driver1, driver2) -> {
+            if (driver1.getLaps().size() < driver2.getLaps().size()) {
+                return 1;
+            } else if (driver1.getLaps().size() > driver2.getLaps().size()) {
+                return -1;
+            } else {
+                return Float.compare(driver1.getTime(), driver2.getTime());
+            }
+        });
+    }
+
+    private ArrayList<IDriverResult> createDriverResults(ArrayList<IDriver> gridList) {
+        ArrayList<IDriverResult> results = new ArrayList<>();
+        for (IDriver driver : gridList) {
+            results.add(new DriverResultImpl(this, driver, new ArrayList<>(), false));
+        }
+        return results;
     }
 
     // TODO: Denne metode skal slettes når vi har UI på plads
