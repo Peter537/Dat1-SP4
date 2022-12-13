@@ -6,7 +6,6 @@ import main.enums.RaceState;
 import main.race.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 public class RaceImpl implements IRace {
