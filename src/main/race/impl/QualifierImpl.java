@@ -13,13 +13,13 @@ public class QualifierImpl implements IQualifier {
     private final HashMap<IDriver, ILap> fastestLaps = new HashMap<>();
     private final ArrayList<IDriver> drivers;
     private final IRace race;
-    private final Random random = new Random();
 
     private IQualifierResult result;
 
     public QualifierImpl(IRace race, ArrayList<IDriver> drivers) {
         this.race = race;
         this.drivers = drivers;
+        this.result = null;
     }
 
     @Override
