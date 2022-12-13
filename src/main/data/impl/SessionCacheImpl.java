@@ -51,4 +51,9 @@ public class SessionCacheImpl implements ISessionCache {
     public IUser getCurrentUser() {
         return this.currentUser;
     }
+
+    @Override
+    public void setCurrentUser(IUser currentUser) {
+        this.currentUser = currentUser;
+    }
 }

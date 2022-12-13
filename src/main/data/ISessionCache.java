@@ -17,4 +17,6 @@ public interface ISessionCache {
     void setCurrentSeason(ISeason season);
 
     IUser getCurrentUser();
+
+    void setCurrentUser(IUser user);
 }
