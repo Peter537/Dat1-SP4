@@ -20,6 +20,7 @@ public class SeasonImpl implements ISeason {
         this.year = year;
         this.races = races;
         this.teams = teams;
+        this.currentRace = races.get(0);
         this.teamLeaderboard = new TeamLeaderboardImpl(getTeams());
         ArrayList<IDriver> drivers = new ArrayList<>();
         for (ITeam team : getTeams()) {
@@ -31,7 +32,7 @@ public class SeasonImpl implements ISeason {
 
     @Override
     public Action nextAction() {
-        if (!(getCurrentRace().getState() == RaceState.NOT_STARTED) || !(getCurrentRace().getState() == RaceState.QUALIFIER_FINISHED)) {
+        if (!(getCurrentRace().getState() == RaceState.NOT_STARTED) && !(getCurrentRace().getState() == RaceState.QUALIFIER_FINISHED)) {
             if (getCurrentRace().getState() != RaceState.RACE_FINISHED) return Action.RACE_NOT_FINISHED;
             for (IRace race : getRaces()) {
                 if (race.getState() == RaceState.NOT_STARTED) {
@@ -45,12 +46,20 @@ public class SeasonImpl implements ISeason {
         }
 
         getCurrentRace().nextAction();
+        updateLeaderboards();
         return Action.COMPLETE;
     }
 
     @Override
+    public void updateLeaderboards() {
+        getTeamLeaderboard().update();
+        getDriverLeaderboard().update();
+    }
+
+    @Override
     public boolean hasNextAction() {
-        return getCurrentRace() != null;
+        if (getCurrentRace() == null) return false;
+        return getRaces().get(getRaces().size() - 1).getState() != RaceState.RACE_FINISHED; // if last race is done, then all should be done
     }
 
     @Override

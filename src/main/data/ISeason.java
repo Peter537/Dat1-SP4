@@ -9,6 +9,8 @@ public interface ISeason {
 
     Action nextAction();
 
+    void updateLeaderboards();
+
     boolean hasNextAction();
 
     int getYear();

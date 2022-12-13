@@ -12,6 +12,7 @@ public class DriverResultImpl implements IDriverResult {
     private final IRace race;
     private final IDriver driver;
     private final ArrayList<ILap> laps;
+    private final boolean isRace;
 
     private float time;
     private boolean hasCrashed;
@@ -20,9 +21,10 @@ public class DriverResultImpl implements IDriverResult {
     private int points;
     private boolean hasFastestLap;
 
-    public DriverResultImpl(IRace race, IDriver driver, ArrayList<ILap> laps) {
+    public DriverResultImpl(IRace race, IDriver driver, ArrayList<ILap> laps, boolean isRace) {
         this.race = race;
         this.driver = driver;
+        this.isRace = isRace;
         this.time = 0;
         if (laps.size() == 0) {
             this.laps = new ArrayList<>();
@@ -115,6 +117,23 @@ public class DriverResultImpl implements IDriverResult {
     public void addLap(ILap lap) {
         getLaps().add(lap);
         this.time += lap.getTime();
+    }
+
+    @Override
+    public boolean isRace() {
+        return isRace;
+    }
+
+    @Override
+    public boolean isQualifier() {
+        return !isRace;
+    }
+
+    @Override
+    public void addPointsToDriver() {
+        if (isRace()) {
+            getDriver().addPoints(getPoints());
+        }
     }
 
     @Override

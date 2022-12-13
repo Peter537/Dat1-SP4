@@ -15,4 +15,8 @@ public interface ISessionCache {
     FormulaOne getFormulaOne();
 
     void setCurrentSeason(ISeason season);
+
+    IUser getCurrentUser();
+
+    void setCurrentUser(IUser user);
 }
