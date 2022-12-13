@@ -19,9 +19,9 @@ public class TestRaceFunction {
     public static void main(String[] args) {
         ArrayList<ITeam> teams = getSomeDefaultData();
 
-        ICircuit circuit1 = new CircuitImpl(1, "Circuit1", "Country1", 58, null);
+        ICircuit circuit1 = new CircuitImpl(2022, "Circuit1", "Country1", 58, null);
 
-        IRace race1 = new RaceImpl(1, circuit1, teams);
+        IRace race1 = new RaceImpl(2022, circuit1, teams);
 
         race1.nextAction();
         race1.nextAction();
