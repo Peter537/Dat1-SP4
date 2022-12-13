@@ -6,16 +6,15 @@
 
 class Main {
     + static void main(String[] args)
-    - static String getDBPassword()
 }
 
 class FormulaOne {
     - final ISessionCache sessionCache
     - static JFrame page
 
-    + FormulaOne(String dbPassword)
+    + FormulaOne()
 
-    - void loadDB(String dbPassword)
+    - void loadDB()
 
     + void run()
     - void chooseSaveGame()
@@ -27,7 +26,7 @@ class FormulaOne {
 class SessionCacheImpl implements ISessionCache {
     - final FormulaOne formulaOne
     - final int saveID
-    - ArrayList<ISeason> seasons
+    - final ArrayList<ISeason> seasons
     - ISeason currentSeason
 
     + SessionCacheImpl(FormulaOne formulaOne, int saveID)
@@ -42,12 +41,14 @@ class SeasonImpl implements ISeason {
     - final ArrayList<ITeam> teams
     - final ITeamLeaderboard teamLeaderboard
     - final IDriverLeaderboard driverLeaderboard
+    - IRace currentRace
 
     + SeasonImpl(int year, ArrayList<IRace> races, ArrayList<ITeam> teams)
 
     + boolean nextAction()
     + boolean hasNextAction()
 
+    + void setCurrentRace(IRace currentRace)
     + accessor methods()
 }
 
@@ -58,11 +59,11 @@ class TeamImpl implements ITeam {
     - final IDriver driver1
     - final IDriver driver2
 
-    - int point
+    - int points
 
-    + TeamImpl(int id, String name, Car car, IDriver driver1, IDriver driver2)
+    + TeamImpl(int id, String name, ICar car, IDriver driver1, IDriver driver2)
 
-    + void addPoints(int points)
+    + void addPoints(int newPoints)
     + accessor methods()
 }
 
@@ -70,15 +71,13 @@ class DriverImpl implements IDriver {
     - final int id
     - final String name
     - final int teamID
+    - final int points
     - final int experience
     - final int corner
     - final int consistency
     - final int acceleration
 
-    - int points
-
-    + DriverImpl(int id, String name, int teamID)
-
+    + DriverImpl(int id, String name, int teamID, int experience, int corner, int consistency, int acceleration)
     + void addPoints(int points)
 
     + accessor methods()
