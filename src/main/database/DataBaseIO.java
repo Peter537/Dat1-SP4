@@ -75,7 +75,6 @@ public class DataBaseIO {
                 driver2 = cachedDrivers.stream().filter(d -> d.getID() == driver2ID).findFirst().orElse(null);
 
                 ITeam team = new TeamImpl(teamId, teamName, car, driver1, driver2);
-                team.addPoints(teamPoints);
                 teams.add(team);
             }
         }
