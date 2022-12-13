@@ -16,6 +16,7 @@ public class RaceImpl implements IRace {
     private final ArrayList<ITeam> teams;
     private final ArrayList<IDriver> drivers;
     private final IQualifier qualifier;
+
     private IResult result;
     private RaceState state;
 
