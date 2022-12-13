@@ -83,18 +83,20 @@ public class DriverResultImpl implements IDriverResult {
     @Override
     public void setPlacement(int placement) {
         this.placement = placement;
-        switch (placement) {
-            case 1 -> this.points = 25;
-            case 2 -> this.points = 18;
-            case 3 -> this.points = 15;
-            case 4 -> this.points = 12;
-            case 5 -> this.points = 10;
-            case 6 -> this.points = 8;
-            case 7 -> this.points = 6;
-            case 8 -> this.points = 4;
-            case 9 -> this.points = 2;
-            case 10 -> this.points = 1;
-            default -> this.points = 0;
+        if (isRace()) {
+            switch (placement) {
+                case 1 -> this.points = 25;
+                case 2 -> this.points = 18;
+                case 3 -> this.points = 15;
+                case 4 -> this.points = 12;
+                case 5 -> this.points = 10;
+                case 6 -> this.points = 8;
+                case 7 -> this.points = 6;
+                case 8 -> this.points = 4;
+                case 9 -> this.points = 2;
+                case 10 -> this.points = 1;
+                default -> this.points = 0;
+            }
         }
     }
 
@@ -102,7 +104,7 @@ public class DriverResultImpl implements IDriverResult {
     @Override
     public void setHasFastestLap(boolean hasFastestLap) {
         this.hasFastestLap = hasFastestLap;
-        if (hasFastestLap) {
+        if (hasFastestLap && isRace()) {
             this.points += 1;
         }
     }
@@ -121,12 +123,12 @@ public class DriverResultImpl implements IDriverResult {
 
     @Override
     public boolean isRace() {
-        return isRace;
+        return this.isRace;
     }
 
     @Override
     public boolean isQualifier() {
-        return !isRace;
+        return !this.isRace;
     }
 
     @Override
