@@ -17,14 +17,14 @@ public class RaceImpl implements IRace {
     private final ArrayList<ITeam> teams;
     private final ArrayList<IDriver> drivers;
     private final IQualifier qualifier;
-    private IResult raceResult;
+    private IResult result;
     private RaceState state;
 
     public RaceImpl(int year, ICircuit circuit, ArrayList<ITeam> teams) {
         this.year = year;
         this.circuit = circuit;
         this.teams = teams;
-        this.raceResult = null;
+        this.result = null;
         drivers = new ArrayList<>();
         for (ITeam team : getTeams()) {
             drivers.add(team.getDriver1());
@@ -54,7 +54,7 @@ public class RaceImpl implements IRace {
 
         this.state = RaceState.RACE_STARTED;
 
-        ArrayList<IDriver> gridList = getQualifier().getQualifierResult().asQualifierResult().getGridList();
+        ArrayList<IDriver> gridList = getQualifier().getResult().asQualifierResult().getGridList();
         ArrayList<IDriverResult> results = createDriverResults(gridList);
         ILap fastestLap = null;
 
@@ -70,10 +70,10 @@ public class RaceImpl implements IRace {
             result.addPointsToDriver();
         }
 
-        this.raceResult = new RaceResultImpl(results, fastestLap);
+        this.result = new RaceResultImpl(results, fastestLap);
 
         // TODO: Remove this method, only used for testing
-        printResult(raceResult);
+        printResult();
 
         this.state = RaceState.RACE_FINISHED;
     }
@@ -150,16 +150,16 @@ public class RaceImpl implements IRace {
     }
 
     // TODO: Denne metode skal slettes når vi har UI på plads
-    private void printResult(IResult result) {
+    private void printResult() {
         System.out.println();
         System.out.println(" ===============================");
         System.out.println(" Resultat til " + getCircuit().getName());
         System.out.println(" ===============================");
-        for (IDriverResult res : result.getSortedResults()) {
+        for (IDriverResult res : getResult().getSortedResults()) {
             System.out.println(" " + res.getPlacement() + ": " + res.getDriver().getName() + " - " + res.getPoints() + " : " + res.getTime());
         }
         System.out.println(" ===============================");
-        System.out.println(" " + result.asRaceResult().getFastestLap().getDriver().getName() + " satte den hurtigste runde på " + result.asRaceResult().getFastestLap().getTime());
+        System.out.println(" " + getResult().asRaceResult().getFastestLap().getDriver().getName() + " satte den hurtigste runde på " + getResult().asRaceResult().getFastestLap().getTime());
         System.out.println(" ===============================");
         System.out.println();
     }
@@ -180,8 +180,8 @@ public class RaceImpl implements IRace {
     }
 
     @Override
-    public IResult getRaceResult() {
-        return this.raceResult;
+    public IResult getResult() {
+        return this.result;
     }
 
     @Override

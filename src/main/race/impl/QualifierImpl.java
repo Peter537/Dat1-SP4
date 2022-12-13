@@ -15,7 +15,7 @@ public class QualifierImpl implements IQualifier {
     private final IRace race;
     private final Random random = new Random();
 
-    private IQualifierResult qualifierResult;
+    private IQualifierResult result;
 
     public QualifierImpl(IRace race, ArrayList<IDriver> drivers) {
         this.race = race;
@@ -42,7 +42,7 @@ public class QualifierImpl implements IQualifier {
 
         setPlacements(results);
 
-        this.qualifierResult = new QualifierResultImpl(results);
+        this.result = new QualifierResultImpl(results);
 
         // TODO: Remove this method, only used for testing
         printResult();
@@ -87,7 +87,7 @@ public class QualifierImpl implements IQualifier {
     private void printResult() {
         System.out.println(" =========================");
         System.out.println("Resultat af kvalifikationen:");
-        for (IDriverResult result : getQualifierResult().getSortedResults()) {
+        for (IDriverResult result : getResult().getSortedResults()) {
             System.out.println(result.getDriver().getName() + " - " + result.getTime());
         }
         System.out.println(" =========================");
@@ -99,8 +99,8 @@ public class QualifierImpl implements IQualifier {
     }
 
     @Override
-    public IQualifierResult getQualifierResult() {
-        return this.qualifierResult;
+    public IQualifierResult getResult() {
+        return this.result;
     }
 
     private ArrayList<IDriver> getDrivers() {

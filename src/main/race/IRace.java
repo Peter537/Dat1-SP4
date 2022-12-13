@@ -14,7 +14,7 @@ public interface IRace {
 
     ICircuit getCircuit();
 
-    IResult getRaceResult();
+    IResult getResult();
 
     IQualifier getQualifier();
 

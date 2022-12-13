@@ -6,5 +6,5 @@ public interface IQualifier {
 
     IRace getRace();
 
-    IResult getQualifierResult();
+    IResult getResult();
 }
