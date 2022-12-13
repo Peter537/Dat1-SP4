@@ -37,15 +37,12 @@ public class RaceImpl implements IRace {
     public void nextAction() {
         if (getState() == RaceState.NOT_STARTED) {
             startQualifier();
-            return;
         } else if (getState() == RaceState.QUALIFIER_FINISHED) {
             startRace();
-            return;
-        } else if (getState() == RaceState.QUALIFIER_STARTED || getState() == RaceState.RACE_STARTED) {
-            return;
+        } else if (getState() != RaceState.QUALIFIER_STARTED && getState() != RaceState.RACE_STARTED) {
+            throw new RuntimeException("Fejl");
+            // TODO: Vælg den rigtige exception, evt. custom exception
         }
-        throw new RuntimeException("Fejl");
-        // TODO: Vælg den rigtige exception, evt. custom exception
     }
 
     private void startQualifier() {
@@ -93,6 +90,8 @@ public class RaceImpl implements IRace {
         for (IDriverResult result : getQualifierResult().getSortedResults()) {
             System.out.println(" " + result.getDriver().getName() + " - " + result.getLaps().get(0).getTime());
         }
+        System.out.println(" ===============================");
+        System.out.println();
 
         this.state = RaceState.QUALIFIER_FINISHED;
     }
@@ -165,6 +164,10 @@ public class RaceImpl implements IRace {
         for (IDriverResult result : getRaceResult().getSortedResults()) {
             System.out.println(" " + result.getPlacement() + ": " + result.getDriver().getName() + " - " + result.getPoints() + " : " + result.getTime());
         }
+        System.out.println(" ===============================");
+        System.out.println(" " + getRaceResult().asRaceResult().getFastestLap().getDriver().getName() + " satte den hurtigste runde på " + getRaceResult().asRaceResult().getFastestLap().getTime());
+        System.out.println(" ===============================");
+        System.out.println();
 
         this.state = RaceState.RACE_FINISHED;
     }
