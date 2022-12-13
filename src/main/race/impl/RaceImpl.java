@@ -160,7 +160,7 @@ public class RaceImpl implements IRace {
 
         // TODO: Remove these print statements
         System.out.println();
-        System.out.println(" Løb til " + getCircuit().getName());
+        System.out.println(" Resultat til " + getCircuit().getName());
         System.out.println(" ===============================");
         for (IDriverResult result : getRaceResult().getSortedResults()) {
             System.out.println(" " + result.getPlacement() + ": " + result.getDriver().getName() + " - " + result.getPoints() + " : " + result.getTime());
