@@ -8,6 +8,8 @@ public interface IRace {
 
     void setState(RaceState state);
 
+    float getLapTime();
+
     int getYear();
 
     ICircuit getCircuit();
