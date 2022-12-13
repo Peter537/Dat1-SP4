@@ -15,8 +15,8 @@ public class RaceImpl implements IRace {
     private final ICircuit circuit;
     private final ArrayList<ITeam> teams;
     private final ArrayList<IDriver> drivers;
+    private final IQualifier qualifier;
     private IResult raceResult;
-    private IResult qualifierResult;
     private RaceState state;
 
     public RaceImpl(int year, ICircuit circuit, ArrayList<ITeam> teams) {
@@ -24,76 +24,25 @@ public class RaceImpl implements IRace {
         this.circuit = circuit;
         this.teams = teams;
         this.raceResult = null;
-        this.qualifierResult = null;
         drivers = new ArrayList<>();
         for (ITeam team : getTeams()) {
             drivers.add(team.getDriver1());
             drivers.add(team.getDriver2());
         }
         this.state = RaceState.NOT_STARTED;
+        this.qualifier = new QualifierImpl(this, getDrivers());
     }
 
     @Override
     public void nextAction() {
         if (getState() == RaceState.NOT_STARTED) {
-            startQualifier();
+            getQualifier().start();
         } else if (getState() == RaceState.QUALIFIER_FINISHED) {
             startRace();
         } else if (getState() != RaceState.QUALIFIER_STARTED && getState() != RaceState.RACE_STARTED) {
             throw new RuntimeException("Fejl");
             // TODO: Vælg den rigtige exception, evt. custom exception
         }
-    }
-
-    private void startQualifier() {
-        if (getState() != RaceState.NOT_STARTED) {
-            throw new RuntimeException("Fejl");
-            // TODO: Vælg den rigtige exception, evt. custom exception: Qualify er allerede startet / færdig
-        }
-
-        this.state = RaceState.QUALIFIER_STARTED;
-
-        HashMap<IDriver, ILap> fastestLaps = new HashMap<>();
-        Random random = new Random();
-        for (IDriver driver : getDrivers()) {
-            for (int i = 1; i <= 3; i++) { // Everyone gets 3 laps during qualifier
-                float time = random.nextFloat() * 60; // TODO: Change to actual Race algorithm time
-                if (!fastestLaps.containsKey(driver)) {
-                    fastestLaps.put(driver, new LapImpl(this, driver, i, time));
-                } else if (fastestLaps.get(driver).getTime() > time) {
-                    fastestLaps.put(driver, new LapImpl(this, driver, i, time));
-                }
-            }
-        }
-
-        ArrayList<IDriverResult> results = new ArrayList<>();
-        for (IDriver driver : fastestLaps.keySet()) {
-            ArrayList<ILap> lap = new ArrayList<>();
-            lap.add(fastestLaps.get(driver));
-            results.add(new DriverResultImpl(this, driver, lap, false));
-        }
-
-        results.sort((driver1, driver2) -> Float.compare(driver1.getTime(), driver2.getTime()));
-
-        int i = 1;
-        for (IDriverResult result : results) {
-            result.setPlacement(i);
-            i++;
-        }
-
-        this.qualifierResult = new QualifierResultImpl(results);
-
-        // TODO: Remove these print statements
-        System.out.println();
-        System.out.println(" Kvalifikation til " + getCircuit().getName());
-        System.out.println(" ===============================");
-        for (IDriverResult result : getQualifierResult().getSortedResults()) {
-            System.out.println(" " + result.getDriver().getName() + " - " + result.getLaps().get(0).getTime());
-        }
-        System.out.println(" ===============================");
-        System.out.println();
-
-        this.state = RaceState.QUALIFIER_FINISHED;
     }
 
     private void startRace() {
@@ -104,7 +53,7 @@ public class RaceImpl implements IRace {
 
         this.state = RaceState.RACE_STARTED;
 
-        ArrayList<IDriver> gridList = getQualifierResult().asQualifierResult().getGridList();
+        ArrayList<IDriver> gridList = getQualifier().getQualifierResult().asQualifierResult().getGridList();
         ArrayList<IDriverResult> results = new ArrayList<>();
         for (IDriver driver : gridList) {
             results.add(new DriverResultImpl(this, driver, new ArrayList<>(), true));
@@ -158,19 +107,30 @@ public class RaceImpl implements IRace {
 
         this.raceResult = new RaceResultImpl(results, fastestLap);
 
-        // TODO: Remove these print statements
-        System.out.println();
-        System.out.println(" Resultat til " + getCircuit().getName());
-        System.out.println(" ===============================");
-        for (IDriverResult result : getRaceResult().getSortedResults()) {
-            System.out.println(" " + result.getPlacement() + ": " + result.getDriver().getName() + " - " + result.getPoints() + " : " + result.getTime());
-        }
-        System.out.println(" ===============================");
-        System.out.println(" " + getRaceResult().asRaceResult().getFastestLap().getDriver().getName() + " satte den hurtigste runde på " + getRaceResult().asRaceResult().getFastestLap().getTime());
-        System.out.println(" ===============================");
-        System.out.println();
+        // TODO: Remove this method, only used for testing
+        printResult(raceResult);
 
         this.state = RaceState.RACE_FINISHED;
+    }
+
+    // TODO: Denne metode skal slettes når vi har UI på plads
+    private void printResult(IResult result) {
+        System.out.println();
+        System.out.println(" ===============================");
+        System.out.println(" Resultat til " + getCircuit().getName());
+        System.out.println(" ===============================");
+        for (IDriverResult res : result.getSortedResults()) {
+            System.out.println(" " + res.getPlacement() + ": " + res.getDriver().getName() + " - " + res.getPoints() + " : " + res.getTime());
+        }
+        System.out.println(" ===============================");
+        System.out.println(" " + result.asRaceResult().getFastestLap().getDriver().getName() + " satte den hurtigste runde på " + result.asRaceResult().getFastestLap().getTime());
+        System.out.println(" ===============================");
+        System.out.println();
+    }
+
+    @Override
+    public void setState(RaceState state) {
+        this.state = state;
     }
 
     @Override
@@ -189,8 +149,8 @@ public class RaceImpl implements IRace {
     }
 
     @Override
-    public IResult getQualifierResult() {
-        return this.qualifierResult;
+    public IQualifier getQualifier() {
+        return this.qualifier;
     }
 
     @Override

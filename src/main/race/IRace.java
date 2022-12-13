@@ -2,11 +2,11 @@ package main.race;
 
 import main.enums.RaceState;
 
-import java.util.ArrayList;
-
 public interface IRace {
 
     void nextAction();
+
+    void setState(RaceState state);
 
     int getYear();
 
@@ -14,7 +14,7 @@ public interface IRace {
 
     IResult getRaceResult();
 
-    IResult getQualifierResult();
+    IQualifier getQualifier();
 
     RaceState getState();
 }
