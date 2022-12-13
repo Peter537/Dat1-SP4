@@ -58,7 +58,8 @@ public class SeasonImpl implements ISeason {
 
     @Override
     public boolean hasNextAction() {
-        return getCurrentRace() != null;
+        if (getCurrentRace() == null) return false;
+        return getRaces().get(getRaces().size() - 1).getState() != RaceState.RACE_FINISHED; // if last race is done, then all should be done
     }
 
     @Override
