@@ -29,4 +29,10 @@ public interface IDriverResult {
     void setHasCrashed(boolean hasCrashed);
 
     void addLap(ILap lap);
+
+    boolean isRace();
+
+    boolean isQualifier();
+
+    void addPointsToDriver();
 }
