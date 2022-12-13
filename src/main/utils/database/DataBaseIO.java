@@ -1,4 +1,4 @@
-package main.database;
+package main.utils.database;
 
 public class DataBaseIO {
 
