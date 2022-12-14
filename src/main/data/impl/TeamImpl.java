@@ -52,13 +52,10 @@ public class TeamImpl implements ITeam {
 
     @Override
     public String toString() {
-        return "TeamImpl{" +
-                "id=" + getID() +
-                ", name='" + getName() + '\'' +
-                ", car=" + getCar() +
-                ", driver1=" + getDriver1() +
-                ", driver2=" + getDriver2() +
-                ", points=" + getPoints() +
-                '}';
+        return getName() + ":" +
+                getPoints() + " | " +
+                getDriver1().getName() + " | " +
+                getDriver2().getName() + " | " +
+                getCar().getName();
     }
 }
