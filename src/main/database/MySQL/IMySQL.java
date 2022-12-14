@@ -1,5 +1,6 @@
 package main.database.MySQL;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,5 +11,7 @@ public interface IMySQL {
     boolean closeConnection();
     ResultSet executeQuery(String query);
     boolean executeChange(PreparedStatement query);
+
+    Connection getConnection();
 
 }

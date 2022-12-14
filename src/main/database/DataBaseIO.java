@@ -4,14 +4,24 @@ import main.FormulaOne;
 import main.data.ICar;
 import main.data.IDriver;
 import main.data.ITeam;
+import main.data.IUser;
 import main.data.impl.CarImpl;
 import main.data.impl.DriverImpl;
 import main.data.impl.TeamImpl;
+import main.data.impl.UserImpl;
 import main.database.MySQL.*;
+import main.race.IDriverResult;
+import main.race.ILap;
+import main.race.IRace;
 import main.race.IRaceResult;
+import main.race.impl.DriverResultImpl;
+import main.race.impl.LapImpl;
+import main.race.impl.RaceImpl;
 import main.race.impl.RaceResultImpl;
 
 import java.io.File;
+import java.sql.Array;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -23,8 +33,12 @@ public class DataBaseIO {
     private static ArrayList<ICar> cachedCars;
     private static ArrayList<ITeam> cachedTeams;
 
-    public static void initSQL(boolean isNewSave, FormulaOne formulaOne) {
+    private static FormulaOne formulaOne;
+
+
+    public static void initSQL(boolean isNewSave, FormulaOne _formulaOne) {
         mySQL = new MySQL();
+        formulaOne = _formulaOne;
 
         boolean isConnected = false;
 
@@ -41,9 +55,52 @@ public class DataBaseIO {
 
         System.out.println("Connected to database!");
     }
-    public static void saveData() {
 
+
+    // write a method that saves all the data to the database
+    public static void saveData(FormulaOne formulaOne) {
+
+    try {
+
+        // save drivers
+        for (IDriver driver : cachedDrivers) {
+            if (cachedDrivers.contains(driver)) {
+
+               // "UPDATE def_team SET team_points = ?, myteam =  ?  WHERE team_id = ?"
+
+                PreparedStatement statement = mySQL.getConnection().prepareStatement("UPDATE def_driver SET points = ? WHERE driver_id = ?");
+                statement.setInt(1, driver.getPoints());
+                statement.setInt(2, driver.getID());
+
+                mySQL.executeChange(statement);
+            }
+        }
+        // save cars
+        for (ICar car : cachedCars) {
+
+        }
+        // save teams
+        for (ITeam team : cachedTeams) {
+            if (cachedTeams.contains(team)) {
+
+                PreparedStatement statement = mySQL.getConnection().prepareStatement(SQLStatements.setTeams());
+                statement.setInt(1, team.getPoints());
+
+                if (team.getID() == formulaOne.getSessionCache().getCurrentUser().getTeam().getID()) {
+                    statement.setInt(2, 1);
+                } else {
+                    statement.setInt(2,0);
+                }
+                statement.setInt(3, team.getID());
+
+                mySQL.executeChange(statement);
+            }
+        }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
+
     public static void newSave() {
 
     }
@@ -59,6 +116,8 @@ public class DataBaseIO {
         try {
             ResultSet rs = mySQL.executeQuery(SQLStatements.getAllDefTeamsData());
 
+
+
             while (rs.next()) {
                 int teamId = rs.getInt("team_id");
                 String teamName = rs.getString("team_name");
@@ -66,6 +125,7 @@ public class DataBaseIO {
                 int carID = rs.getInt("tc_car_id");
                 int driver1ID = rs.getInt("dt_driver1_id");
                 int driver2ID = rs.getInt("dt_driver2_id");
+                int myTeam = rs.getInt("myteam");
 
                 ICar car = null;
                 car = cachedCars.stream().filter(c -> c.getID() == carID).findFirst().orElse(null);
@@ -75,6 +135,13 @@ public class DataBaseIO {
                 driver2 = cachedDrivers.stream().filter(d -> d.getID() == driver2ID).findFirst().orElse(null);
 
                 ITeam team = new TeamImpl(teamId, teamName, car, driver1, driver2);
+
+                if (myTeam == 1) {
+                    IUser user = new UserImpl(team);
+                    formulaOne.getSessionCache().setCurrentUser(user);
+                }
+
+//                team.addPoints(teamPoints);
                 teams.add(team);
             }
         }
@@ -86,6 +153,7 @@ public class DataBaseIO {
             cachedTeams = teams;
         return teams;
     }
+
     public static ArrayList<IDriver> loadDefaultDriverData() {
         ArrayList<IDriver> drivers = new ArrayList<>();
 
@@ -113,6 +181,7 @@ public class DataBaseIO {
             cachedDrivers = drivers;
         return drivers;
     }
+
     public static ArrayList<ICar> loadDefaultCarData() {
         ArrayList<ICar> cars = new ArrayList<>();
 
@@ -139,28 +208,82 @@ public class DataBaseIO {
             cachedCars = cars;
         return cars;
     }
+
     public static ArrayList<IRaceResult> loadRaceData() {
         ArrayList<IRaceResult> raceResults = new ArrayList<>();
+        IDriver driver = null;
+        ArrayList<IDriverResult> tempResult = new ArrayList<>();
+        int tempID = -1;
+        IRace tempRace = null;
 
         try {
             ResultSet rs = mySQL.executeQuery(SQLStatements.getAllDefResults());
 
             while (rs.next()) {
-                int resultId = rs.getInt("result_id");
                 String name = rs.getString("name");
                 int id = rs.getInt("id");
+                int circuitID = rs.getInt("circuit_id");
+                int year = rs.getInt("year");
+
                 int resultDriverId = rs.getInt("result_driver_id");
+                driver = cachedDrivers.stream().filter(d -> d.getID() == resultDriverId).findFirst().orElse(null);
+
                 int placement = rs.getInt("placement");
-                float time = rs.getFloat("time");
-                int isqual = rs.getInt("isqual");
                 int crashed = rs.getInt("crashed");
+
+                if (tempID == id) {
+                    IDriverResult driverResult = loadDriverResult(driver, tempRace, id);
+                    driverResult.setPlacement(placement);
+                    driverResult.setHasCrashed(crashed == 1);
+                    tempResult.add(driverResult);
+                }
+                else {
+                    if (tempResult.size() != 0) {
+                        raceResults.add(new RaceResultImpl(tempResult, null));
+                        tempResult = new ArrayList<>();
+                    }
+
+                    tempRace = new RaceImpl(year, null, null); //TODO: Look-up in circuit and figure out how to list teams
+
+                    IDriverResult driverResult = loadDriverResult(driver, tempRace, id);
+                    driverResult.setPlacement(placement);
+                    driverResult.setHasCrashed(crashed == 1);
+                    tempResult.add(driverResult);
+                }
+
+                tempID = id;
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return raceResults;
+    }
+
+    private static IDriverResult loadDriverResult(IDriver driver, IRace race, int resultID) {
+        ArrayList<ILap> laps = loadLapData(resultID, race, driver);
+        return new DriverResultImpl(race, driver, laps, false);
+    }
+
+    private static ArrayList<ILap> loadLapData(int resultID, IRace race, IDriver driver) {
+        ArrayList<ILap> laps = new ArrayList<>();
+
+        try {
+            ResultSet rs = mySQL.executeQuery(SQLStatements.getLapByResultDriver(resultID, driver.getID()));
+
+            while (rs.next()) {
+                int lapNumber = rs.getInt("lap_number");
+                float lapTime = rs.getFloat("lap_time");
+
+                ILap lap = new LapImpl(race, driver, lapNumber, lapTime);
+                laps.add(lap);
             }
         }
         catch (Exception e) {
             e.printStackTrace();
         }
 
-        return raceResults;
+        return laps;
     }
 
     private static String getPassword() {
