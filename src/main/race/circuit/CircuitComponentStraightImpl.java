@@ -27,4 +27,24 @@ public class CircuitComponentStraightImpl implements ICircuitComponent {
     public Direction getTo() {
         return this.to;
     }
+
+    @Override
+    public boolean isCorner() {
+        return false;
+    }
+
+    @Override
+    public boolean isStraight() {
+        return true;
+    }
+
+    @Override
+    public CircuitComponentCornerImpl asCorner() {
+        throw new UnsupportedOperationException("This is a straight, not a corner");
+    }
+
+    @Override
+    public CircuitComponentStraightImpl asStraight() {
+        return this;
+    }
 }

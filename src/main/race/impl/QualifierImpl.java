@@ -75,7 +75,7 @@ public class QualifierImpl implements IQualifier {
     }
 
     private void driveLap(IDriver driver, int lapNumber) {
-        float time = getRace().getLapTime();
+        float time = getRace().getLapTime(driver);
         if (!fastestLaps.containsKey(driver)) {
             fastestLaps.put(driver, new LapImpl(getRace(), driver, lapNumber, time));
         } else if (fastestLaps.get(driver).getTime() > time) {

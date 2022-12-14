@@ -7,4 +7,12 @@ public interface ICircuitComponent {
     Direction getFrom();
 
     Direction getTo();
+
+    boolean isCorner();
+
+    boolean isStraight();
+
+    CircuitComponentCornerImpl asCorner();
+
+    CircuitComponentStraightImpl asStraight();
 }
