@@ -1,11 +1,13 @@
 package main.ui;
 
 import main.FormulaOne;
+import main.data.IDriver;
 import main.data.ITeam;
 import main.data.IUser;
 import main.database.DataBaseIO;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
@@ -25,6 +27,7 @@ public class MenuUI extends AUI {
     private JLabel driver2Text;
     private JButton changeTeamButton;
     private JLabel myTeam;
+    private JLabel driver1Text;
     private FormulaOne formulaOne;
     private IUser currentUser;
 
@@ -54,7 +57,8 @@ public class MenuUI extends AUI {
 
     public void setData(MenuUI data) {
         ArrayList<ITeam> teams = formulaOne.getSessionCache().getTeams(); //TODO: maybe change to teamleaderboard class
-        ArrayList<String> values = new ArrayList<>();
+        ArrayList<IDriver> drivers = new ArrayList<>();
+        ArrayList<String> values = new ArrayList<>(); //This can also be done with the team class...
         // Add header
         values.add("Points | Team | Driver 1 | Driver 2 | Car");
         for (ITeam team : teams) {
@@ -65,15 +69,43 @@ public class MenuUI extends AUI {
                 team.getDriver2().getName() + " | " +
                 team.getCar().getName()
             );
+            drivers.add(team.getDriver1());
+            drivers.add(team.getDriver2());
         }
-
         teamLeaderboard.setListData(values.toArray());
 
-        if (currentUser != null) {
-            myTeam.setText(currentUser.getTeam().getName());
+        ArrayList<String> driverValues = new ArrayList<>();
+        driverValues.add("Points | Driver | Team ID | Experience | Acceleration | Consistency | Cornering");
+        for (IDriver driver : drivers) {
+            driverValues.add(
+                driver.getPoints() + " | " +
+                driver.getName() + " | " +
+                driver.getTeamID() + " | " +
+                driver.getExperience() + " | " +
+                driver.getAcceleration() + " | " +
+                driver.getConsistency() + " | " +
+                driver.getCorner()
+            );
         }
+        driverLeaderboard.setListData(driverValues.toArray());
 
         if (currentUser != null) {
+            ArrayList<Font> fonts = new ArrayList<>();
+            fonts.add(new Font("Comic Sans MS", Font.BOLD, 28));
+            //Add more fonts with same size here
+            fonts.add(new Font("Arial", Font.BOLD, 28));
+            fonts.add(new Font("Times New Roman", Font.BOLD, 28));
+            fonts.add(new Font("Verdana", Font.BOLD, 28));
+            fonts.add(new Font("Tahoma", Font.BOLD, 28));
+            fonts.add(new Font("Calibri", Font.BOLD, 28));
+            int randomFont = (int) (Math.random() * fonts.size());
+
+            myTeam.setText(currentUser.getTeam().getName());
+            if (currentUser.getTeam().getName().contains("Gabe"))
+                myTeam.setFont(new Font("Comic Sans MS", Font.BOLD, 28));
+            else
+                myTeam.setFont(fonts.get(randomFont));
+            driver1Text.setText(currentUser.getTeam().getDriver1().getName());
             driver2Text.setText(currentUser.getTeam().getDriver2().getName());
         }
 
