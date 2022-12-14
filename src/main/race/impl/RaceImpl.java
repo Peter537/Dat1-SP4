@@ -99,7 +99,7 @@ public class RaceImpl implements IRace {
             if (result.hasCrashed()) {
                 continue;
             } else if (crashesThisLap(result)) {
-                System.out.println(" " + result.getDriver().getName() + " er ude af løbet"); // TODO: Remove this debug message
+                System.out.println(" " + result.getDriver().getName() + " er ude af løbet");
                 continue;
             }
 
@@ -113,7 +113,6 @@ public class RaceImpl implements IRace {
     @Override
     public float getLapTime(IDriver driver) {
         if (getCircuit().getComponents().isEmpty()) {
-            // TODO: Add actual lap time calculation
             return new Random().nextFloat() * 60;
         }
 
