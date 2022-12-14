@@ -1,9 +1,8 @@
-package main.race.impl;
+package main.race.algorithm;
 
 import main.data.ICar;
 import main.data.IDriver;
 import main.race.IRace;
-import main.race.IRaceAlgorithm;
 import main.race.circuit.ICircuitComponent;
 
 public class RaceAlgorithmStraightImpl implements IRaceAlgorithm {

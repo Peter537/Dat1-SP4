@@ -1,12 +1,9 @@
-package main.race.impl;
+package main.race.algorithm;
 
 import main.data.ICar;
 import main.data.IDriver;
 import main.race.IRace;
-import main.race.IRaceAlgorithm;
 import main.race.circuit.ICircuitComponent;
-
-import static java.lang.Math.sqrt;
 
 public class RaceAlgorithmCornerImpl implements IRaceAlgorithm {
 
@@ -25,6 +22,6 @@ public class RaceAlgorithmCornerImpl implements IRaceAlgorithm {
 		double rollResistance = car.getTraction(); // 10% roll resistance
 		int radius = circuitComponent.asCorner().getRadius(); // 100 m radius
 
-		return sqrt(rollResistance*10 * 10 * radius * (1+drag));  // v = sqrt(mu*g*r * (1+D))
+		return Math.sqrt(rollResistance*10 * 10 * radius * (1+drag));  // v = sqrt(mu*g*r * (1+D))
 	}
 }
