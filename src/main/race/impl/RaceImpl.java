@@ -116,16 +116,19 @@ public class RaceImpl implements IRace {
         IRaceAlgorithm algorithmCorner = new RaceAlgorithmCornerImpl();
         IRaceAlgorithm algorithmStraight = new RaceAlgorithmStraightImpl();
 
-        float time = 0f;
+        float totalTime = 0f;
         for (ICircuitComponent component : getCircuit().getComponents()) {
+            double currentTime;
             if (component instanceof CircuitComponentCornerImpl) { // TODO: Use interface instead of Impl (need to be created)
-                time += algorithmCorner.getTime(this, driver, car, component, driverCurrentSpeedMap.get(driver));
+                currentTime = algorithmCorner.getTime(this, driver, car, component, driverCurrentSpeedMap.get(driver));
             } else {
-                time += algorithmStraight.getTime(this, driver, car, component, driverCurrentSpeedMap.get(driver));
+                currentTime = algorithmStraight.getTime(this, driver, car, component, driverCurrentSpeedMap.get(driver));
             }
+            totalTime += currentTime;
+            System.out.println(" " + driver.getName() + " kørte " + component.getClass().getName() + " på " + currentTime + " sekunder, nu total tid " + totalTime); // TODO: Remove this debug message
         }
 
-        return time;
+        return totalTime;
     }
 
     private boolean crashesThisLap(IDriverResult result) {
