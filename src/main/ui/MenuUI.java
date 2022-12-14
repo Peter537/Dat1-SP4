@@ -101,7 +101,10 @@ public class MenuUI extends AUI {
             int randomFont = (int) (Math.random() * fonts.size());
 
             myTeam.setText(currentUser.getTeam().getName());
-            myTeam.setFont(fonts.get(randomFont));
+            if (currentUser.getTeam().getName().contains("Gabe"))
+                myTeam.setFont(new Font("Comic Sans MS", Font.BOLD, 28));
+            else
+                myTeam.setFont(fonts.get(randomFont));
             driver1Text.setText(currentUser.getTeam().getDriver1().getName());
             driver2Text.setText(currentUser.getTeam().getDriver2().getName());
         }
