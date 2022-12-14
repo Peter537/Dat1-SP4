@@ -293,12 +293,6 @@ class LapImpl implements ILap {
 ' Circuit Classes
 ' ******************
 
-class ChooseSaveGameUI extends AUI {
-
-    + accessor methods()
-
-}
-
 class CircuitComponentCornerImpl implements ICircuitComponent {
     - final int radius
     - final int angle
@@ -324,6 +318,10 @@ class CircuitComponentStraightImpl implements ICircuitComponent {
 ' UI Classes
 ' ******************
 
+class ChooseSaveGameUI extends AUI {
+    + accessor methods()
+}
+
 class ChooseTeamUI extends AUI {
     - final Object formulaOne
     - JPanel chooseTeam
@@ -336,7 +334,6 @@ class ChooseTeamUI extends AUI {
     + void getData(ChooseTeamUI data)
 
     + accessor methods()
-
 }
 
 class MenuUI extends AUI {
