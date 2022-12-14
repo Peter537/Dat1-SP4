@@ -26,6 +26,6 @@ public class RaceAlgorithmCornerImpl implements IRaceAlgorithm {
 		double rollResistance = car.getTraction(); // 10% roll resistance
 		int radius = circuitComponent.asCorner().getRadius(); // 100 m radius
 
-		return sqrt(radius * rollResistance * (1 + drag) * (mass * 10));  // v = sqrt(r * R * (1+D) * (m*10))
+		return sqrt(radius * rollResistance* 10 * (1 + drag) * (mass * 10));  // v = sqrt(r * R * (1+D) * (m*10))
 	}
 }
