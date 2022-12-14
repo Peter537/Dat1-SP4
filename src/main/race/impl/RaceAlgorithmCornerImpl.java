@@ -13,19 +13,16 @@ public class RaceAlgorithmCornerImpl implements IRaceAlgorithm {
 	private double getSpeed(ICar car, CircuitComponentCornerImpl circuitComponentCorner) {
 		double mass = car.getWeight(); // 1000 kg
 		double drag = car.getAerodynamics(); // 10% drag
-		double rollresistance = car.getTraction(); // 10% roll resistance
-
+		double rollResistance = car.getTraction(); // 10% roll resistance
 		int radius = circuitComponentCorner.getRadius(); // 100 m radius
 
-		double speed = sqrt(radius * rollresistance * (1 + drag) * (mass * 10)); // v = sqrt(r * R * (1+D) * (m*10))
-		return speed;
+		return sqrt(radius * rollResistance * (1 + drag) * (mass * 10));  // v = sqrt(r * R * (1+D) * (m*10))
 	}
 
 	private double getTime(ICar car, CircuitComponentCornerImpl circuitComponentCorner) {
 		int angle = circuitComponentCorner.getAngle(); // 90 degrees
 		int radius = circuitComponentCorner.getRadius(); // 100 m radius
 
-		double time = (angle / 360) * (2 * Math.PI * radius / getSpeed(car, circuitComponentCorner)); // t = (a / 360) * (2 * pi * r / v)
-		return time;
+		return (angle / 360.0) * (2 * Math.PI * radius / getSpeed(car, circuitComponentCorner)); // t = (a / 360) * (2 * pi * r / v)
 	}
 }
