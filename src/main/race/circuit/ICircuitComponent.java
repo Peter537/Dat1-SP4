@@ -12,7 +12,7 @@ public interface ICircuitComponent {
 
     boolean isStraight();
 
-    CircuitComponentCornerImpl asCorner();
+    ICircuitComponentCorner asCorner();
 
-    CircuitComponentStraightImpl asStraight();
+    ICircuitComponentStraight asStraight();
 }

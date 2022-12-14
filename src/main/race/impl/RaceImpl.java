@@ -5,8 +5,10 @@ import main.data.IDriver;
 import main.data.ITeam;
 import main.enums.RaceState;
 import main.race.*;
-import main.race.circuit.CircuitComponentCornerImpl;
+import main.race.algorithm.RaceAlgorithmCornerImpl;
+import main.race.algorithm.RaceAlgorithmStraightImpl;
 import main.race.circuit.ICircuitComponent;
+import main.race.circuit.ICircuitComponentCorner;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,6 +63,10 @@ public class RaceImpl implements IRace {
             // TODO: Vælg den rigtige exception, evt. custom exception: Qualify er ikke færdig
         }
 
+        for (IDriver driver : getDrivers()) {
+            driverCurrentSpeedMap.put(driver, 0.0);
+        }
+
         this.state = RaceState.RACE_STARTED;
 
         ArrayList<IDriver> gridList = getQualifier().getResult().asQualifierResult().getGridList();
@@ -113,19 +119,15 @@ public class RaceImpl implements IRace {
 
         ICar car = getDriverCarMap().get(driver);
 
-        IRaceAlgorithm algorithmCorner = new RaceAlgorithmCornerImpl();
-        IRaceAlgorithm algorithmStraight = new RaceAlgorithmStraightImpl();
-
         float totalTime = 0f;
         for (ICircuitComponent component : getCircuit().getComponents()) {
             double currentTime;
-            if (component instanceof CircuitComponentCornerImpl) { // TODO: Use interface instead of Impl (need to be created)
-                currentTime = algorithmCorner.getTime(this, driver, car, component, driverCurrentSpeedMap.get(driver));
+            if (component instanceof ICircuitComponentCorner) { // TODO: Use interface instead of Impl (need to be created)
+                currentTime = new RaceAlgorithmCornerImpl().getTime(this, driver, car, component, driverCurrentSpeedMap.get(driver));
             } else {
-                currentTime = algorithmStraight.getTime(this, driver, car, component, driverCurrentSpeedMap.get(driver));
+                currentTime = new RaceAlgorithmStraightImpl().getTime(this, driver, car, component, driverCurrentSpeedMap.get(driver));
             }
             totalTime += currentTime;
-            System.out.println(" " + driver.getName() + " kørte " + component.getClass().getName() + " på " + currentTime + " sekunder, nu total tid " + totalTime); // TODO: Remove this debug message
         }
 
         return totalTime;
@@ -151,7 +153,7 @@ public class RaceImpl implements IRace {
         int i = 1;
         for (IDriverResult result : results) {
             if (result.hasCrashed()) {
-                result.setPlacement(20);
+                result.setPlacement(21); // TODO: Find out what the placement is for a driver that has crashed
             } else {
                 result.setPlacement(i);
                 i++;
@@ -186,7 +188,7 @@ public class RaceImpl implements IRace {
         System.out.println(" Resultat til " + getCircuit().getName());
         System.out.println(" ===============================");
         for (IDriverResult res : getResult().getSortedResults()) {
-            System.out.println(" " + res.getPlacement() + ": " + res.getDriver().getName() + " - " + res.getPoints() + " : " + res.getTime());
+            System.out.println(" " + (res.getPlacement() == 21 ? "DNF" : res.getPlacement()) + ": " + res.getDriver().getName() + " - " + res.getPoints() + " : " + res.getTime());
         }
         System.out.println(" ===============================");
         System.out.println(" " + getResult().asRaceResult().getFastestLap().getDriver().getName() + " satte den hurtigste runde på " + getResult().asRaceResult().getFastestLap().getTime());

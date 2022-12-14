@@ -1,17 +1,13 @@
-package main.race.impl;
+package main.race.algorithm;
 
 import main.data.ICar;
 import main.data.IDriver;
 import main.race.IRace;
-import main.race.IRaceAlgorithm;
 import main.race.circuit.ICircuitComponent;
 
-public class RaceAlgorithmStraightImpl implements IRaceAlgorithm {
+public class RaceAlgorithmStraightImpl implements IRaceAlgorithmStraight {
 
-	double currentAcceleration; // current acceleration of the car measured in m/s^2
-	double distance = 0; // distance traveled by the car measured in m
-	double time = 0; //current time in this circuit measured in s
-	double dTime = 0.1; //time step measured in s
+	private final double dTime = 0.1; //time step measured in s
 
 	public RaceAlgorithmStraightImpl() { }
 
@@ -19,9 +15,11 @@ public class RaceAlgorithmStraightImpl implements IRaceAlgorithm {
 	public double getTime(IRace race, IDriver driver, ICar car, ICircuitComponent circuit, double currentSpeed) {
 		double maxDistance = circuit.asStraight().getLength(); //get length of circuit
 		double time = 0;
+		double distance = 0; // distance traveled by the car measured in m
 
 		while (distance <= maxDistance) {
-			currentAcceleration = getAcceleration(car, currentSpeed); //get acceleration from the car
+			// current acceleration of the car measured in m/s^2
+			double currentAcceleration = getAcceleration(car, currentSpeed); //get acceleration from the car
 			currentSpeed = getSpeed(currentSpeed, currentAcceleration); //	get speed from the car
 			distance = distance + currentSpeed * dTime; //calculate distance traveled
 			time = time + dTime; //calculate time

@@ -2,7 +2,7 @@ package main.race.circuit;
 
 import main.enums.Direction;
 
-public class CircuitComponentStraightImpl implements ICircuitComponent {
+public class CircuitComponentStraightImpl implements ICircuitComponentStraight {
 
     private final int length;
     private final Direction from;
@@ -14,6 +14,7 @@ public class CircuitComponentStraightImpl implements ICircuitComponent {
         this.to = to;
     }
 
+    @Override
     public int getLength() {
         return this.length;
     }
@@ -39,12 +40,12 @@ public class CircuitComponentStraightImpl implements ICircuitComponent {
     }
 
     @Override
-    public CircuitComponentCornerImpl asCorner() {
+    public ICircuitComponentCorner asCorner() {
         throw new UnsupportedOperationException("This is a straight, not a corner");
     }
 
     @Override
-    public CircuitComponentStraightImpl asStraight() {
+    public ICircuitComponentStraight asStraight() {
         return this;
     }
 }
