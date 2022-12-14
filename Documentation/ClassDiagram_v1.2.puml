@@ -28,10 +28,13 @@ class SessionCacheImpl implements ISessionCache {
     - final int saveID
     - final ArrayList<ISeason> seasons
     - ISeason currentSeason
+    - IUser currentUser
 
     + SessionCacheImpl(FormulaOne formulaOne, int saveID)
 
     + void setCurrentSeason(ISeason currentSeason)
+    + setCurrentUser(IUser currentUser)
+
     + accessor methods()
 }
 
@@ -45,7 +48,8 @@ class SeasonImpl implements ISeason {
 
     + SeasonImpl(int year, ArrayList<IRace> races, ArrayList<ITeam> teams)
 
-    + boolean nextAction()
+    + Action nextAction()
+    + void updateLeaderboards()
     + boolean hasNextAction()
 
     + void setCurrentRace(IRace currentRace)
@@ -59,11 +63,12 @@ class TeamImpl implements ITeam {
     - final IDriver driver1
     - final IDriver driver2
 
-    - int points
+
 
     + TeamImpl(int id, String name, ICar car, IDriver driver1, IDriver driver2)
 
-    + void addPoints(int newPoints)
+    + void getPoints()
+
     + accessor methods()
 }
 
@@ -78,6 +83,7 @@ class DriverImpl implements IDriver {
     - final int acceleration
 
     + DriverImpl(int id, String name, int teamID, int experience, int corner, int consistency, int acceleration)
+
     + void addPoints(int points)
 
     + accessor methods()
@@ -91,7 +97,7 @@ class CarImpl implements ICar {
     - final double aerodynamics
     - final double traction
 
-    + CarImpl(int id, String name)
+    + CarImpl(int id, String name, int horsePower, int weight, double aerodynamics, double traction)
 
     + accessor methods()
 }
@@ -166,29 +172,38 @@ class SQLStatements {
 ' ******************
 
 class RaceImpl implements IRace {
-    - final int id
+    - private final int year
     - final ICircuit circuit
-    - IRaceResult raceResult
-    - IRaceResult qualifierResult
+    - final ArrayList<ITeam> teams
+    - final ArrayList<IDriver> drivers
 
-    - boolean isFinished
-    - boolean isStarted
+    - IResult result
+    - RaceState state
 
-    + RaceImpl(int id, ICircuit circuit)
+    + RaceImpl(int year, ICircuit circuit, ArrayList<ITeam> teams)
 
     + void nextAction()
 
-    - void startQualifier()
     - void startRace()
+    - ILap driveLap(int lap, (ArrayList<IDriverResult> results, ILap fastestLap)
+    - float getLapTime()
+    - boolean crashesThisLap(IDriverResult result)
+    - getFastestLap(ILap fastestLap, ILap newLap)
+    - setPlacements(ArrayList<IDriverResult> results)
+    - void sortDriverResults(ArrayList<IDriverResult> results)
+    - ArrayList<IDriverResult> createDriverResults(ArrayList<IDriver> gridList)
+    - void printResult()
+    'TODO: Is the above a proper method or just for testing?
+    - void setState(RaceState state)
 
     + accessor methods()
 }
 
 class RaceResultImpl implements IRaceResult {
     - final ArrayList<IDriverResult> sortedResult
-    - final Lap fastestLap
+    - final ILap fastestLap
 
-    + RaceResultImpl(ArrayList<IDriverResult> driverResults, Lap fastestLap)
+    + RaceResultImpl(ArrayList<IDriverResult> driverResults, ILap fastestLap)
 
     + int getDriverPlacement(IDriver driver)
     + IDriverResult getDriverResult(IDriver driver)
@@ -202,6 +217,25 @@ class RaceResultImpl implements IRaceResult {
     + accessor methods()
 }
 
+class QualifierImpl implements IQualifier {
+    - final HashMap<IDriver, ILap> fastestLaps
+    - final ArrayList<IDriver> drivers
+    - final IRace race
+    - IQualifierResult result
+
+    + QualifierImpl(IRace race, ArrayList<IDriver> drivers)
+
+    + void start()
+    - void setPlacements(ArrayList<IDriverResult> results)
+    - ArrayList<IDriverResult> createDriverResults()
+    - void driveLaps(IDriver driver, int numberOfLaps)
+    - void driveLap(IDriver driver, int lapNumber)
+    - void printResult()
+
+
+
+}
+
 class QualifierResultImpl implements IQualifierResult {
     - final ArrayList<IDriverResult> sortedResult
 
@@ -209,6 +243,7 @@ class QualifierResultImpl implements IQualifierResult {
 
     + int getDriverPlacement(IDriver driver)
     + IDriverResult getDriverResult(IDriver driver)
+    + ArrayList>IDriverResult> getGridList()
 
     + boolean isQualifier()
     + boolean isRace()
@@ -222,8 +257,8 @@ class QualifierResultImpl implements IQualifierResult {
 class DriverResultImpl implements IDriverResult {
     - final IRace race
     - final IDriver driver
-    - final ArrayList<Lap> laps
-
+    - final ArrayList<ILap> laps
+    - final boolean isRace
     - float time
     - boolean hasCrashed
 
@@ -231,7 +266,14 @@ class DriverResultImpl implements IDriverResult {
     - int points
     - boolean hasFastestLap
 
-    + DriverResult(IRace race, IDriver driver)
+    + DriverResultImpl(IRace race, IDriver driver, ArrayList<Ilap> laps, boolean isRace)
+
+    + void setPlacement(int placement)
+    + void setHasFastestLap(boolean hasFastestLap)
+    + void setHasCrashed(boolean hasCrashed)
+    + void addLap(ILap lap)
+    + void addPointsToDriver(int points)
+
 
     + accessor methods()
 }
@@ -239,9 +281,10 @@ class DriverResultImpl implements IDriverResult {
 class LapImpl implements ILap {
     - final IRace race
     - final IDriver driver
+    - final int lapNumber
     - final float time
 
-    + Lap(IRace race, IDriver driver, float time)
+    + Lap(IRace race, IDriver driver, int lapNumber, float time)
 
     + accessor methods()
 }
@@ -253,16 +296,20 @@ class LapImpl implements ILap {
 class CircuitComponentCornerImpl implements ICircuitComponent {
     - final int radius
     - final int angle
+    - final Direction from
+    - final Direction to
 
-    + CircuitComponentCornerImpl(int radius, int angle)
+    + CircuitComponentCornerImpl(int radius, int angle, Direction from, Direction to)
 
     + accessor methods()
 }
 
 class CircuitComponentStraightImpl implements ICircuitComponent {
     - final int length
+    - final Direction from
+    - final Direction to
 
-    + CircuitComponentStraightImpl(int length)
+    + CircuitComponentStraightImpl(int length, Direction from, Direction to)
 
     + accessor methods()
 }
@@ -296,8 +343,6 @@ abstract class AUI implements IUI {
 ' ******************
 
 interface ITeam {
-    + void addPoints(int points)
-
     + accessor methods()
 }
 
@@ -312,18 +357,24 @@ interface ICar {
 }
 
 interface ISessionCache {
+    + void setCurrentSeason(ISeason currentSeason)
+    + void setCurrentUser(IUser user)
+
     + accessor methods()
 }
 
 interface ISeason {
-    + boolean nextAction()
+    + Action nextAction()
+    + void updateLeaderboards()
     + boolean hasNextAction()
+    + void setCurrentRace(IRace currentRace)
 
     + accessor methods()
 }
 
 interface IRace {
     + void nextAction()
+    + void setState(RaceState state)
 
     + accessor methods()
 }
@@ -350,20 +401,26 @@ interface IResult {
 }
 
 interface IRaceResult extends IResult {
-    + int getDriverPlacement(IDriver driver)
-    + IDriverResult getDriverResult(IDriver driver)
+    + ILap getFastestLap()
+}
+
+interface IQualifier {
+    + void start()
 
     + accessor methods()
 }
 
 interface IQualifierResult extends IResult {
-    + int getDriverPlacement(IDriver driver)
-    + IDriverResult getDriverResult(IDriver driver)
-
-    + accessor methods()
+    + ArrayList<IDriver> getGridList()
 }
 
 interface IDriverResult {
+    + void setPlacements(int placement)
+    + void setHasFastestLap(boolean hasFastestLap)
+    + void setHasCrashed(boolean hasCrashed)
+    + void addLap(ILap lap)
+    + void addPointsToDriver()
+
     + accessor methods()
 }
 
@@ -373,15 +430,15 @@ interface ILap {
 
 interface IDriverLeaderboard {
     + void update()
-    + int getIndex(IDriver driver)
-    + IDriver getByIndex(int index)
+    + int getPlacement(IDriver driver)
+    + IDriver getByPlacement(int placement))
     + ArrayList<IDriver> getLeaderboard()
 }
 
 interface ITeamLeaderboard {
     + void update()
-    + int getIndex(ITeam team)
-    + ITeam getByIndex(int index)
+    + int getPlacement(ITeam team)
+    + ITeam getByPlacement(int placement))
     + ArrayList<ITeam> getLeaderboard()
 }
 
@@ -424,7 +481,7 @@ SeasonImpl --> IDriverLeaderboard
 
 RaceImpl --> ICircuit
 RaceImpl --> IResult
-
+RaceImpl --> IQualifier
 RaceResultImpl --> IDriverResult
 QualifierResultImpl --> IDriverResult
 DriverImpl --> IDriverResult
