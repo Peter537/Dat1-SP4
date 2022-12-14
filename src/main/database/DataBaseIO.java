@@ -46,6 +46,7 @@ public class DataBaseIO {
 
         try {
             isConnected = mySQL.openConnection("localhost", DatabaseName, "root", getPassword());
+            DataBaseIO.loadDefaultTeamData();
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -58,7 +59,7 @@ public class DataBaseIO {
 
 
     // write a method that saves all the data to the database
-    public static void saveData(FormulaOne formulaOne) {
+    public static void saveData() {
 
     try {
 
