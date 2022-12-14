@@ -42,7 +42,7 @@ public class TestRaceCircuitFunction {
 
         // create 10 teams in total
         for (int i = 1; i <= 10; i++) {
-            ICar car = new CarImpl(i, "car" + i,(int)r.nextGaussian(1000, 100), (int)r.nextGaussian(1000, 100), r.nextGaussian(0.1,0.1), r.nextGaussian(0.1,0.1));
+            ICar car = new CarImpl(i, "car" + i, r.nextInt(50) + 1000, r.nextInt(50) + 1000, r.nextDouble(0.1) + 0.1, r.nextDouble(0.1) + 0.1);
             IDriver driver1 = new DriverImpl(i * 2 - 1, "driver" + (i * 2 - 1), i, 1, 1, 1, 1);
             IDriver driver2 = new DriverImpl(i * 2, "driver" + (i * 2), i, 1, 1, 1, 1);
             teams.add(new TeamImpl(i, "team" + i, car, driver1, driver2));
