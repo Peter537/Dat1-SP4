@@ -31,9 +31,9 @@ public class QualifierImpl implements IQualifier {
 
         getRace().setState(RaceState.QUALIFIER_STARTED);
 
-        int qualifierLaps = 3;
+        int numberOfQualifyingLaps = 3;
         for (IDriver driver : getDrivers()) {
-            driveLaps(driver, qualifierLaps);
+            driveLaps(driver, numberOfQualifyingLaps);
         }
 
         ArrayList<IDriverResult> results = createDriverResults();
