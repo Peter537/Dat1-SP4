@@ -193,8 +193,7 @@ class RaceImpl implements IRace {
     - void sortDriverResults(ArrayList<IDriverResult> results)
     - ArrayList<IDriverResult> createDriverResults(ArrayList<IDriver> gridList)
     - void printResult()
-    'TODO: Is the above a proper method or just for testing?
-    - void setState(RaceState state)
+    + void setState(RaceState state)
 
     + accessor methods()
 }
