@@ -99,7 +99,7 @@ public class RaceImpl implements IRace {
             if (result.hasCrashed()) {
                 continue;
             } else if (crashesThisLap(result)) {
-                System.out.println(" " + result.getDriver().getName() + " er ude af løbet"); // TODO: Remove this debug message
+                System.out.println(" " + result.getDriver().getName() + " er ude af løbet");
                 continue;
             }
 
@@ -113,7 +113,6 @@ public class RaceImpl implements IRace {
     @Override
     public float getLapTime(IDriver driver) {
         if (getCircuit().getComponents().isEmpty()) {
-            // TODO: Add actual lap time calculation
             return new Random().nextFloat() * 60;
         }
 
@@ -122,7 +121,7 @@ public class RaceImpl implements IRace {
         float totalTime = 0f;
         for (ICircuitComponent component : getCircuit().getComponents()) {
             double currentTime;
-            if (component instanceof ICircuitComponentCorner) { // TODO: Use interface instead of Impl (need to be created)
+            if (component instanceof ICircuitComponentCorner) {
                 currentTime = new RaceAlgorithmCornerImpl().getTime(this, driver, car, component, driverCurrentSpeedMap.get(driver));
             } else {
                 currentTime = new RaceAlgorithmStraightImpl().getTime(this, driver, car, component, driverCurrentSpeedMap.get(driver));
