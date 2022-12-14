@@ -62,6 +62,8 @@ public class TestRaceCircuitFunction {
         components.add(new CircuitComponentStraightImpl(1000, Direction.DOWN, Direction.UP));
         components.add(new CircuitComponentCornerImpl(100,90, Direction.UP, Direction.RIGHT));
 
+        //components.add(new CircuitComponentStraightImpl(80000, Direction.LEFT, Direction.RIGHT));
+
         return new CircuitImpl(2022, "Circuit1", "Country1", 58, components);
     }
 }
