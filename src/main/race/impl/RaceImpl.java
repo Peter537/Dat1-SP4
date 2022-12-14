@@ -14,7 +14,6 @@ import java.util.Random;
 
 public class RaceImpl implements IRace {
 
-    private final Random random = new Random();
     private final int year;
     private final ICircuit circuit;
     private final ArrayList<ITeam> teams;
@@ -109,7 +108,7 @@ public class RaceImpl implements IRace {
     public float getLapTime(IDriver driver) {
         if (getCircuit().getComponents().isEmpty()) {
             // TODO: Add actual lap time calculation
-            return random.nextFloat() * 60;
+            return new Random().nextFloat() * 60;
         }
 
         ICar car = getDriverCarMap().get(driver);
@@ -131,7 +130,7 @@ public class RaceImpl implements IRace {
 
     private boolean crashesThisLap(IDriverResult result) {
         // TODO: Add the actual crash algorithm
-        if (random.nextDouble() < 0.0018) {
+        if (new Random().nextDouble() < 0.0018) {
             result.setHasCrashed(true);
             return true;
         }
