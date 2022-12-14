@@ -81,7 +81,7 @@ public class RaceImpl implements IRace {
         setPlacements(results);
 
         for (IDriverResult result : results) {
-            result.setHasFastestLap(fastestLap != null && fastestLap.getDriver().equals(result.getDriver()));
+            result.setFastestLapStatus(fastestLap != null && fastestLap.getDriver().equals(result.getDriver()));
             result.addPointsToDriver();
         }
 
@@ -136,7 +136,7 @@ public class RaceImpl implements IRace {
     private boolean crashesThisLap(IDriverResult result) {
         // TODO: Add the actual crash algorithm
         if (new Random().nextDouble() < 0.0018) {
-            result.setHasCrashed(true);
+            result.setCrashStatus(true);
             return true;
         }
         return false;

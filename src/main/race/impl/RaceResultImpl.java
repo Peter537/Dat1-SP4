@@ -13,8 +13,8 @@ public class RaceResultImpl implements IRaceResult {
 
     public RaceResultImpl(ArrayList<IDriverResult> driverResults, ILap fastestLap) {
         this.sortedResults = driverResults;
-        this.sortedResults.sort(Comparator.comparingInt(IDriverResult::getPlacement));
         this.fastestLap = fastestLap;
+        this.sortedResults.sort(Comparator.comparingInt(IDriverResult::getPlacement));
     }
 
     @Override
