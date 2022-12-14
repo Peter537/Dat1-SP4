@@ -6,8 +6,11 @@ import main.data.ITeam;
 import main.data.impl.CarImpl;
 import main.data.impl.DriverImpl;
 import main.data.impl.TeamImpl;
+import main.enums.Direction;
 import main.race.ICircuit;
 import main.race.IRace;
+import main.race.circuit.CircuitComponentCornerImpl;
+import main.race.circuit.CircuitComponentStraightImpl;
 import main.race.circuit.ICircuitComponent;
 import main.race.impl.CircuitImpl;
 import main.race.impl.RaceImpl;
@@ -48,7 +51,15 @@ public class TestRaceCircuitFunction {
 
     public ICircuit getCircuit() {
         ArrayList<ICircuitComponent> components = new ArrayList<>();
-        
+        components.add(new CircuitComponentStraightImpl(1000, Direction.LEFT, Direction.RIGHT));
+        components.add(new CircuitComponentCornerImpl(100, 90, Direction.RIGHT, Direction.DOWN));
+        components.add(new CircuitComponentStraightImpl(1000, Direction.UP, Direction.DOWN));
+        components.add(new CircuitComponentCornerImpl(100,90, Direction.DOWN, Direction.LEFT));
+        components.add(new CircuitComponentStraightImpl(1000, Direction.RIGHT, Direction.LEFT));
+        components.add(new CircuitComponentCornerImpl(100, 90, Direction.LEFT, Direction.UP));
+        components.add(new CircuitComponentStraightImpl(1000, Direction.DOWN, Direction.UP));
+        components.add(new CircuitComponentCornerImpl(100,90, Direction.UP, Direction.RIGHT));
+
         return new CircuitImpl(2022, "Circuit1", "Country1", 58, components);
     }
 }
