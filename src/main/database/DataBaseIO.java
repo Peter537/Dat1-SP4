@@ -58,7 +58,7 @@ public class DataBaseIO {
 
 
     // write a method that saves all the data to the database
-    public static void saveData(FormulaOne formulaOne) {
+    public static void saveData() {
 
     try {
 
