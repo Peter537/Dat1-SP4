@@ -144,7 +144,7 @@ public class RaceImpl implements IRace {
     private ArrayList<IDriverResult> createDriverResults(ArrayList<IDriver> gridList) {
         ArrayList<IDriverResult> results = new ArrayList<>();
         for (IDriver driver : gridList) {
-            results.add(new DriverResultImpl(this, driver, new ArrayList<>(), false));
+            results.add(new DriverResultImpl(this, driver, new ArrayList<>(), true));
         }
         return results;
     }
