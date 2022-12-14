@@ -9,7 +9,7 @@ import main.data.impl.CarImpl;
 import main.data.impl.DriverImpl;
 import main.data.impl.TeamImpl;
 import main.data.impl.UserImpl;
-import main.database.MySQL.*;
+import main.database.mysql.*;
 import main.race.IDriverResult;
 import main.race.ILap;
 import main.race.IRace;
@@ -20,7 +20,6 @@ import main.race.impl.RaceImpl;
 import main.race.impl.RaceResultImpl;
 
 import java.io.File;
-import java.sql.Array;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;

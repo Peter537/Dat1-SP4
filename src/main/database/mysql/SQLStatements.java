@@ -1,4 +1,4 @@
-package main.database.MySQL;
+package main.database.mysql;
 
 public class SQLStatements {
     public static String getAllDefCars() {
