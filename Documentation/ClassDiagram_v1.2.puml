@@ -319,15 +319,51 @@ class CircuitComponentStraightImpl implements ICircuitComponent {
 ' ******************
 
 class ChooseSaveGameUI extends AUI {
-    ' TODO: Når de laves
+    + accessor methods()
+}
+
+class ChooseTeamUI extends AUI {
+    - final Object formulaOne
+    - JPanel chooseTeam
+    - JList teamList
+    - JScrollPane scrollPane
+    - JLabel title
+
+    + ChooseTeamUI(FormulaOne formulaOne)
+    + void setData(ChooseTeamUI data)
+    + void getData(ChooseTeamUI data)
+
+    + accessor methods()
 }
 
 class MenuUI extends AUI {
-    ' TODO: Når de laves
+    - JTabbedPane tabbedPane
+    - JPanel MenuPanel;
+    - JList driverLeaderboard;
+    - JList teamLeaderboard;
+    - JLabel teamLeadTitle;
+    - JScrollPane teamLeadScroll;
+    - JScrollPane driverLeadScroll;
+    - JLabel driverLeadTitle;
+    - JPanel MyTeam;
+    - JTabbedPane tabbedPane2;
+    - JLabel carpng1;
+    - JLabel driver2Text;
+    - JButton button1;
+    - FormulaOne formulaOne;
+    - IUser currentUser;
+
+    + MenuUI(FormulaOne formulaOne)
+    + void setData(MenuUI data)
+    + void getData(MenuUI data)
+    + void updatePane(IUI ui)
+    + boolean isModified(MenuUI data)
+
+    +accessor methods()
 }
 
 class CircuitUI extends AUI {
-    ' TODO: Når de laves
+    + accessor methods()
 }
 
 ' ******************
@@ -335,7 +371,10 @@ class CircuitUI extends AUI {
 ' ******************
 
 abstract class AUI implements IUI {
-    ' TODO: Når de laves
+    + AUI()
+
+    + void updatePane(IUI ui)
+    + accessor methods()
 }
 
 ' ******************
@@ -443,7 +482,9 @@ interface ITeamLeaderboard {
 }
 
 interface IUI {
-    ' TODO: Når de laves
+    + void updatePane(IUI ui)
+    + accessor methods()
+
 }
 
 ' ******************

@@ -33,7 +33,10 @@ public class ChooseTeamUI extends AUI {
                 ITeam selectedItem = (ITeam) teamList.getSelectedValue();
                 JOptionPane.showMessageDialog(null, "You selected: " + selectedItem.getName());
                 System.out.println(selectedItem.getName());
-                formulaOne.getSessionCache().setCurrentUser(new UserImpl(selectedItem));
+                if (formulaOne.getSessionCache().getCurrentUser() == null)
+                    formulaOne.getSessionCache().setCurrentUser(new UserImpl(selectedItem));
+                else
+                    formulaOne.getSessionCache().getCurrentUser().setTeam(selectedItem);
                 IUI menu = new MenuUI(formulaOne);
                 menu.updatePane(menu);
             }

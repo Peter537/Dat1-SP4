@@ -5,7 +5,7 @@ import main.data.IUser;
 
 public class UserImpl implements IUser {
 
-    private final ITeam team;
+    private ITeam team;
 
     public UserImpl(ITeam team) {
         this.team = team;
@@ -13,5 +13,9 @@ public class UserImpl implements IUser {
 
     public ITeam getTeam() {
         return team;
+    }
+
+    public void setTeam(ITeam team) {
+        this.team = team;
     }
 }
