@@ -1,11 +1,15 @@
 package main.race.impl;
 
+import main.data.ICar;
 import main.data.IDriver;
 import main.data.ITeam;
 import main.enums.RaceState;
 import main.race.*;
+import main.race.circuit.CircuitComponentCornerImpl;
+import main.race.circuit.ICircuitComponent;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 public class RaceImpl implements IRace {
@@ -16,6 +20,8 @@ public class RaceImpl implements IRace {
     private final ArrayList<ITeam> teams;
     private final ArrayList<IDriver> drivers;
     private final IQualifier qualifier;
+    private final HashMap<IDriver, ICar> driverCarMap = new HashMap<>();
+    private final HashMap<IDriver, Double> driverCurrentSpeedMap = new HashMap<>();
 
     private IResult result;
     private RaceState state;
@@ -29,6 +35,10 @@ public class RaceImpl implements IRace {
         for (ITeam team : getTeams()) {
             drivers.add(team.getDriver1());
             drivers.add(team.getDriver2());
+            driverCarMap.put(team.getDriver1(), team.getCar());
+            driverCarMap.put(team.getDriver2(), team.getCar());
+            driverCurrentSpeedMap.put(team.getDriver1(), 0.0);
+            driverCurrentSpeedMap.put(team.getDriver2(), 0.0);
         }
         this.state = RaceState.NOT_STARTED;
         this.qualifier = new QualifierImpl(this, getDrivers());
@@ -88,7 +98,7 @@ public class RaceImpl implements IRace {
                 continue;
             }
 
-            ILap l = new LapImpl(this, result.getDriver(), lap, getLapTime());
+            ILap l = new LapImpl(this, result.getDriver(), lap, getLapTime(result.getDriver()));
             result.addLap(l);
             fastestLap = getFastestLap(fastestLap, l);
         }
@@ -96,9 +106,27 @@ public class RaceImpl implements IRace {
     }
 
     @Override
-    public float getLapTime() {
-        // TODO: Add actual lap time calculation
-        return random.nextFloat() * 60;
+    public float getLapTime(IDriver driver) {
+        if (getCircuit().getComponents().isEmpty()) {
+            // TODO: Add actual lap time calculation
+            return random.nextFloat() * 60;
+        }
+
+        ICar car = getDriverCarMap().get(driver);
+
+        IRaceAlgorithm algorithmCorner = new RaceAlgorithmCornerImpl();
+        IRaceAlgorithm algorithmStraight = new RaceAlgorithmStraightImpl();
+
+        float time = 0f;
+        for (ICircuitComponent component : getCircuit().getComponents()) {
+            if (component instanceof CircuitComponentCornerImpl) { // TODO: Use interface instead of Impl (need to be created)
+                time += algorithmCorner.getTime(this, driver, car, component, driverCurrentSpeedMap.get(driver));
+            } else {
+                time += algorithmStraight.getTime(this, driver, car, component, driverCurrentSpeedMap.get(driver));
+            }
+        }
+
+        return time;
     }
 
     private boolean crashesThisLap(IDriverResult result) {
@@ -194,11 +222,20 @@ public class RaceImpl implements IRace {
         return this.state;
     }
 
+    @Override
+    public void setNewSpeed(IDriver driver, double speed) {
+        driverCurrentSpeedMap.put(driver, speed);
+    }
+
     private ArrayList<ITeam> getTeams() {
         return this.teams;
     }
 
     private ArrayList<IDriver> getDrivers() {
         return this.drivers;
+    }
+
+    private HashMap<IDriver, ICar> getDriverCarMap() {
+        return this.driverCarMap;
     }
 }
