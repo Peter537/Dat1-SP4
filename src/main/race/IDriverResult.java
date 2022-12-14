@@ -24,7 +24,7 @@ public interface IDriverResult {
 
     void setPlacement(int placement);
 
-    void setHasFastestLap(boolean hasFastestLap);
+    void setFastestLapStatus(boolean fastestLapStatus);
 
     void setCrashStatus(boolean hasCrashed);
 

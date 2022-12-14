@@ -81,7 +81,7 @@ public class RaceImpl implements IRace {
         setPlacements(results);
 
         for (IDriverResult result : results) {
-            result.setHasFastestLap(fastestLap != null && fastestLap.getDriver().equals(result.getDriver()));
+            result.setFastestLapStatus(fastestLap != null && fastestLap.getDriver().equals(result.getDriver()));
             result.addPointsToDriver();
         }
 
