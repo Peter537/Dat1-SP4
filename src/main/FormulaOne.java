@@ -40,14 +40,14 @@ public class FormulaOne {
     private void initUI() {
         page = new JFrame("Formula One");
         page.setMinimumSize(new Dimension(750, 750));
-//        page.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        page.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         page.addWindowListener(new WindowAdapter()
         {
             @Override
             public void windowClosing(WindowEvent e)
             {
                 System.out.println("Saving data...");
-                DataBaseIO.saveData();
+                doClose();
                 System.out.println("Data saved!");
                 e.getWindow().dispose();
             }
@@ -56,6 +56,13 @@ public class FormulaOne {
         page.setVisible(true);
         IUI menu = new MenuUI(this);
         menu.updatePane(menu);
+    }
+
+    private void doClose() {
+        System.out.println("Saving data...");
+        DataBaseIO.saveData(this);
+        System.out.println("Data saved!");
+        System.exit(0);
     }
 
     public ISessionCache getSessionCache() {

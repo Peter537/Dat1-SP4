@@ -57,10 +57,11 @@ public class DataBaseIO {
         System.out.println("Connected to database!");
     }
 
-
+    public static void saveNewTeam(FormulaOne formulaOne) {
+        System.out.println(formulaOne.getSessionCache().getCurrentUser().getTeam());
+    }
     // write a method that saves all the data to the database
-    public static void saveData() {
-
+    public static void saveData(FormulaOne formulaOne) {
     try {
 
         // save drivers
