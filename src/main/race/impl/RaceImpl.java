@@ -153,7 +153,7 @@ public class RaceImpl implements IRace {
         int i = 1;
         for (IDriverResult result : results) {
             if (result.hasCrashed()) {
-                result.setPlacement(20);
+                result.setPlacement(21); // TODO: Find out what the placement is for a driver that has crashed
             } else {
                 result.setPlacement(i);
                 i++;
@@ -188,7 +188,7 @@ public class RaceImpl implements IRace {
         System.out.println(" Resultat til " + getCircuit().getName());
         System.out.println(" ===============================");
         for (IDriverResult res : getResult().getSortedResults()) {
-            System.out.println(" " + res.getPlacement() + ": " + res.getDriver().getName() + " - " + res.getPoints() + " : " + res.getTime());
+            System.out.println(" " + (res.getPlacement() == 21 ? "DNF" : res.getPlacement()) + ": " + res.getDriver().getName() + " - " + res.getPoints() + " : " + res.getTime());
         }
         System.out.println(" ===============================");
         System.out.println(" " + getResult().asRaceResult().getFastestLap().getDriver().getName() + " satte den hurtigste runde på " + getResult().asRaceResult().getFastestLap().getTime());
