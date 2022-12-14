@@ -16,6 +16,10 @@ public interface ISessionCache {
 
     void setCurrentSeason(ISeason season);
 
+    ArrayList<ITeam> getTeams();
+
+    void setTeams(ArrayList<ITeam> teams);
+
     IUser getCurrentUser();
 
     void setCurrentUser(IUser user);

@@ -6,10 +6,7 @@ import main.data.IUser;
 import main.database.DataBaseIO;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 
 public class MenuUI extends AUI {
@@ -49,13 +46,14 @@ public class MenuUI extends AUI {
 
         if (formulaOne.getSessionCache().getCurrentUser() != null) {
             currentUser = formulaOne.getSessionCache().getCurrentUser();
+            formulaOne.getSessionCache().setCurrentUser(currentUser);
         }
 
         setData(this);
     }
 
     public void setData(MenuUI data) {
-        ArrayList<ITeam> teams = DataBaseIO.loadDefaultTeamData(); //TODO: maybe change to teamleaderboard class
+        ArrayList<ITeam> teams = formulaOne.getSessionCache().getTeams(); //TODO: maybe change to teamleaderboard class
         ArrayList<String> values = new ArrayList<>();
         // Add header
         values.add("Points | Team | Driver 1 | Driver 2 | Car");
@@ -79,11 +77,9 @@ public class MenuUI extends AUI {
             driver2Text.setText(currentUser.getTeam().getDriver2().getName());
         }
 
-        ActionListener actionListener = new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                IUI chooseTeam = new ChooseTeamUI(formulaOne);
-                chooseTeam.updatePane(chooseTeam);
-            }
+        ActionListener actionListener = event -> {
+            IUI chooseTeam = new ChooseTeamUI(formulaOne);
+            chooseTeam.updatePane(chooseTeam);
         };
         changeTeamButton.addActionListener(actionListener);
     }

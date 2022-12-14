@@ -1,5 +1,7 @@
 package main.data;
 
+import java.util.ArrayList;
+
 public interface ITeam {
 
     int getPoints();

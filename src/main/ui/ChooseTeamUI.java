@@ -12,7 +12,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class ChooseTeamUI extends AUI {
-    private final Object formulaOne;
+    private final FormulaOne formulaOne;
     private JPanel ChooseTeam;
     private JList teamList;
     private JScrollPane scrollPane;
@@ -33,10 +33,8 @@ public class ChooseTeamUI extends AUI {
                 ITeam selectedItem = (ITeam) teamList.getSelectedValue();
                 JOptionPane.showMessageDialog(null, "You selected: " + selectedItem.getName());
                 System.out.println(selectedItem.getName());
-                if (formulaOne.getSessionCache().getCurrentUser() == null)
-                    formulaOne.getSessionCache().setCurrentUser(new UserImpl(selectedItem));
-                else
-                    formulaOne.getSessionCache().getCurrentUser().setTeam(selectedItem);
+                formulaOne.getSessionCache().getCurrentUser().setTeam(selectedItem);
+
                 IUI menu = new MenuUI(formulaOne);
                 menu.updatePane(menu);
             }
