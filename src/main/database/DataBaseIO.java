@@ -60,7 +60,7 @@ public class DataBaseIO {
         System.out.println(formulaOne.getSessionCache().getCurrentUser().getTeam());
     }
     // write a method that saves all the data to the database
-    public static void saveData(FormulaOne formulaOne) {
+    public static void saveData() {
     try {
 
         // save drivers
@@ -138,8 +138,8 @@ public class DataBaseIO {
                 ITeam team = new TeamImpl(teamId, teamName, car, driver1, driver2);
 
                 if (myTeam == 1) {
-                    IUser user = new UserImpl(team);
-                    formulaOne.getSessionCache().setCurrentUser(user);
+//                    IUser user = new UserImpl(team);
+                    formulaOne.getSessionCache().getCurrentUser().setTeam(team);
                 }
 
 //                team.addPoints(teamPoints);

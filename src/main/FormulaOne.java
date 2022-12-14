@@ -2,6 +2,7 @@ package main;
 
 import main.data.ISessionCache;
 import main.data.impl.SessionCacheImpl;
+import main.data.impl.UserImpl;
 import main.database.DataBaseIO;
 import main.ui.*;
 
@@ -20,11 +21,13 @@ public class FormulaOne {
 
     public FormulaOne() {
         this.sessionCache = new SessionCacheImpl(this, 1);
+        this.sessionCache.setCurrentUser(new UserImpl(null));
         loadDB();
     }
 
     private void loadDB() {
         DataBaseIO.initSQL(true, this); //TODO: Make 'isNewSave' variable
+        this.sessionCache.setTeams(DataBaseIO.loadDefaultTeamData());
     }
 
     public void run() {
@@ -47,8 +50,10 @@ public class FormulaOne {
             public void windowClosing(WindowEvent e)
             {
                 System.out.println("Saving data...");
-                doClose();
+                DataBaseIO.saveData();
                 System.out.println("Data saved!");
+                System.exit(0);
+                System.exit(0);
                 e.getWindow().dispose();
             }
         });
@@ -59,10 +64,7 @@ public class FormulaOne {
     }
 
     private void doClose() {
-        System.out.println("Saving data...");
-        DataBaseIO.saveData(this);
-        System.out.println("Data saved!");
-        System.exit(0);
+
     }
 
     public ISessionCache getSessionCache() {
