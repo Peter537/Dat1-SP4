@@ -85,7 +85,7 @@ public class MenuUI extends AUI {
         ArrayList<IDriver> drivers = new ArrayList<>();
         ArrayList<String> values = new ArrayList<>(); //This can also be done with the team class...
         // Add header
-        values.add("Points | Team | Driver 1 | Driver 2 | Car");
+//        values.add("Points | Team | Driver 1 | Driver 2 | Car");
         for (ITeam team : teams) {
             values.add(
                     team.getPoints() + " | " +
@@ -100,7 +100,7 @@ public class MenuUI extends AUI {
         teamLeaderboard.setListData(values.toArray());
 
         ArrayList<String> driverValues = new ArrayList<>();
-        driverValues.add("Points | Driver | Team ID | Experience | Acceleration | Consistency | Cornering");
+//        driverValues.add("Points | Driver | Team ID | Experience | Acceleration | Consistency | Cornering");
         for (IDriver driver : drivers) {
             driverValues.add(
                     driver.getPoints() + " | " +
