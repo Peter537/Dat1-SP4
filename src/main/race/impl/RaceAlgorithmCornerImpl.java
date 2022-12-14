@@ -21,11 +21,10 @@ public class RaceAlgorithmCornerImpl implements IRaceAlgorithm {
 	}
 
 	private double getSpeed(ICar car, ICircuitComponent circuitComponent) {
-		double mass = car.getWeight(); // 1000 kg
 		double drag = car.getAerodynamics(); // 10% drag
 		double rollResistance = car.getTraction(); // 10% roll resistance
 		int radius = circuitComponent.asCorner().getRadius(); // 100 m radius
 
-		return sqrt(rollResistance*10 * 10 * radius * ((mass+mass*drag)/(mass)));  // v = sqrt(mu*g*r * ((m+m*drag)/(m)))
+		return sqrt(rollResistance*10 * 10 * radius * (1+drag));  // v = sqrt(mu*g*r * (1+D))
 	}
 }
