@@ -46,6 +46,7 @@ public class DataBaseIO {
 
         try {
             isConnected = mySQL.openConnection("localhost", DatabaseName, "root", getPassword());
+            DataBaseIO.loadDefaultTeamData();
         }
         catch (Exception e) {
             e.printStackTrace();
