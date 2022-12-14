@@ -8,6 +8,7 @@ import main.data.impl.DriverImpl;
 import main.data.impl.TeamImpl;
 import main.race.ICircuit;
 import main.race.IRace;
+import main.race.circuit.ICircuitComponent;
 import main.race.impl.CircuitImpl;
 import main.race.impl.RaceImpl;
 
@@ -46,6 +47,8 @@ public class TestRaceCircuitFunction {
     }
 
     public ICircuit getCircuit() {
-        return new CircuitImpl(2022, "Circuit1", "Country1", 58, null);
+        ArrayList<ICircuitComponent> components = new ArrayList<>();
+        
+        return new CircuitImpl(2022, "Circuit1", "Country1", 58, components);
     }
 }
