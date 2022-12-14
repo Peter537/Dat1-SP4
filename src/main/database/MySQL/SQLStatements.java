@@ -22,10 +22,19 @@ public class SQLStatements {
     }
 
     public static String getAllDefResults() {
-        return "SELECT * FROM results";
+        return "SELECT * FROM result";
     }
 
     public static String getDriverAndResultDescending() {
         return "SELECT r.*, d.* FROM def_result r JOIN def_driver d ON r.result_driver_id = d.driver_id";
+    }
+
+    public static String setTeams() {
+        return "UPDATE def_team SET team_points = ?, myteam =  ?  WHERE team_id = ?";
+    }
+
+
+    public static String getLapByResultDriver(int resultID, int driverID) {
+        return "SELECT * FROM def_lap WHERE lap_result_id = " + resultID + " AND lap_driver_id = " + driverID;
     }
 }
