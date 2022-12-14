@@ -1,5 +1,6 @@
 package main.race;
 
+import main.data.IDriver;
 import main.enums.RaceState;
 
 public interface IRace {
@@ -8,7 +9,9 @@ public interface IRace {
 
     void setState(RaceState state);
 
-    float getLapTime();
+    float getLapTime(IDriver driver);
+
+    void setNewSpeed(IDriver driver, double speed);
 
     int getYear();
 
