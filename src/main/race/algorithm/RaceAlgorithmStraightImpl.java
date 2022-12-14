@@ -5,7 +5,7 @@ import main.data.IDriver;
 import main.race.IRace;
 import main.race.circuit.ICircuitComponent;
 
-public class RaceAlgorithmStraightImpl implements IRaceAlgorithm {
+public class RaceAlgorithmStraightImpl implements IRaceAlgorithmStraight {
 
 	private final double dTime = 0.1; //time step measured in s
 

@@ -5,7 +5,7 @@ import main.data.IDriver;
 import main.race.IRace;
 import main.race.circuit.ICircuitComponent;
 
-public class RaceAlgorithmCornerImpl implements IRaceAlgorithm {
+public class RaceAlgorithmCornerImpl implements IRaceAlgorithmCorner {
 
 	public RaceAlgorithmCornerImpl() { }
 
