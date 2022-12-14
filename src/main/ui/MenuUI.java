@@ -1,6 +1,7 @@
 package main.ui;
 
 import main.FormulaOne;
+import main.data.IDriver;
 import main.data.ITeam;
 import main.data.IUser;
 import main.database.DataBaseIO;
@@ -25,6 +26,7 @@ public class MenuUI extends AUI {
     private JLabel driver2Text;
     private JButton changeTeamButton;
     private JLabel myTeam;
+    private JLabel driver1Text;
     private FormulaOne formulaOne;
     private IUser currentUser;
 
@@ -54,7 +56,8 @@ public class MenuUI extends AUI {
 
     public void setData(MenuUI data) {
         ArrayList<ITeam> teams = formulaOne.getSessionCache().getTeams(); //TODO: maybe change to teamleaderboard class
-        ArrayList<String> values = new ArrayList<>();
+        ArrayList<IDriver> drivers = new ArrayList<>();
+        ArrayList<String> values = new ArrayList<>(); //This can also be done with the team class...
         // Add header
         values.add("Points | Team | Driver 1 | Driver 2 | Car");
         for (ITeam team : teams) {
@@ -65,15 +68,32 @@ public class MenuUI extends AUI {
                 team.getDriver2().getName() + " | " +
                 team.getCar().getName()
             );
+            drivers.add(team.getDriver1());
+            drivers.add(team.getDriver2());
         }
-
         teamLeaderboard.setListData(values.toArray());
+
+        ArrayList<String> driverValues = new ArrayList<>();
+        driverValues.add("Points | Driver | Team ID | Experience | Acceleration | Consistency | Cornering");
+        for (IDriver driver : drivers) {
+            driverValues.add(
+                driver.getPoints() + " | " +
+                driver.getName() + " | " +
+                driver.getTeamID() + " | " +
+                driver.getExperience() + " | " +
+                driver.getAcceleration() + " | " +
+                driver.getConsistency() + " | " +
+                driver.getCorner()
+            );
+        }
+        driverLeaderboard.setListData(driverValues.toArray());
 
         if (currentUser != null) {
             myTeam.setText(currentUser.getTeam().getName());
         }
 
         if (currentUser != null) {
+            driver1Text.setText(currentUser.getTeam().getDriver1().getName());
             driver2Text.setText(currentUser.getTeam().getDriver2().getName());
         }
 
