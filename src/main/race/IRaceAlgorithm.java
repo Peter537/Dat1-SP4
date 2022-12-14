@@ -1,5 +1,3 @@
 package main.race;
 
-public interface IRaceAlgorithm
-{
-}
+public interface IRaceAlgorithm { }
