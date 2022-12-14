@@ -235,7 +235,7 @@ public class DataBaseIO {
                 if (tempID == id) {
                     IDriverResult driverResult = loadDriverResult(driver, tempRace, id);
                     driverResult.setPlacement(placement);
-                    driverResult.setHasCrashed(crashed == 1);
+                    driverResult.setCrashStatus(crashed == 1);
                     tempResult.add(driverResult);
                 }
                 else {
@@ -248,7 +248,7 @@ public class DataBaseIO {
 
                     IDriverResult driverResult = loadDriverResult(driver, tempRace, id);
                     driverResult.setPlacement(placement);
-                    driverResult.setHasCrashed(crashed == 1);
+                    driverResult.setCrashStatus(crashed == 1);
                     tempResult.add(driverResult);
                 }
 

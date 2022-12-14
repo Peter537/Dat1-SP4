@@ -26,7 +26,7 @@ public interface IDriverResult {
 
     void setHasFastestLap(boolean hasFastestLap);
 
-    void setHasCrashed(boolean hasCrashed);
+    void setCrashStatus(boolean hasCrashed);
 
     void addLap(ILap lap);
 

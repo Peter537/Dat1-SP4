@@ -136,7 +136,7 @@ public class RaceImpl implements IRace {
     private boolean crashesThisLap(IDriverResult result) {
         // TODO: Add the actual crash algorithm
         if (new Random().nextDouble() < 0.0018) {
-            result.setHasCrashed(true);
+            result.setCrashStatus(true);
             return true;
         }
         return false;

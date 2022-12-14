@@ -111,8 +111,8 @@ public class DriverResultImpl implements IDriverResult {
 
     // TODO: New method name: setCrashStatus?
     @Override
-    public void setHasCrashed(boolean hasCrashed) {
-        this.hasCrashed = hasCrashed;
+    public void setCrashStatus(boolean crashStatus) {
+        this.hasCrashed = crashStatus;
     }
 
     @Override
