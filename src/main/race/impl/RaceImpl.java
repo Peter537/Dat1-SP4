@@ -122,7 +122,7 @@ public class RaceImpl implements IRace {
         float totalTime = 0f;
         for (ICircuitComponent component : getCircuit().getComponents()) {
             double currentTime;
-            if (component instanceof ICircuitComponentCorner) { // TODO: Use interface instead of Impl (need to be created)
+            if (component instanceof ICircuitComponentCorner) {
                 currentTime = new RaceAlgorithmCornerImpl().getTime(this, driver, car, component, driverCurrentSpeedMap.get(driver));
             } else {
                 currentTime = new RaceAlgorithmStraightImpl().getTime(this, driver, car, component, driverCurrentSpeedMap.get(driver));
