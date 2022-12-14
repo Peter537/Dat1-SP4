@@ -7,6 +7,7 @@ import main.data.IUser;
 import main.database.DataBaseIO;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
@@ -89,10 +90,18 @@ public class MenuUI extends AUI {
         driverLeaderboard.setListData(driverValues.toArray());
 
         if (currentUser != null) {
-            myTeam.setText(currentUser.getTeam().getName());
-        }
+            ArrayList<Font> fonts = new ArrayList<>();
+            fonts.add(new Font("Comic Sans MS", Font.BOLD, 28));
+            //Add more fonts with same size here
+            fonts.add(new Font("Arial", Font.BOLD, 28));
+            fonts.add(new Font("Times New Roman", Font.BOLD, 28));
+            fonts.add(new Font("Verdana", Font.BOLD, 28));
+            fonts.add(new Font("Tahoma", Font.BOLD, 28));
+            fonts.add(new Font("Calibri", Font.BOLD, 28));
+            int randomFont = (int) (Math.random() * fonts.size());
 
-        if (currentUser != null) {
+            myTeam.setText(currentUser.getTeam().getName());
+            myTeam.setFont(fonts.get(randomFont));
             driver1Text.setText(currentUser.getTeam().getDriver1().getName());
             driver2Text.setText(currentUser.getTeam().getDriver2().getName());
         }
