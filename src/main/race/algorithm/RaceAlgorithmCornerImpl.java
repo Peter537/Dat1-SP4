@@ -21,7 +21,7 @@ public class RaceAlgorithmCornerImpl implements IRaceAlgorithmCorner {
 		double speed = getSpeed(car, circuitComponent) * getSpeedProcent(driver, race.getWeatherCondition());
 
 		Random r = new Random();
-		return (angle / 360.0) * (2 * Math.PI * radius / speed) * r.nextGaussian(1.1, 0.01); // t = (a / 360) * (2 * pi * r / v)
+		return (angle / 360.0) * (2 * Math.PI * radius / speed) * r.nextGaussian(1.1, 0.1); // t = (a / 360) * (2 * pi * r / v)
 	}
 
 	private double getSpeed(ICar car, ICircuitComponent circuitComponent) {

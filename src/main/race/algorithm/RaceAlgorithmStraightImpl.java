@@ -36,7 +36,7 @@ public class RaceAlgorithmStraightImpl implements IRaceAlgorithmStraight {
 		Random r = new Random();
 
 		race.setNewSpeed(driver, currentSpeed);
-		return time * r.nextGaussian(1.1, 0.01);
+		return time * r.nextGaussian(1.1, 0.1);
 	}
 
 	private double getAcceleration(ICar car, double currentSpeed) {
