@@ -102,12 +102,12 @@ public class MenuUI extends AUI {
         teamLeaderboard.setListData(values.toArray());
 
         ArrayList<String> driverValues = new ArrayList<>();
-//        driverValues.add("Points | Driver | Team ID | Experience | Acceleration | Consistency | Cornering");
+//        driverValues.add("Points | Driver | Team Name | Experience | Acceleration | Consistency | Cornering");
         for (IDriver driver : drivers) {
             driverValues.add(
                     driver.getPoints() + " | " +
                             driver.getName() + " | " +
-                            driver.getTeam().getID() + " | " +
+                            driver.getTeam().getName() + " | " +
                             driver.getExperience() + " | " +
                             driver.getAcceleration() + " | " +
                             driver.getConsistency() + " | " +

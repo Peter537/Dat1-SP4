@@ -226,7 +226,7 @@
                 <properties>
                   <font size="14" style="2"/>
                   <labelFor value="61a18"/>
-                  <text value="Points | Driver | Team ID | Experience | Acceleration | Consistency | Cornering"/>
+                  <text value="Points | Driver | Team Name | Experience | Acceleration | Consistency | Cornering"/>
                 </properties>
               </component>
               <component id="7f711" class="javax.swing.JLabel">
