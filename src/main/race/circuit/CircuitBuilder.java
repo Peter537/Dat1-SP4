@@ -68,6 +68,28 @@ public class CircuitBuilder {
         // Create circuit 4
         ArrayList<ICircuitComponent> components4 = new ArrayList<>();
 
+        // make a method that adds components to components4 with alternating straight and corner components in the following order: 1000, 180, 50, 180, 800, 85, 200, 120, 900, 100, 80, 110, 2000, 160, 300, 100, 200, 130, 80
+            components4.add(new CircuitComponentStraightImpl(1000));
+            components4.add(new CircuitComponentCornerImpl(50, 180));
+            components4.add(new CircuitComponentStraightImpl(50));
+            components4.add(new CircuitComponentCornerImpl(30, 180));
+            components4.add(new CircuitComponentStraightImpl(800));
+            components4.add(new CircuitComponentCornerImpl(40, 90));
+            components4.add(new CircuitComponentStraightImpl(200));
+            components4.add(new CircuitComponentCornerImpl(120, 230));
+            components4.add(new CircuitComponentStraightImpl(900));
+            components4.add(new CircuitComponentCornerImpl(50, 100));
+            components4.add(new CircuitComponentStraightImpl(80));
+            components4.add(new CircuitComponentCornerImpl(70, 110));
+            components4.add(new CircuitComponentStraightImpl(2000));
+            components4.add(new CircuitComponentCornerImpl(500, 200));
+            components4.add(new CircuitComponentStraightImpl(300));
+            components4.add(new CircuitComponentCornerImpl(80, 100));
+            components4.add(new CircuitComponentStraightImpl(200));
+            components4.add(new CircuitComponentCornerImpl(80, 120));
+            components4.add(new CircuitComponentStraightImpl(80));
+
+
         ICircuit circuit4 = new CircuitImpl(4, "Rome", "Italy", 69, components4);
         circuits.add(circuit4);
 
