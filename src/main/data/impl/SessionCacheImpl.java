@@ -22,6 +22,7 @@ public class SessionCacheImpl implements ISessionCache {
         this.formulaOne = formulaOne;
         this.saveID = saveID;
         this.seasons = new ArrayList<>();
+        this.currentSeason = new SeasonImpl(2022, new ArrayList<>());
     }
 
     @Override
