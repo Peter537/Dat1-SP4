@@ -40,8 +40,24 @@ public class CircuitBuilder {
         // Create circuit 2
         ArrayList<ICircuitComponent> components2 = new ArrayList<>();
 
+        components2.add(new CircuitComponentStraightImpl(500));
+        components2.add(new CircuitComponentCornerImpl(50, 180));
+        components2.add(new CircuitComponentStraightImpl(200));
+        components2.add(new CircuitComponentCornerImpl(80, 180));
+        components2.add(new CircuitComponentStraightImpl(500));
+        components2.add(new CircuitComponentCornerImpl(100, 45));
+        components2.add(new CircuitComponentStraightImpl(200));
+        components2.add(new CircuitComponentCornerImpl(200, 180));
+        components2.add(new CircuitComponentStraightImpl(500));
+        components2.add(new CircuitComponentCornerImpl(400, 90));
+        components2.add(new CircuitComponentStraightImpl(2000));
+        components2.add(new CircuitComponentCornerImpl(80, 135));
+        components2.add(new CircuitComponentStraightImpl(500));
+
+
         ICircuit circuit2 = new CircuitImpl(2, "Paris", "France", 67, components2);
         circuits.add(circuit2);
+
 
         // Create circuit 3
         ArrayList<ICircuitComponent> components3 = new ArrayList<>();
