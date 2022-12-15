@@ -173,6 +173,7 @@ public class MenuUI extends AUI {
                         selectedDriver.getDriver().getName() + ".\n" +
                         "They currently have " + selectedDriver.getDriver().getPoints() + " points.\n" +
                         "They have completed " + selectedDriver.getLaps().size() + " laps.\n" +
+                        "With an average time of " + selectedDriver.getTime()/selectedDriver.getLaps().size() + " seconds pr. lap.\n" +
                         "Their team is " + selectedDriver.getDriver().getTeam().getName() + ".\n"
                 );
             }
