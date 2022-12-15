@@ -74,6 +74,37 @@ public class CircuitBuilder {
         // Create circuit 5
         ArrayList<ICircuitComponent> components5 = new ArrayList<>();
 
+        components5.add(new CircuitComponentStraightImpl(750));
+        components5.add(new CircuitComponentCornerImpl(100, 90));
+        components5.add(new CircuitComponentStraightImpl(300));
+        components5.add(new CircuitComponentCornerImpl(40, 90));
+        components5.add(new CircuitComponentStraightImpl(100));
+        components5.add(new CircuitComponentCornerImpl(40, 90));
+        components5.add(new CircuitComponentStraightImpl(120));
+        components5.add(new CircuitComponentCornerImpl(70, 90));
+        components5.add(new CircuitComponentStraightImpl(300));
+        components5.add(new CircuitComponentCornerImpl(60, 180));
+        components5.add(new CircuitComponentStraightImpl(250));
+        components5.add(new CircuitComponentCornerImpl(60, 90));
+        components5.add(new CircuitComponentStraightImpl(500));
+        components5.add(new CircuitComponentCornerImpl(80, 75));
+        components5.add(new CircuitComponentStraightImpl(1000));
+        components5.add(new CircuitComponentCornerImpl(100, 100));
+        components5.add(new CircuitComponentStraightImpl(400));
+        components5.add(new CircuitComponentCornerImpl(100, 120));
+        components5.add(new CircuitComponentStraightImpl(100));
+        components5.add(new CircuitComponentCornerImpl(70, 180));
+        components5.add(new CircuitComponentStraightImpl(100));
+        components5.add(new CircuitComponentCornerImpl(110, 180));
+        components5.add(new CircuitComponentStraightImpl(120));
+        components5.add(new CircuitComponentCornerImpl(40, 25));
+        components5.add(new CircuitComponentStraightImpl(100));
+        components5.add(new CircuitComponentCornerImpl(40, 25));
+
+
+
+
+
         ICircuit circuit5 = new CircuitImpl(5, "Madrid", "Spain", 59, components5);
         circuits.add(circuit5);
 
