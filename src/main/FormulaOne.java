@@ -1,24 +1,14 @@
 package main;
 
-import jdk.jshell.spi.ExecutionControl;
-import main.data.ICar;
-import main.data.IDriver;
 import main.data.ISessionCache;
-import main.data.ITeam;
 import main.data.impl.*;
 import main.database.DataBaseIO;
-import main.race.IRace;
-import main.race.impl.RaceImpl;
 import main.ui.*;
 
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-
-import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 
 public class FormulaOne {
 
@@ -37,13 +27,7 @@ public class FormulaOne {
     }
 
     public void run() {
-        chooseSaveGame();
         initUI();
-        // TODO
-    }
-
-    private void chooseSaveGame() {
-        // TODO: Make a UI for this
     }
 
     private void initUI() {
