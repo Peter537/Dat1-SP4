@@ -329,16 +329,8 @@ class CircuitBuilder {
 ' UI Classes
 ' ******************
 
-class ChooseSaveGameUI extends AUI {
-    + accessor methods()
-}
-
 class ChooseTeamUI extends AUI {
-    - final Object formulaOne
-    - JPanel chooseTeam
-    - JList teamList
-    - JScrollPane scrollPane
-    - JLabel title
+    - UI Elements
 
     + ChooseTeamUI(FormulaOne formulaOne)
     + void setData(ChooseTeamUI data)
@@ -348,32 +340,17 @@ class ChooseTeamUI extends AUI {
 }
 
 class MenuUI extends AUI {
-    - JTabbedPane tabbedPane
-    - JPanel MenuPanel;
-    - JList driverLeaderboard;
-    - JList teamLeaderboard;
-    - JLabel teamLeadTitle;
-    - JScrollPane teamLeadScroll;
-    - JScrollPane driverLeadScroll;
-    - JLabel driverLeadTitle;
-    - JPanel MyTeam;
-    - JTabbedPane tabbedPane2;
-    - JLabel carpng1;
-    - JLabel driver2Text;
-    - JButton button1;
-    - FormulaOne formulaOne;
-    - IUser currentUser;
+    - UI Elements
 
     + MenuUI(FormulaOne formulaOne)
     + void setData(MenuUI data)
     + void getData(MenuUI data)
     + void updatePane(IUI ui)
+    - void setListData()
+    - void setOnClick()
+    - void setFonts()
     + boolean isModified(MenuUI data)
 
-    +accessor methods()
-}
-
-class CircuitUI extends AUI {
     + accessor methods()
 }
 
@@ -513,8 +490,8 @@ interface ITeamLeaderboard {
 
 interface IUI {
     + void updatePane(IUI ui)
-    + accessor methods()
 
+    + accessor methods()
 }
 
 ' ******************
