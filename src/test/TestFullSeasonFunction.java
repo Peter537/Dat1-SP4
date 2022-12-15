@@ -30,7 +30,8 @@ public class TestFullSeasonFunction {
         int year = 2022;
         ArrayList<ITeam> teams = getSomeDefaultTeamData();
         ArrayList<IRace> races = getSomeDefaultRaceData(year, teams);
-        ISeason season = new SeasonImpl(year, races, teams);
+        ISeason season = new SeasonImpl(year, races);
+        season.setTeams(teams);
 
         while (season.hasNextAction()) {
             System.out.println("Current team: " + season.getCurrentRace().getCircuit().getName());

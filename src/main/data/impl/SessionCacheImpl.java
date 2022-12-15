@@ -5,6 +5,7 @@ import main.data.ISeason;
 import main.data.ISessionCache;
 import main.data.ITeam;
 import main.data.IUser;
+import main.database.DataBaseIO;
 
 import java.util.ArrayList;
 
@@ -21,7 +22,6 @@ public class SessionCacheImpl implements ISessionCache {
         this.formulaOne = formulaOne;
         this.saveID = saveID;
         this.seasons = new ArrayList<>();
-        this.currentSeason = null;
     }
 
     @Override
@@ -52,6 +52,7 @@ public class SessionCacheImpl implements ISessionCache {
     @Override
     public void setTeams(ArrayList<ITeam> teams) {
         this.teams = teams;
+        getCurrentSeason().setTeams(teams);
     }
 
     public ArrayList<ITeam> getTeams() {

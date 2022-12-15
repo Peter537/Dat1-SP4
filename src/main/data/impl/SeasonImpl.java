@@ -13,16 +13,15 @@ import java.util.ArrayList;
 public class SeasonImpl implements ISeason {
 
     private final int year;
-    private final ArrayList<IRace> races;
-    private final ArrayList<ITeam> teams;
+    private final ArrayList<IRace> races = new ArrayList<>();
+    private ArrayList<ITeam> teams;
     private final ITeamLeaderboard teamLeaderboard;
     private final IDriverLeaderboard driverLeaderboard;
     private IRace currentRace;
 
-    public SeasonImpl(int year, ArrayList<IRace> races, ArrayList<ITeam> teams) {
+    public SeasonImpl(int year, ArrayList<IRace> races) {
         this.year = year;
-        this.races = races;
-        this.teams = teams;
+        //this.races = races;
         this.currentRace = races.get(0);
         this.teamLeaderboard = new TeamLeaderboardImpl(getTeams());
         ArrayList<IDriver> drivers = new ArrayList<>();
@@ -107,6 +106,11 @@ public class SeasonImpl implements ISeason {
     @Override
     public void setCurrentRace(IRace currentRace) {
         this.currentRace = currentRace;
+    }
+
+    @Override
+    public void setTeams(ArrayList<ITeam> teams) {
+        this.teams = teams;
     }
 
     @Override

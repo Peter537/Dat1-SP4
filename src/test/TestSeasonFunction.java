@@ -30,7 +30,8 @@ public class TestSeasonFunction {
         int year = 2022;
         ArrayList<ITeam> teams = getSomeDefaultTeamData();
         ArrayList<IRace> races = getSomeDefaultRaceData(year, teams);
-        ISeason season = new SeasonImpl(year, races, teams);
+        ISeason season = new SeasonImpl(year, races);
+        season.setTeams(teams);
 
         while (season.hasNextAction()) {
             System.out.println("What do you want to do?");

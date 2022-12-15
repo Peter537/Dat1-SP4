@@ -26,4 +26,6 @@ public interface ISeason {
     IRace getCurrentRace();
 
     void setCurrentRace(IRace currentRace);
+
+    void setTeams(ArrayList<ITeam> teams);
 }
