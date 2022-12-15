@@ -272,25 +272,17 @@ class CircuitComponentStraightImpl implements ICircuitComponent {
 ' UI Classes
 ' ******************
 
-class ChooseSaveGameUI extends AUI {
-    ' TODO: Når de laves
-}
+class ChooseSaveGameUI extends AUI { }
 
-class MenuUI extends AUI {
-    ' TODO: Når de laves
-}
+class MenuUI extends AUI { }
 
-class CircuitUI extends AUI {
-    ' TODO: Når de laves
-}
+class CircuitUI extends AUI { }
 
 ' ******************
 ' Abstract Classes
 ' ******************
 
-abstract class AUI implements IUI {
-    ' TODO: Når de laves
-}
+abstract class AUI implements IUI { }
 
 ' ******************
 ' Interfaces
@@ -386,9 +378,7 @@ interface ITeamLeaderboard {
     + ArrayList<ITeam> getLeaderboard()
 }
 
-interface IUI {
-    ' TODO: Når de laves
-}
+interface IUI { }
 
 ' ******************
 ' Enums
