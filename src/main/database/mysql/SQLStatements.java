@@ -1,6 +1,7 @@
 package main.database.mysql;
 
 public class SQLStatements {
+
     public static String getAllDefCars() {
         return "SELECT * FROM def_car";
     }
