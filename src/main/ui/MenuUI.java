@@ -103,6 +103,7 @@ public class MenuUI extends AUI {
             drivers.add(team.getDriver2());
         }
         teamLeaderboard.setListData(values.toArray());
+        drivers.sort((o1, o2) -> o2.getPoints() - o1.getPoints());
 
         ArrayList<String> driverValues = new ArrayList<>();
 //        driverValues.add("Points | Driver | Team Name | Experience | Acceleration | Consistency | Cornering");
@@ -162,6 +163,8 @@ public class MenuUI extends AUI {
         ActionListener actionListener1 = e -> {
             if (formulaOne.getSessionCache().getCurrentSeason().hasNextAction()) {
                 formulaOne.getSessionCache().getCurrentSeason().nextAction();
+                IUI updateMenu = new MenuUI(formulaOne);
+                updateMenu.updatePane(updateMenu);
             }
             else
                 JOptionPane.showMessageDialog(null, "The season has ended.");
