@@ -22,8 +22,6 @@ public class SeasonImpl implements ISeason {
     public SeasonImpl(int year, ArrayList<IRace> races) {
         this.year = year;
         //this.races = races;
-        createRaces();
-        this.currentRace = races.get(0);
     }
 
     @Override
@@ -111,6 +109,8 @@ public class SeasonImpl implements ISeason {
             drivers.add(team.getDriver2());
         }
         this.driverLeaderboard = new DriverLeaderboardImpl(drivers);
+        createRaces();
+        this.currentRace = races.get(0);
     }
 
     @Override
