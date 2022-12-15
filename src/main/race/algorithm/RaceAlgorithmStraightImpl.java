@@ -52,24 +52,7 @@ public class RaceAlgorithmStraightImpl implements IRaceAlgorithmStraight {
 		return currentSpeed;
 	}
 
-	public static void main(String[] args) {
-		IDriver lowDataDriver = new DriverImpl(1, "test1", 60, 60, 60, 60);
-		IDriver midDataDriver = new DriverImpl(2, "test2", 70, 70, 70, 70);
-		IDriver highDataDriver = new DriverImpl(3, "test3", 80, 80, 80, 80);
-
-		System.out.println("Sunny:");
-		System.out.println("Low Data Driver: " + getSpeedProcent(lowDataDriver, WeatherCondition.SUNNY));
-		System.out.println("Mid Data Driver: " + getSpeedProcent(midDataDriver, WeatherCondition.SUNNY));
-		System.out.println("High Data Driver: " + getSpeedProcent(highDataDriver, WeatherCondition.SUNNY));
-
-		System.out.println();
-		System.out.println("Rainy:");
-		System.out.println("Low Data Driver: " + getSpeedProcent(lowDataDriver, WeatherCondition.RAINY));
-		System.out.println("Mid Data Driver: " + getSpeedProcent(midDataDriver, WeatherCondition.RAINY));
-		System.out.println("High Data Driver: " + getSpeedProcent(highDataDriver, WeatherCondition.RAINY));
-	}
-
-	private static double getSpeedProcent(IDriver driver, WeatherCondition weather) {
+	private double getSpeedProcent(IDriver driver, WeatherCondition weather) {
 		int experience = driver.getExperience();
 		int corner = driver.getCorner();
 		int consistency = driver.getConsistency();
