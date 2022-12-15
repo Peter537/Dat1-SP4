@@ -18,5 +18,7 @@ public interface IDriver {
 
     int getAcceleration();
 
+    ITeam getTeam();
+
     void setTeam(ITeam team);
 }
