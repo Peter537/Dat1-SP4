@@ -18,6 +18,7 @@ class FormulaOne {
 
     + void run()
     - void chooseSaveGame()
+    - void initUI()
 
     + ISessionCache getSessionCache()
     + static JFrame getPage()
@@ -181,6 +182,9 @@ class RaceImpl implements IRace {
     - final ICircuit circuit
     - final ArrayList<ITeam> teams
     - final ArrayList<IDriver> drivers
+    - final IQualifier qualifier
+    - final WeatherCondition weatherCondition
+    - final HashMap<IDriver, Double> driverCurrentSpeedMap
 
     - IResult result
     - RaceState state
@@ -190,17 +194,20 @@ class RaceImpl implements IRace {
     + void nextAction()
 
     - void startRace()
-    - ILap driveLap(int lap, (ArrayList<IDriverResult> results, ILap fastestLap)
-    - float getLapTime()
+    - ILap driveLap(int lap, ArrayList<IDriverResult> results, ILap fastestLap)
+    + float getLapTime(IDriver driver)
     - boolean crashesThisLap(IDriverResult result)
-    - getFastestLap(ILap fastestLap, ILap newLap)
-    - setPlacements(ArrayList<IDriverResult> results)
+    - ILap getFastestLap(ILap fastestLap, ILap newLap)
+    - void setPlacements(ArrayList<IDriverResult> results)
     - void sortDriverResults(ArrayList<IDriverResult> results)
     - ArrayList<IDriverResult> createDriverResults(ArrayList<IDriver> gridList)
     - void printResult()
     + void setState(RaceState state)
+    + void setNewSpeed(IDriver driver, double speed)
 
     + accessor methods()
+    - ArrayList<ITeam> getTeams()
+    - ArrayList<IDriver> getDrivers()
 }
 
 class RaceResultImpl implements IRaceResult {
@@ -225,6 +232,7 @@ class QualifierImpl implements IQualifier {
     - final HashMap<IDriver, ILap> fastestLaps
     - final ArrayList<IDriver> drivers
     - final IRace race
+
     - IQualifierResult result
 
     + QualifierImpl(IRace race, ArrayList<IDriver> drivers)
@@ -236,8 +244,9 @@ class QualifierImpl implements IQualifier {
     - void driveLap(IDriver driver, int lapNumber)
     - void printResult()
 
-
-
+    + IRace getRace()
+    + IQualifierResult getResult()
+    - ArrayList<IDriver> getDrivers()
 }
 
 class QualifierResultImpl implements IQualifierResult {
@@ -247,7 +256,7 @@ class QualifierResultImpl implements IQualifierResult {
 
     + int getDriverPlacement(IDriver driver)
     + IDriverResult getDriverResult(IDriver driver)
-    + ArrayList>IDriverResult> getGridList()
+    + ArrayList<IDriverResult> getGridList()
 
     + boolean isQualifier()
     + boolean isRace()
@@ -263,6 +272,7 @@ class DriverResultImpl implements IDriverResult {
     - final IDriver driver
     - final ArrayList<ILap> laps
     - final boolean isRace
+
     - float time
     - boolean hasCrashed
 
@@ -270,14 +280,13 @@ class DriverResultImpl implements IDriverResult {
     - int points
     - boolean hasFastestLap
 
-    + DriverResultImpl(IRace race, IDriver driver, ArrayList<Ilap> laps, boolean isRace)
+    + DriverResultImpl(IRace race, IDriver driver, ArrayList<ILap> laps, boolean isRace)
 
     + void setPlacement(int placement)
-    + void setHasFastestLap(boolean hasFastestLap)
-    + void setHasCrashed(boolean hasCrashed)
+    + void setFastestLapStatus(boolean fastestLapStatus)
+    + void setCrashStatus(boolean crashStatus)
     + void addLap(ILap lap)
-    + void addPointsToDriver(int points)
-
+    - void addPointsToDriver(int points)
 
     + accessor methods()
 }
@@ -291,6 +300,23 @@ class LapImpl implements ILap {
     + Lap(IRace race, IDriver driver, int lapNumber, float time)
 
     + accessor methods()
+}
+
+class RaceAlgorithmCornerImpl implements IRaceAlgorithmCorner {
+    + RaceAlgorithmCornerImpl()
+    + double getTime(IRace race, IDriver driver, ICar car, ICircuitComponent circuitComponent, double currentSpeed)
+    - double getSpeed(ICar car, ICircuitComponent circuitComponent)
+    - double getSpeedProcent(ICar car, WeatherCondition weather)
+}
+
+class RaceAlgorithmStraightImpl implements IRaceAlgorithmStraight {
+    - final double dTime
+
+    + RaceAlgorithmStraightImpl()
+    + double getTime(IRace race, IDriver driver, ICar car, ICircuitComponent circuitComponent, double currentSpeed)
+    - double getAcceleration(ICar car, double currentSpeed)
+    - double getSpeed(double currentSpeed. double currentAcceleration)
+    - double getSpeedProcent(IDriver driver, WeatherCondition weather)
 }
 
 ' ******************
@@ -409,6 +435,8 @@ interface ISeason {
 interface IRace {
     + void nextAction()
     + void setState(RaceState state)
+    + float getLapTime(IDriver driver)
+    + void setNewSpeed(IDriver driver, double speed)
 
     + accessor methods()
 }
@@ -466,6 +494,8 @@ interface IDriverResult {
     + void setHasCrashed(boolean hasCrashed)
     + void addLap(ILap lap)
     + void addPointsToDriver()
+    + boolean isRace()
+    + boolean isQualifier()
 
     + accessor methods()
 }
@@ -487,6 +517,14 @@ interface ITeamLeaderboard {
     + ITeam getByPlacement(int placement))
     + ArrayList<ITeam> getLeaderboard()
 }
+
+interface IRaceAlgorithm {
+    double getTime(IRace race, IDriver driver, ICar car, ICircuitComponent circuitComponent, double currentSpeed)
+}
+
+interface IRaceAlgorithmCorner extends IRaceAlgorithm { }
+
+interface IRaceAlgorithmStraight extends IRaceAlgorithm { }
 
 interface IUI {
     + void updatePane(IUI ui)
@@ -538,6 +576,7 @@ SeasonImpl --> CircuitBuilder
 RaceImpl --> ICircuit
 RaceImpl --> IResult
 RaceImpl --> IQualifier
+RaceImpl --> IRaceAlgorithm
 RaceResultImpl --> IDriverResult
 QualifierResultImpl --> IDriverResult
 DriverImpl --> IDriverResult
