@@ -66,6 +66,11 @@ public class DriverImpl implements IDriver {
     }
 
     @Override
+    public ITeam getTeam() {
+        return this.team;
+    }
+
+    @Override
     public void setTeam(ITeam team) {
         this.team = team;
     }
@@ -75,7 +80,7 @@ public class DriverImpl implements IDriver {
         return "DriverImpl{" +
                 "id=" + getID() +
                 ", name='" + getName() + '\'' +
-                ", teamID=" + getTeamID() +
+                ", teamID=" + this.getTeam().getID() +
                 ", points=" + getPoints() +
                 ", experience=" + getExperience() +
                 ", corner=" + getCorner() +

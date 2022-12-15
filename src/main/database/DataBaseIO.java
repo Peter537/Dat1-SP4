@@ -172,7 +172,7 @@ public class DataBaseIO {
                 int consistency = rs.getInt("consistency");
                 int acceleration = rs.getInt("acceleration");
 
-                IDriver driver = new DriverImpl(driverId, name, 0, experience, cornering, consistency, acceleration);
+                IDriver driver = new DriverImpl(driverId, name, experience, cornering, consistency, acceleration);
                 driver.addPoints(points);
                 drivers.add(driver);
             }
