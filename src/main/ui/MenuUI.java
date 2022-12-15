@@ -33,6 +33,9 @@ public class MenuUI extends AUI {
     private JButton DoRace;
     private JScrollPane RaceScrollPane;
     private JLabel RaceListTitle;
+    private JLabel driver1Stats;
+    private JLabel driver2Stats;
+    private JLabel carpng2;
     private FormulaOne formulaOne;
     private IUser currentUser;
 
@@ -68,7 +71,7 @@ public class MenuUI extends AUI {
 
     @Override
     public void updatePane(IUI ui) {
-        if (formulaOne.getSessionCache().getCurrentUser() == null) {
+        if (formulaOne.getSessionCache().getCurrentUser() == null || currentUser.getTeam() == null) {
             JOptionPane.showMessageDialog(null, "No team currently selected. Please select a team from the list.");
             IUI chooseTeam = new ChooseTeamUI(formulaOne);
             chooseTeam.updatePane(chooseTeam);
@@ -125,7 +128,13 @@ public class MenuUI extends AUI {
 //        for (IResult result : results) {
 //
 //        }
-        RaceList.setListData(results.toArray());
+        if (results.isEmpty() || results.get(0) == null) {
+            String[] noraces = {"No races have been completed yet."};
+            RaceList.setListData(noraces);
+        }
+        else {
+            RaceList.setListData(results.toArray());
+        }
     }
 
     private void setOnClick() {
@@ -178,20 +187,40 @@ public class MenuUI extends AUI {
             smallfonts.add(new Font("Tahoma", Font.PLAIN, 12));
             smallfonts.add(new Font("Calibri", Font.PLAIN, 12));
 
-            myTeam.setText(currentUser.getTeam().getName());
-            if (currentUser.getTeam().getName().contains("Gabe"))
-                myTeam.setFont(new Font("Comic Sans MS", Font.BOLD, 28));
-            else
-                myTeam.setFont(fonts.get((int) (Math.random() * fonts.size())));
+            RaceListTitle.setFont(fonts.get((int) (Math.random() * fonts.size())));
 
-            driver1Text.setText(currentUser.getTeam().getDriver1().getName());
-            driver1Text.setFont(fonts.get((int) (Math.random() * fonts.size())));
+            if (currentUser.getTeam() != null) {
+                myTeam.setText(currentUser.getTeam().getName());
+                if (currentUser.getTeam().getName().contains("Gabe"))
+                    myTeam.setFont(new Font("Comic Sans MS", Font.BOLD, 28));
+                else
+                    myTeam.setFont(fonts.get((int) (Math.random() * fonts.size())));
 
-            driver2Text.setText(currentUser.getTeam().getDriver2().getName());
-            driver2Text.setFont(fonts.get((int) (Math.random() * fonts.size())));
+                IDriver driver1 = currentUser.getTeam().getDriver1();
+                driver1Text.setText(driver1.getName());
+                driver1Text.setFont(fonts.get((int) (Math.random() * fonts.size())));
+                driver1Stats.setText("Current Points: " + driver1.getPoints() + " | " +
+                        "Experience: " + driver1.getExperience() + " | " +
+                        "Acceleration: " + driver1.getAcceleration() + " | " +
+                        "Consistency: " + driver1.getConsistency() + " | " +
+                        "Cornering: " + driver1.getCorner()
+                );
+                driver1Stats.setFont(smallfonts.get((int) (Math.random() * smallfonts.size())));
 
-            driverLeaderboard.setFont(smallfonts.get((int) (Math.random() * smallfonts.size())));
-            teamLeaderboard.setFont(smallfonts.get((int) (Math.random() * smallfonts.size())));
+                IDriver driver2 = currentUser.getTeam().getDriver2();
+                driver2Text.setText(driver2.getName());
+                driver2Text.setFont(fonts.get((int) (Math.random() * fonts.size())));
+                driver2Stats.setText("Current Points: " + driver2.getPoints() + " | " +
+                        "Experience: " + driver2.getExperience() + " | " +
+                        "Acceleration: " + driver2.getAcceleration() + " | " +
+                        "Consistency: " + driver2.getConsistency() + " | " +
+                        "Cornering: " + driver2.getCorner()
+                );
+                driver2Stats.setFont(smallfonts.get((int) (Math.random() * smallfonts.size())));
+
+                driverLeaderboard.setFont(smallfonts.get((int) (Math.random() * smallfonts.size())));
+                teamLeaderboard.setFont(smallfonts.get((int) (Math.random() * smallfonts.size())));
+            }
         }
     }
 

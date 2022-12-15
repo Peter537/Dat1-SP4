@@ -121,7 +121,7 @@ public class DataBaseIO {
 
             while (rs.next()) {
                 int teamId = rs.getInt("team_id");
-                String teamName = rs.getString("team_name");
+                String teamName = rs.getString("name");
 //                int teamPoints = rs.getInt("team_points");
                 int carID = rs.getInt("tc_car_id");
                 int driver1ID = rs.getInt("dt_driver1_id");

@@ -30,7 +30,7 @@ public class SQLStatements {
     }
 
     public static String setTeams() {
-        return "UPDATE def_team SET team_points = ?, myteam =  ?  WHERE team_id = ?";
+        return "UPDATE def_team SET points = ?, myteam =  ?  WHERE team_id = ?";
     }
 
 
