@@ -198,6 +198,7 @@ public class MenuUI extends AUI {
         };
         DoRace.addActionListener(actionListener1);
     }
+    
     private void setFonts() {
         if (currentUser != null) {
             ArrayList<Font> fonts = new ArrayList<>();
