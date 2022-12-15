@@ -10,8 +10,6 @@ public interface IDriver {
 
     String getName();
 
-    int getTeamID();
-
     int getExperience();
 
     int getCorner();
@@ -19,4 +17,6 @@ public interface IDriver {
     int getConsistency();
 
     int getAcceleration();
+
+    void setTeam(ITeam team);
 }

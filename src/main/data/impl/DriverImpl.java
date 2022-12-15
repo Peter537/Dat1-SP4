@@ -1,12 +1,13 @@
 package main.data.impl;
 
 import main.data.IDriver;
+import main.data.ITeam;
 
 public class DriverImpl implements IDriver {
 
     private final int id;
     private final String name;
-    private final int teamID;
+    private ITeam team;
     private int points;
 
     private final int experience;
@@ -14,10 +15,9 @@ public class DriverImpl implements IDriver {
     private final int consistency;
     private final int acceleration;
 
-    public DriverImpl(int id, String name, int teamID, int experience, int corner, int consistency, int acceleration) {
+    public DriverImpl(int id, String name, int experience, int corner, int consistency, int acceleration) {
         this.id = id;
         this.name = name;
-        this.teamID = teamID;
         this.experience = experience;
         this.corner = corner;
         this.consistency = consistency;
@@ -46,11 +46,6 @@ public class DriverImpl implements IDriver {
     }
 
     @Override
-    public int getTeamID() {
-        return this.teamID;
-    }
-
-    @Override
     public int getExperience() {
         return this.experience;
     }
@@ -68,6 +63,11 @@ public class DriverImpl implements IDriver {
     @Override
     public int getAcceleration() {
         return this.acceleration;
+    }
+
+    @Override
+    public void setTeam(ITeam team) {
+        this.team = team;
     }
 
     @Override

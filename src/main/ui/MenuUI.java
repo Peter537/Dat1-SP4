@@ -4,7 +4,8 @@ import main.FormulaOne;
 import main.data.IDriver;
 import main.data.ITeam;
 import main.data.IUser;
-import main.database.DataBaseIO;
+import main.race.IRace;
+import main.race.IResult;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,6 +29,10 @@ public class MenuUI extends AUI {
     private JButton changeTeamButton;
     private JLabel myTeam;
     private JLabel driver1Text;
+    private JList RaceList;
+    private JButton DoRace;
+    private JScrollPane RaceScrollPane;
+    private JLabel RaceListTitle;
     private FormulaOne formulaOne;
     private IUser currentUser;
 
@@ -38,27 +43,24 @@ public class MenuUI extends AUI {
     public MenuUI(FormulaOne formulaOne) {
         super();
         this.formulaOne = formulaOne;
-        teamLeaderboard.addMouseListener(new MouseAdapter() {
-            public void mouseClicked(MouseEvent e) {
-                // Get the selected item and display a message
-                String selectedItem = (String) teamLeaderboard.getSelectedValue();
-                JOptionPane.showMessageDialog(null, "You selected: " + selectedItem);
-                System.out.println(selectedItem);
-            }
-        });
 
         if (formulaOne.getSessionCache().getCurrentUser() != null) {
             currentUser = formulaOne.getSessionCache().getCurrentUser();
-            formulaOne.getSessionCache().setCurrentUser(currentUser);
         }
 
         setData(this);
     }
 
     public void setData(MenuUI data) {
-        setListData();
-        setOnClick();
-        setFonts();
+        if (formulaOne.getSessionCache() == null)
+            throw new NullPointerException("An error has occurred: SessionCache is null and may not have been instantiated.");
+        else if (formulaOne.getSessionCache().getCurrentSeason() == null) {
+            throw new NullPointerException("An error has occurred: CurrentSeason is null and may not have been instantiated.");
+        } else {
+            setListData();
+            setOnClick();
+            setFonts();
+        }
     }
 
     public void getData(MenuUI data) {
@@ -105,7 +107,7 @@ public class MenuUI extends AUI {
             driverValues.add(
                     driver.getPoints() + " | " +
                             driver.getName() + " | " +
-                            driver.getTeamID() + " | " +
+//                            driver.getTeamID() + " | " +
                             driver.getExperience() + " | " +
                             driver.getAcceleration() + " | " +
                             driver.getConsistency() + " | " +
@@ -113,14 +115,49 @@ public class MenuUI extends AUI {
             );
         }
         driverLeaderboard.setListData(driverValues.toArray());
+
+        ArrayList<IRace> races = formulaOne.getSessionCache().getCurrentSeason().getRaces();
+        ArrayList<IResult> results = new ArrayList<>();
+        for (IRace race : races) {
+            results.add(race.getResult());
+        }
+
+//        for (IResult result : results) {
+//
+//        }
+        RaceList.setListData(results.toArray());
     }
 
     private void setOnClick() {
+        teamLeaderboard.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                // Get the selected item and display a message
+                String selectedItem = (String) teamLeaderboard.getSelectedValue();
+                ITeam selectedTeam = formulaOne.getSessionCache().getTeams().get(teamLeaderboard.getSelectedIndex());
+                JOptionPane.showMessageDialog(null, "You selected: " +
+                        selectedTeam.getName() + ".\n" +
+                        "They currently have " + selectedTeam.getPoints() + " points.\n" +
+                        "Their drivers are " + selectedTeam.getDriver1().getName() + " and " + selectedTeam.getDriver2().getName() + ".\n" +
+                        "Their car is a " + selectedTeam.getCar().getName() + ".\n"
+                        );
+                System.out.println(selectedItem);
+            }
+        });
+
         ActionListener actionListener = event -> {
             IUI chooseTeam = new ChooseTeamUI(formulaOne);
             chooseTeam.updatePane(chooseTeam);
         };
         changeTeamButton.addActionListener(actionListener);
+
+        ActionListener actionListener1 = e -> {
+            if (formulaOne.getSessionCache().getCurrentSeason().hasNextAction()) {
+                formulaOne.getSessionCache().getCurrentSeason().nextAction();
+            }
+            else
+                JOptionPane.showMessageDialog(null, "The season has ended.");
+        };
+        DoRace.addActionListener(actionListener1);
     }
     private void setFonts() {
         if (currentUser != null) {

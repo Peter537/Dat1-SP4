@@ -122,7 +122,7 @@ public class DataBaseIO {
             while (rs.next()) {
                 int teamId = rs.getInt("team_id");
                 String teamName = rs.getString("team_name");
-                int teamPoints = rs.getInt("team_points");
+//                int teamPoints = rs.getInt("team_points");
                 int carID = rs.getInt("tc_car_id");
                 int driver1ID = rs.getInt("dt_driver1_id");
                 int driver2ID = rs.getInt("dt_driver2_id");
@@ -136,6 +136,8 @@ public class DataBaseIO {
                 driver2 = cachedDrivers.stream().filter(d -> d.getID() == driver2ID).findFirst().orElse(null);
 
                 ITeam team = new TeamImpl(teamId, teamName, car, driver1, driver2);
+                driver1.setTeam(team);
+                driver2.setTeam(team);
 
                 if (myTeam == 1) {
 //                    IUser user = new UserImpl(team);
@@ -170,7 +172,8 @@ public class DataBaseIO {
                 int consistency = rs.getInt("consistency");
                 int acceleration = rs.getInt("acceleration");
 
-                IDriver driver = new DriverImpl(driverId, name, points, experience, cornering, consistency, acceleration);
+                IDriver driver = new DriverImpl(driverId, name, 0, experience, cornering, consistency, acceleration);
+                driver.addPoints(points);
                 drivers.add(driver);
             }
         }

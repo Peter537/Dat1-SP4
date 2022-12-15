@@ -1,9 +1,13 @@
 package main;
 
+import jdk.jshell.spi.ExecutionControl;
 import main.data.ISessionCache;
+import main.data.impl.SeasonImpl;
 import main.data.impl.SessionCacheImpl;
 import main.data.impl.UserImpl;
 import main.database.DataBaseIO;
+import main.race.IRace;
+import main.race.impl.RaceImpl;
 import main.ui.*;
 
 import javax.swing.*;
@@ -11,6 +15,7 @@ import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 
@@ -59,6 +64,9 @@ public class FormulaOne {
         });
         page.pack();
         page.setVisible(true);
+        ArrayList<IRace> TESTraces = new ArrayList<>();
+        TESTraces.add(new RaceImpl(1, null, sessionCache.getTeams()));
+        sessionCache.setCurrentSeason(new SeasonImpl(1, TESTraces , sessionCache.getTeams()));
         IUI menu = new MenuUI(this);
         menu.updatePane(menu);
     }
