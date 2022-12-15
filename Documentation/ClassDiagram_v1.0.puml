@@ -73,7 +73,6 @@ class TeamImpl implements ITeam {
 }
 
 class DriverImpl implements IDriver {
-    ' TODO: TILFØJE ATTRIBUTES (Skal det være en klasse for sig selv?)
     - final int id
     - final String name
     - final int teamID
@@ -88,7 +87,6 @@ class DriverImpl implements IDriver {
 }
 
 class CarImpl implements ICar {
-    ' TODO: TILFØJE ATTRIBUTES (Skal det være en klasse for sig selv?)
     - final int id
     - final String name
 
@@ -98,7 +96,6 @@ class CarImpl implements ICar {
 }
 
 class CircuitImpl implements ICircuit {
-    ' TODO: TILFØJE ATTRIBUTES (Skal det være en klasse for sig selv?)
     - final int id
     - final String name
     - final String country
@@ -171,7 +168,7 @@ class RaceImpl implements IRace {
     + RaceImpl(int id, ICircuit circuit)
 
     + void nextAction() throws Exception
-    ' TODO: Hvilken exception skal smides? evt. lav en custom exception
+    ' Hvilken exception skal smides? evt. lav en custom exception
 
     - void startQualifier()
     - void startRace()
@@ -184,7 +181,7 @@ class RaceResult implements IRaceResult {
     - final Lap fastestLap
 
     + RaceResult(ArrayList<DriverResult> driverResults, Lap fastestLap)
-    ' TODO: Vi skal sorterer resultatet vi får ind her
+    ' Vi skal sorterer resultatet vi får ind her
 
     + int getDriverPlacement(IDriver driver)
     + DriverResult getDriverResult(IDriver driver)
@@ -196,7 +193,7 @@ class QualifierResult implements IRaceResult {
     - final ArrayList<DriverResult> sortedResult
 
     + QualifierResult(ArrayList<DriverResult> driverResults)
-    ' TODO: Vi skal sorterer resultatet vi får ind her
+    ' Vi skal sorterer resultatet vi får ind her
 
     + int getDriverPlacement(IDriver driver)
     + DriverResult getDriverResult(IDriver driver)
@@ -235,25 +232,17 @@ class Lap {
 ' UI Classes
 ' ******************
 
-class ChooseSaveGameUI extends AUI {
-    ' TODO: Når de laves
-}
+class ChooseSaveGameUI extends AUI { }
 
-class MenuUI extends AUI {
-    ' TODO: Når de laves
-}
+class MenuUI extends AUI { }
 
-class CircuitUI extends AUI {
-    ' TODO: Når de laves
-}
+class CircuitUI extends AUI { }
 
 ' ******************
 ' Abstract Classes
 ' ******************
 
-abstract class AUI implements IUI {
-    ' TODO: Når de laves
-}
+abstract class AUI implements IUI { }
 
 ' ******************
 ' Interfaces
@@ -277,7 +266,7 @@ interface ICar {
 
 interface IRace {
     + void nextAction() throws Exception
-    ' TODO: Hvilken exception skal smides? evt. lav en custom exception
+    ' Hvilken exception skal smides? evt. lav en custom exception
 
     + accessor methods()
 }
@@ -293,9 +282,7 @@ interface IRaceResult {
     + accessor methods()
 }
 
-interface IUI {
-    ' TODO: Når de laves
-}
+interface IUI { }
 
 ' ******************
 ' Enums
