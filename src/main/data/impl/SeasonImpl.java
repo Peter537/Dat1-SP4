@@ -15,20 +15,13 @@ public class SeasonImpl implements ISeason {
     private final int year;
     private final ArrayList<IRace> races = new ArrayList<>();
     private ArrayList<ITeam> teams;
-    private final ITeamLeaderboard teamLeaderboard;
-    private final IDriverLeaderboard driverLeaderboard;
+    private ITeamLeaderboard teamLeaderboard;
+    private IDriverLeaderboard driverLeaderboard;
     private IRace currentRace;
 
     public SeasonImpl(int year, ArrayList<IRace> races) {
         this.year = year;
         //this.races = races;
-        this.teamLeaderboard = new TeamLeaderboardImpl(getTeams());
-        ArrayList<IDriver> drivers = new ArrayList<>();
-        for (ITeam team : getTeams()) {
-            drivers.add(team.getDriver1());
-            drivers.add(team.getDriver2());
-        }
-        this.driverLeaderboard = new DriverLeaderboardImpl(drivers);
         createRaces();
         this.currentRace = races.get(0);
     }
@@ -111,6 +104,13 @@ public class SeasonImpl implements ISeason {
     @Override
     public void setTeams(ArrayList<ITeam> teams) {
         this.teams = teams;
+        this.teamLeaderboard = new TeamLeaderboardImpl(getTeams());
+        ArrayList<IDriver> drivers = new ArrayList<>();
+        for (ITeam team : getTeams()) {
+            drivers.add(team.getDriver1());
+            drivers.add(team.getDriver2());
+        }
+        this.driverLeaderboard = new DriverLeaderboardImpl(drivers);
     }
 
     @Override
