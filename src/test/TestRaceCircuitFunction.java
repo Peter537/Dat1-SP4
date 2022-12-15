@@ -15,6 +15,7 @@ import main.race.impl.CircuitImpl;
 import main.race.impl.RaceImpl;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class TestRaceCircuitFunction {
 
@@ -37,7 +38,7 @@ public class TestRaceCircuitFunction {
     public ArrayList<ITeam> getSomeDefaultTeamData() {
         ArrayList<ITeam> teams = new ArrayList<>();
 
-        java.util.Random r = new java.util.Random();
+        Random r = new Random();
 
         // create 10 teams in total
         for (int i = 1; i <= 10; i++) {
