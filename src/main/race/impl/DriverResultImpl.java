@@ -5,7 +5,11 @@ import main.race.IDriverResult;
 import main.race.ILap;
 import main.race.IRace;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class DriverResultImpl implements IDriverResult {
 
@@ -138,15 +142,14 @@ public class DriverResultImpl implements IDriverResult {
 
     @Override
     public String toString() {
-        return "DriverResultImpl{" +
-                "race=" + getRace() +
-                ", driver=" + getDriver() +
-                ", laps=" + getLaps() +
-                ", time=" + getTime() +
-                ", hasCrashed=" + hasCrashed() +
-                ", placement=" + getPlacement() +
-                ", points=" + getPoints() +
-                ", hasFastestLap=" + hasFastestLap() +
-                '}';
+        //Make time return a string in the format of mm:ss:ms
+        int minutes = (int) (getTime() / 60);
+        int seconds = (int) (getTime() % 60);
+        int milliseconds = (int) ((getTime() * 1000) % 1000);
+        String timeString = String.format("%02d:%02d:%03d", minutes, seconds, milliseconds);
+        String placementString = String.format("%02d", getPlacement());
+        if (placement == 21)
+            placementString = "DNF";
+        return placementString + ". " + driver.getName() + " (" + driver.getTeam().getName() + ") - " + timeString; //time as min;
     }
 }

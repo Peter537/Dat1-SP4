@@ -4,6 +4,7 @@ import main.FormulaOne;
 import main.data.IDriver;
 import main.data.ITeam;
 import main.data.IUser;
+import main.race.IDriverResult;
 import main.race.IRace;
 import main.race.IResult;
 
@@ -86,6 +87,8 @@ public class MenuUI extends AUI {
     }
 
     private void setListData() {
+        String[] empty = {};
+        RaceList.setListData(empty);
         ArrayList<ITeam> teams = formulaOne.getSessionCache().getTeams(); //TODO: maybe change to teamleaderboard class
         ArrayList<IDriver> drivers = new ArrayList<>();
         ArrayList<String> values = new ArrayList<>(); //This can also be done with the team class...
@@ -121,19 +124,24 @@ public class MenuUI extends AUI {
         driverLeaderboard.setListData(driverValues.toArray());
 
         ArrayList<IRace> races = formulaOne.getSessionCache().getCurrentSeason().getRaces();
-        ArrayList<IResult> results = new ArrayList<>();
+        ArrayList<IDriverResult> results = new ArrayList<>();
         for (IRace race : races) {
-            results.add(race.getResult());
+            if (race.getResult() == null)
+                if (race.getQualifier().getResult() == null)
+                    break;
+                else
+                    results.addAll(race.getQualifier().getResult().getSortedResults());
+            else
+                results.addAll(race.getResult().getSortedResults());
         }
 
-//        for (IResult result : results) {
-//
-//        }
         if (results.isEmpty() || results.get(0) == null) {
             String[] noraces = {"No races have been completed yet."};
             RaceList.setListData(noraces);
         }
         else {
+            RaceList.setListData(empty); //Clear list
+            RaceList.removeAll();
             RaceList.setListData(results.toArray());
         }
     }
