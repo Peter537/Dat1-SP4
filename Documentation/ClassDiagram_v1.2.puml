@@ -33,7 +33,8 @@ class SessionCacheImpl implements ISessionCache {
     + SessionCacheImpl(FormulaOne formulaOne, int saveID)
 
     + void setCurrentSeason(ISeason currentSeason)
-    + setCurrentUser(IUser currentUser)
+    + void setCurrentUser(IUser currentUser)
+    + void setTeams(ArrayList<ITeam> teams)
 
     + accessor methods()
 }
@@ -41,18 +42,20 @@ class SessionCacheImpl implements ISessionCache {
 class SeasonImpl implements ISeason {
     - final int year
     - final ArrayList<IRace> races
-    - final ArrayList<ITeam> teams
-    - final ITeamLeaderboard teamLeaderboard
-    - final IDriverLeaderboard driverLeaderboard
+    - ArrayList<ITeam> teams
+    - ITeamLeaderboard teamLeaderboard
+    - IDriverLeaderboard driverLeaderboard
     - IRace currentRace
 
-    + SeasonImpl(int year, ArrayList<IRace> races, ArrayList<ITeam> teams)
+    + SeasonImpl(int year, ArrayList<IRace> races)
 
     + Action nextAction()
     + void updateLeaderboards()
     + boolean hasNextAction()
+    - void createRaces()
 
     + void setCurrentRace(IRace currentRace)
+    + void setTeams(ArrayList<ITeam> teams)
     + accessor methods()
 }
 
@@ -62,8 +65,6 @@ class TeamImpl implements ITeam {
     - final ICar car
     - final IDriver driver1
     - final IDriver driver2
-
-
 
     + TeamImpl(int id, String name, ICar car, IDriver driver1, IDriver driver2)
 
@@ -75,16 +76,17 @@ class TeamImpl implements ITeam {
 class DriverImpl implements IDriver {
     - final int id
     - final String name
-    - final int teamID
-    - final int points
+    - ITeam team
+    - int points
     - final int experience
     - final int corner
     - final int consistency
     - final int acceleration
 
-    + DriverImpl(int id, String name, int teamID, int experience, int corner, int consistency, int acceleration)
+    + DriverImpl(int id, String name, int experience, int corner, int consistency, int acceleration)
 
     + void addPoints(int points)
+    + void setTeam(ITeam team)
 
     + accessor methods()
 }
@@ -138,33 +140,36 @@ class DriverLeaderboardImpl implements IDriverLeaderboard {
     + ArrayList<IDriver> getLeaderboard()
 }
 
+class UserImpl implements IUser {
+    - ITeam team
+
+    + UserImpl(ITeam team)
+
+    + accessor methods()
+}
+
 ' ******************
 ' DataBase Classes
 ' ******************
 
 class DataBaseIO {
-    - static final int saveID
-    - static final String dbPassword
-    - static final MySQL mySQL
-    - static final FormulaOne formulaOne
+    - static final String databaseName
+    - static FormulaOne formulaOne
+    - static IMySQL mySQL
+    - static ArrayList<IDriver> cachedDrivers
+    - static ArrayList<ICar> cachedCars
+    - static ArrayList<ITeam> cachedTeams
 
-    + static void initSQL(String dbPassword, boolean isNewSave, FormulaOne formulaOne)
+    + static void initSQL(boolean isNewSave, FormulaOne formulaOne)
     + static void saveData()
-    + static void newSave()
 
-    + static ArrayList<ITeam> loadTeamData()
-    + static ArrayList<IDriver> loadDriverData()
-    + static ArrayList<ICar> loadCarData()
+    + static ArrayList<ITeam> loadDefaultTeamData()
+    + static ArrayList<IDriver> loadDefaultDriverData()
+    + static ArrayList<ICar> loadDefaultCarData()
     + static ArrayList<IRace> loadRaceData()
-    + static ArrayList<ICircuit> loadCircuitData()
-}
-
-class MySQL {
-    + helper methods()
-}
-
-class SQLStatements {
-    + helper methods()
+    - static IDriverResult loadDriverResult(IDriver driver, IRace race, int resultID)
+    - static ArrayList<ILap> loadLapData(int resultID, IRace race, IDriver driver)
+    - static String getPassword()
 }
 
 ' ******************
@@ -393,6 +398,7 @@ interface ITeam {
 
 interface IDriver {
     + void addPoints(int points)
+    + void setTeam(ITeam team)
 
     + accessor methods()
 }
@@ -401,9 +407,14 @@ interface ICar {
     + accessor methods()
 }
 
+interface IUser {
+    + accessor methods()
+}
+
 interface ISessionCache {
     + void setCurrentSeason(ISeason currentSeason)
     + void setCurrentUser(IUser user)
+    + void setTeams(ArrayList<ITeam> teams)
 
     + accessor methods()
 }
@@ -413,6 +424,7 @@ interface ISeason {
     + void updateLeaderboards()
     + boolean hasNextAction()
     + void setCurrentRace(IRace currentRace)
+    + void setTeams(ArrayList<ITeam> teams)
 
     + accessor methods()
 }
@@ -429,34 +441,19 @@ interface ICircuit {
 }
 
 interface ICircuitComponent {
+    + boolean isCorner()
+    + boolean isStraight()
 
-    + isCorner()
-    + isStraight()
-
-    + asCorner()
-    + asStraight()
-
-
+    + ICircuitComponentCorner asCorner()
+    + ICircuitComponentStraight asStraight()
 }
 
 interface ICircuitComponentCorner extends ICircuitComponent {
-
-+ boolean isCorner()
-+ boolean isStraight()
-
-+ boolean asCorner()
-+ boolean asStraight()
-
-+ accessor methods()
-
+    + accessor methods()
 }
 
 interface ICircuitComponentStraight extends ICircuitComponent {
-
-+ boolean asCorner()
-+ boolean asStraight()
-
-+ accessor methods()
+    + accessor methods()
 }
 
 interface IResult {
@@ -537,6 +534,12 @@ enum RaceState {
     RACE_FINISHED
 }
 
+enum Action {
+    COMPLETE,
+    SEASON_FINISHED,
+    RACE_NOT_FINISHED
+}
+
 ' ******************
 ' Relations
 ' ******************
@@ -547,6 +550,7 @@ FormulaOne --> ISessionCache
 FormulaOne --> IUI
 
 SessionCacheImpl --> ISeason
+SessionCacheImpl --> IUser
 
 SeasonImpl --> ITeam
 SeasonImpl --> IRace
@@ -567,7 +571,5 @@ TeamImpl --> ICar
 TeamImpl --> IDriver
 
 CircuitImpl --> ICircuitComponent
-
-DataBaseIO --> MySQL
 
 @enduml
