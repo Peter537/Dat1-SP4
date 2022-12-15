@@ -3,7 +3,10 @@ package main.data.impl;
 import main.data.*;
 import main.enums.Action;
 import main.enums.RaceState;
+import main.race.ICircuit;
 import main.race.IRace;
+import main.race.circuit.CircuitBuilder;
+import main.race.impl.RaceImpl;
 
 import java.util.ArrayList;
 
@@ -28,6 +31,7 @@ public class SeasonImpl implements ISeason {
             drivers.add(team.getDriver2());
         }
         this.driverLeaderboard = new DriverLeaderboardImpl(drivers);
+        createRaces();
     }
 
     @Override
@@ -60,6 +64,14 @@ public class SeasonImpl implements ISeason {
     public boolean hasNextAction() {
         if (getCurrentRace() == null) return false;
         return getRaces().get(getRaces().size() - 1).getState() != RaceState.RACE_FINISHED; // if last race is done, then all should be done
+    }
+
+    private void createRaces() {
+        CircuitBuilder circuitBuilder = new CircuitBuilder();
+        ArrayList<ICircuit> circuits = circuitBuilder.createCircuits();
+        for (ICircuit circuit : circuits) {
+            getRaces().add(new RaceImpl(getYear(), circuit, getTeams()));
+        }
     }
 
     @Override
