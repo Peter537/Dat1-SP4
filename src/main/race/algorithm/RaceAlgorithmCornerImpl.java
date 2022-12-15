@@ -8,6 +8,8 @@ import main.race.ICircuit;
 import main.race.IRace;
 import main.race.circuit.ICircuitComponent;
 
+import java.util.Random;
+
 public class RaceAlgorithmCornerImpl implements IRaceAlgorithmCorner {
 
 	public RaceAlgorithmCornerImpl() { }
@@ -18,7 +20,8 @@ public class RaceAlgorithmCornerImpl implements IRaceAlgorithmCorner {
 		int radius = circuitComponent.asCorner().getRadius(); // 100 m radius
 		double speed = getSpeed(car, circuitComponent) * getSpeedProcent(driver, race.getWeatherCondition());
 
-		return (angle / 360.0) * (2 * Math.PI * radius / speed); // t = (a / 360) * (2 * pi * r / v)
+		Random r = new Random();
+		return (angle / 360.0) * (2 * Math.PI * radius / speed) * r.nextGaussian(1.1, 0.01); // t = (a / 360) * (2 * pi * r / v)
 	}
 
 	private double getSpeed(ICar car, ICircuitComponent circuitComponent) {
