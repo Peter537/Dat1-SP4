@@ -2,6 +2,7 @@ package main.race;
 
 import main.data.IDriver;
 import main.enums.RaceState;
+import main.enums.WeatherCondition;
 
 public interface IRace {
 
@@ -22,4 +23,6 @@ public interface IRace {
     IQualifier getQualifier();
 
     RaceState getState();
+
+    WeatherCondition getWeatherCondition();
 }

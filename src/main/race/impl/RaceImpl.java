@@ -4,6 +4,7 @@ import main.data.ICar;
 import main.data.IDriver;
 import main.data.ITeam;
 import main.enums.RaceState;
+import main.enums.WeatherCondition;
 import main.race.*;
 import main.race.algorithm.RaceAlgorithmCornerImpl;
 import main.race.algorithm.RaceAlgorithmStraightImpl;
@@ -21,6 +22,7 @@ public class RaceImpl implements IRace {
     private final ArrayList<ITeam> teams;
     private final ArrayList<IDriver> drivers;
     private final IQualifier qualifier;
+    private final WeatherCondition weatherCondition;
     private final HashMap<IDriver, Double> driverCurrentSpeedMap = new HashMap<>();
 
     private IResult result;
@@ -31,6 +33,11 @@ public class RaceImpl implements IRace {
         this.circuit = circuit;
         this.teams = teams;
         this.result = null;
+        if (new Random().nextDouble() < 0.85) {
+            this.weatherCondition = WeatherCondition.SUNNY;
+        } else {
+            this.weatherCondition = WeatherCondition.RAINY;
+        }
         drivers = new ArrayList<>();
         for (ITeam team : getTeams()) {
             drivers.add(team.getDriver1());
@@ -124,6 +131,9 @@ public class RaceImpl implements IRace {
                 currentTime = new RaceAlgorithmStraightImpl().getTime(this, driver, car, component, driverCurrentSpeedMap.get(driver));
             }
             totalTime += currentTime;
+            if (driver.getName().equals("driver1")) {
+                System.out.println(driver.getName() + ": " + component.getClass().getName() + ": " + currentTime + ": " + totalTime);
+            }
         }
 
         return totalTime;
@@ -225,6 +235,11 @@ public class RaceImpl implements IRace {
     @Override
     public void setNewSpeed(IDriver driver, double speed) {
         driverCurrentSpeedMap.put(driver, speed);
+    }
+
+    @Override
+    public WeatherCondition getWeatherCondition() {
+        return this.weatherCondition;
     }
 
     private ArrayList<ITeam> getTeams() {
