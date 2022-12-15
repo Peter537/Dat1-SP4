@@ -107,7 +107,7 @@ public class MenuUI extends AUI {
             driverValues.add(
                     driver.getPoints() + " | " +
                             driver.getName() + " | " +
-//                            driver.getTeamID() + " | " +
+                            driver.getTeam().getID() + " | " +
                             driver.getExperience() + " | " +
                             driver.getAcceleration() + " | " +
                             driver.getConsistency() + " | " +
