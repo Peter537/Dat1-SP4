@@ -68,6 +68,7 @@ public class MenuUI extends AUI {
         }
     }
 
+    //DO NOT REMOVE THIS METHOD EVEN IF SAFE DELETE SAYS IT IS UNUSED
     public void getData(MenuUI data) {
     }
 
@@ -239,6 +240,7 @@ public class MenuUI extends AUI {
         }
     }
 
+    //DO NOT REMOVE THIS METHOD EVEN IF SAFE DELETE SAYS IT IS UNUSED
     public boolean isModified(MenuUI data) {
         return false;
     }
