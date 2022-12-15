@@ -4,6 +4,7 @@ import main.FormulaOne;
 import main.data.IDriver;
 import main.data.ITeam;
 import main.data.IUser;
+import main.race.IDriverResult;
 import main.race.IRace;
 import main.race.IResult;
 
@@ -86,6 +87,8 @@ public class MenuUI extends AUI {
     }
 
     private void setListData() {
+        String[] empty = {};
+        RaceList.setListData(empty);
         ArrayList<ITeam> teams = formulaOne.getSessionCache().getTeams(); //TODO: maybe change to teamleaderboard class
         ArrayList<IDriver> drivers = new ArrayList<>();
         ArrayList<String> values = new ArrayList<>(); //This can also be done with the team class...
@@ -103,6 +106,7 @@ public class MenuUI extends AUI {
             drivers.add(team.getDriver2());
         }
         teamLeaderboard.setListData(values.toArray());
+        drivers.sort((o1, o2) -> o2.getPoints() - o1.getPoints());
 
         ArrayList<String> driverValues = new ArrayList<>();
 //        driverValues.add("Points | Driver | Team Name | Experience | Acceleration | Consistency | Cornering");
@@ -119,20 +123,24 @@ public class MenuUI extends AUI {
         }
         driverLeaderboard.setListData(driverValues.toArray());
 
-        ArrayList<IRace> races = formulaOne.getSessionCache().getCurrentSeason().getRaces();
-        ArrayList<IResult> results = new ArrayList<>();
-        for (IRace race : races) {
-            results.add(race.getResult());
-        }
+        IRace race = formulaOne.getSessionCache().getCurrentSeason().getCurrentRace();
+        ArrayList<IDriverResult> results = new ArrayList<>();
 
-//        for (IResult result : results) {
-//
-//        }
+        if (race.getResult() == null) {
+            if (race.getQualifier().getResult() != null) {
+                results.addAll(race.getQualifier().getResult().getSortedResults());
+            }
+        }
+        else
+            results.addAll(race.getResult().getSortedResults());
+
         if (results.isEmpty() || results.get(0) == null) {
             String[] noraces = {"No races have been completed yet."};
             RaceList.setListData(noraces);
         }
         else {
+            RaceList.setListData(empty); //Clear list
+            RaceList.removeAll();
             RaceList.setListData(results.toArray());
         }
     }
@@ -162,6 +170,8 @@ public class MenuUI extends AUI {
         ActionListener actionListener1 = e -> {
             if (formulaOne.getSessionCache().getCurrentSeason().hasNextAction()) {
                 formulaOne.getSessionCache().getCurrentSeason().nextAction();
+                IUI updateMenu = new MenuUI(formulaOne);
+                updateMenu.updatePane(updateMenu);
             }
             else
                 JOptionPane.showMessageDialog(null, "The season has ended.");

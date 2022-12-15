@@ -12,7 +12,7 @@ public class UserImpl implements IUser {
     }
 
     public ITeam getTeam() {
-        return team;
+        return this.team;
     }
 
     public void setTeam(ITeam team) {
