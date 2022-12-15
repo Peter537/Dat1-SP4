@@ -6,7 +6,6 @@ import main.data.ITeam;
 import main.data.impl.CarImpl;
 import main.data.impl.DriverImpl;
 import main.data.impl.TeamImpl;
-import main.enums.Direction;
 import main.race.ICircuit;
 import main.race.IRace;
 import main.race.circuit.CircuitComponentCornerImpl;
@@ -56,14 +55,14 @@ public class TestRaceCircuitFunction {
 
     public ICircuit getCircuit() {
         ArrayList<ICircuitComponent> components = new ArrayList<>();
-        components.add(new CircuitComponentStraightImpl(1000, Direction.LEFT, Direction.RIGHT));
-        components.add(new CircuitComponentCornerImpl(100, 90, Direction.RIGHT, Direction.DOWN));
-        components.add(new CircuitComponentStraightImpl(1000, Direction.UP, Direction.DOWN));
-        components.add(new CircuitComponentCornerImpl(100,90, Direction.DOWN, Direction.LEFT));
-        components.add(new CircuitComponentStraightImpl(1000, Direction.RIGHT, Direction.LEFT));
-        components.add(new CircuitComponentCornerImpl(100, 90, Direction.LEFT, Direction.UP));
-        components.add(new CircuitComponentStraightImpl(1000, Direction.DOWN, Direction.UP));
-        components.add(new CircuitComponentCornerImpl(100,90, Direction.UP, Direction.RIGHT));
+        components.add(new CircuitComponentStraightImpl(1000));
+        components.add(new CircuitComponentCornerImpl(100, 90));
+        components.add(new CircuitComponentStraightImpl(1000));
+        components.add(new CircuitComponentCornerImpl(100,90));
+        components.add(new CircuitComponentStraightImpl(1000));
+        components.add(new CircuitComponentCornerImpl(100, 90));
+        components.add(new CircuitComponentStraightImpl(1000));
+        components.add(new CircuitComponentCornerImpl(100,90));
 
         //components.add(new CircuitComponentStraightImpl(80000, Direction.LEFT, Direction.RIGHT));
 

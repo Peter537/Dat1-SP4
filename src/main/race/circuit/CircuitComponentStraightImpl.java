@@ -1,32 +1,16 @@
 package main.race.circuit;
 
-import main.enums.Direction;
-
 public class CircuitComponentStraightImpl implements ICircuitComponentStraight {
 
     private final int length;
-    private final Direction from;
-    private final Direction to;
 
-    public CircuitComponentStraightImpl(int length, Direction from, Direction to) {
+    public CircuitComponentStraightImpl(int length) {
         this.length = length;
-        this.from = from;
-        this.to = to;
     }
 
     @Override
     public int getLength() {
         return this.length;
-    }
-
-    @Override
-    public Direction getFrom() {
-        return this.from;
-    }
-
-    @Override
-    public Direction getTo() {
-        return this.to;
     }
 
     @Override
