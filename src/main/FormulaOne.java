@@ -1,10 +1,11 @@
 package main;
 
 import jdk.jshell.spi.ExecutionControl;
+import main.data.ICar;
+import main.data.IDriver;
 import main.data.ISessionCache;
-import main.data.impl.SeasonImpl;
-import main.data.impl.SessionCacheImpl;
-import main.data.impl.UserImpl;
+import main.data.ITeam;
+import main.data.impl.*;
 import main.database.DataBaseIO;
 import main.race.IRace;
 import main.race.impl.RaceImpl;
@@ -64,16 +65,30 @@ public class FormulaOne {
         });
         page.pack();
         page.setVisible(true);
-        ArrayList<IRace> TESTraces = new ArrayList<>();
+        ArrayList<IRace> TESTraces = new ArrayList<>(); //TODO: Remove this when real season is made
         TESTraces.add(new RaceImpl(1, null, sessionCache.getTeams()));
         sessionCache.setCurrentSeason(new SeasonImpl(1, TESTraces , sessionCache.getTeams()));
         IUI menu = new MenuUI(this);
         menu.updatePane(menu);
     }
 
-    private void doClose() {
-
-    }
+//    private void makeRandomData() {
+//        ArrayList<ITeam> teams = new ArrayList<>();
+//        java.util.Random r = new java.util.Random();
+//
+//        for (int i = 1; i <= 10; i++) {
+//            ICar car = new CarImpl(i, "car" + i, r.nextInt(50) + 1000, r.nextInt(50) + 1000, r.nextDouble(0.1) + 0.1, r.nextDouble(0.1) + 0.1);
+//            IDriver driver1 = new DriverImpl(i * 2 - 1, "driver" + (i * 2 - 1), 1, 1, 1, 1);
+//            IDriver driver2 = new DriverImpl(i * 2, "driver" + (i * 2), 1, 1, 1, 1);
+//            ITeam newteam = new TeamImpl(i, "team" + i, car, driver1, driver2);
+//            teams.add(newteam);
+//            driver1.setTeam(newteam);
+//            driver2.setTeam(newteam);
+//            System.out.println(car.getAerodynamics() + " " + car.getName() + " " + car.getWeight() + " " + car.getID() + " " + car.getHorsePower() + " " + car.getTraction());
+//        }
+//
+//        sessionCache.setTeams(teams);
+//    }
 
     public ISessionCache getSessionCache() {
         return this.sessionCache;

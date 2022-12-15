@@ -3,7 +3,7 @@
   <grid id="27dc6" binding="MenuPanel" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="980" height="445"/>
+      <xy x="20" y="20" width="980" height="448"/>
     </constraints>
     <properties>
       <background color="-16777216"/>
@@ -81,7 +81,10 @@
                     <constraints>
                       <tabbedpane title="Team"/>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <background color="-1"/>
+                      <foreground color="-1"/>
+                    </properties>
                     <border type="none"/>
                     <children>
                       <component id="b3a8b" class="javax.swing.JLabel" binding="myTeam">
@@ -115,17 +118,20 @@
                       </component>
                     </children>
                   </grid>
-                  <grid id="83d89" layout-manager="GridLayoutManager" row-count="2" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                  <grid id="83d89" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
                       <tabbedpane title="Driver 1"/>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <background color="-1"/>
+                      <foreground color="-1"/>
+                    </properties>
                     <border type="none"/>
                     <children>
-                      <component id="6ec59" class="javax.swing.JLabel">
+                      <component id="6ec59" class="javax.swing.JLabel" binding="carpng2">
                         <constraints>
-                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="2" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+                          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="2" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <icon value="main/ui/Assets/FormulaCar.png"/>
@@ -140,14 +146,25 @@
                           <text value=""/>
                         </properties>
                       </component>
+                      <component id="c73f5" class="javax.swing.JLabel" binding="driver1Stats">
+                        <constraints>
+                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
+                          <text value=""/>
+                        </properties>
+                      </component>
                     </children>
                   </grid>
-                  <grid id="e5682" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                  <grid id="e5682" layout-manager="GridLayoutManager" row-count="3" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                     <margin top="0" left="0" bottom="0" right="0"/>
                     <constraints>
                       <tabbedpane title="Driver 2"/>
                     </constraints>
-                    <properties/>
+                    <properties>
+                      <background color="-1"/>
+                      <foreground color="-1"/>
+                    </properties>
                     <border type="none"/>
                     <children>
                       <component id="d55b6" class="javax.swing.JLabel" binding="driver2Text">
@@ -160,10 +177,18 @@
                       </component>
                       <component id="61af3" class="javax.swing.JLabel" binding="carpng1">
                         <constraints>
-                          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="2" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
+                          <grid row="2" column="0" row-span="1" col-span="2" vsize-policy="2" hsize-policy="3" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
                           <icon value="main/ui/Assets/FormulaCar.png"/>
+                          <text value=""/>
+                        </properties>
+                      </component>
+                      <component id="126ac" class="javax.swing.JLabel" binding="driver2Stats">
+                        <constraints>
+                          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                        </constraints>
+                        <properties>
                           <text value=""/>
                         </properties>
                       </component>
@@ -226,7 +251,7 @@
                 <properties>
                   <font size="14" style="2"/>
                   <labelFor value="61a18"/>
-                  <text value="Points | Driver | Team ID | Experience | Acceleration | Consistency | Cornering"/>
+                  <text value="Points | Driver | Team Name | Experience | Acceleration | Consistency | Cornering"/>
                 </properties>
               </component>
               <component id="7f711" class="javax.swing.JLabel">
