@@ -15,6 +15,25 @@ public class CircuitBuilder {
         // Create circuit 1
         ArrayList<ICircuitComponent> components1 = new ArrayList<>();
 
+        components1.add(new CircuitComponentStraightImpl(1000));
+        components1.add(new CircuitComponentCornerImpl(100, 90));
+        components1.add(new CircuitComponentStraightImpl(1000));
+        components1.add(new CircuitComponentCornerImpl(100, 90));
+        components1.add(new CircuitComponentStraightImpl(1500));
+        components1.add(new CircuitComponentCornerImpl(50, 180));
+        components1.add(new CircuitComponentStraightImpl(500));
+        components1.add(new CircuitComponentCornerImpl(50, 90));
+        components1.add(new CircuitComponentStraightImpl(1500));
+        components1.add(new CircuitComponentCornerImpl(50, 90));
+        components1.add(new CircuitComponentStraightImpl(500));
+        components1.add(new CircuitComponentCornerImpl(50, 90));
+        components1.add(new CircuitComponentStraightImpl(500));
+        components1.add(new CircuitComponentCornerImpl(50, 90));
+        components1.add(new CircuitComponentStraightImpl(500));
+
+
+
+
         ICircuit circuit1 = new CircuitImpl(1, "Copenhagen", "Denmark", 63, components1);
         circuits.add(circuit1);
 
