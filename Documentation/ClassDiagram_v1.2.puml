@@ -292,7 +292,7 @@ class LapImpl implements ILap {
 ' Circuit Classes
 ' ******************
 
-class CircuitComponentCornerImpl implements ICircuitComponent {
+class CircuitComponentCornerImpl implements ICircuitComponentCorner {
     - final int radius
     - final int angle
     - final Direction from
@@ -303,7 +303,7 @@ class CircuitComponentCornerImpl implements ICircuitComponent {
     + accessor methods()
 }
 
-class CircuitComponentStraightImpl implements ICircuitComponent {
+class CircuitComponentStraightImpl implements ICircuitComponentStraight {
     - final int length
     - final Direction from
     - final Direction to
@@ -312,6 +312,13 @@ class CircuitComponentStraightImpl implements ICircuitComponent {
 
     + accessor methods()
 }
+
+class CircuitBuilder {
+
+  + CircuitBuilder()
+  + ArrayList<ICircuit> createCircuits()
+  }
+
 
 ' ******************
 ' UI Classes
@@ -422,7 +429,34 @@ interface ICircuit {
 }
 
 interface ICircuitComponent {
-    + accessor methods()
+
+    + isCorner()
+    + isStraight()
+
+    + asCorner()
+    + asStraight()
+
+
+}
+
+interface ICircuitComponentCorner extends ICircuitComponent {
+
++ boolean isCorner()
++ boolean isStraight()
+
++ boolean asCorner()
++ boolean asStraight()
+
++ accessor methods()
+
+}
+
+interface ICircuitComponentStraight extends ICircuitComponent {
+
++ boolean asCorner()
++ boolean asStraight()
+
++ accessor methods()
 }
 
 interface IResult {
@@ -518,6 +552,7 @@ SeasonImpl --> ITeam
 SeasonImpl --> IRace
 SeasonImpl --> ITeamLeaderboard
 SeasonImpl --> IDriverLeaderboard
+SeasonImpl --> CircuitBuilder
 
 RaceImpl --> ICircuit
 RaceImpl --> IResult

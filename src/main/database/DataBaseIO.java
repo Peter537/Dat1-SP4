@@ -4,11 +4,9 @@ import main.FormulaOne;
 import main.data.ICar;
 import main.data.IDriver;
 import main.data.ITeam;
-import main.data.IUser;
 import main.data.impl.CarImpl;
 import main.data.impl.DriverImpl;
 import main.data.impl.TeamImpl;
-import main.data.impl.UserImpl;
 import main.database.mysql.*;
 import main.race.IDriverResult;
 import main.race.ILap;
@@ -26,14 +24,13 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class DataBaseIO {
-    private static String DatabaseName = "formula1manager";
+
+    private static final String databaseName = "formula1manager";
+    private static FormulaOne formulaOne;
     private static IMySQL mySQL;
     private static ArrayList<IDriver> cachedDrivers;
     private static ArrayList<ICar> cachedCars;
     private static ArrayList<ITeam> cachedTeams;
-
-    private static FormulaOne formulaOne;
-
 
     public static void initSQL(boolean isNewSave, FormulaOne _formulaOne) {
         mySQL = new MySQL();
@@ -44,7 +41,7 @@ public class DataBaseIO {
         System.out.println("Attempting to connect to database...");
 
         try {
-            isConnected = mySQL.openConnection("localhost", DatabaseName, "root", getPassword());
+            isConnected = mySQL.openConnection("localhost", databaseName, "root", getPassword());
             DataBaseIO.loadDefaultTeamData();
         }
         catch (Exception e) {
@@ -56,9 +53,6 @@ public class DataBaseIO {
         System.out.println("Connected to database!");
     }
 
-    public static void saveNewTeam(FormulaOne formulaOne) {
-        System.out.println(formulaOne.getSessionCache().getCurrentUser().getTeam());
-    }
     // write a method that saves all the data to the database
     public static void saveData() {
     try {
@@ -100,10 +94,6 @@ public class DataBaseIO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static void newSave() {
-
     }
 
     public static ArrayList<ITeam> loadDefaultTeamData() {

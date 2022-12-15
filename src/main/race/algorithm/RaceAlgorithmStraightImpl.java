@@ -20,7 +20,7 @@ public class RaceAlgorithmStraightImpl implements IRaceAlgorithmStraight {
 		double time = 0;
 		double distance = 0; // distance traveled by the car measured in m
 
-		double sProcent = 0.999; //getSpeedProcent(driver, race.getWeatherCondition());
+		double sProcent = getSpeedProcent(driver, race.getWeatherCondition()); //getSpeedProcent(driver, race.getWeatherCondition());
 		while (distance <= maxDistance) {
 			// current acceleration of the car measured in m/s^2
 			double currentAcceleration = getAcceleration(car, currentSpeed); //get acceleration from the car
@@ -70,7 +70,7 @@ public class RaceAlgorithmStraightImpl implements IRaceAlgorithmStraight {
 		int consistency = driver.getConsistency();
 		int acceleration = driver.getAcceleration();
 
-		double speedProcent = 0.999;
+		double speedProcent = 0.8;
 		speedProcent += (experience) * 0.0007; // 0.0 -> 0.0003
 		speedProcent += (corner) * 0.0002; // 0.0 -> 0.0001
 		speedProcent += (consistency) * 0.0008; // 0.0 -> 0.0004
