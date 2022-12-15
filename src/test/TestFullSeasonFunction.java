@@ -86,11 +86,15 @@ public class TestFullSeasonFunction {
     public ArrayList<ITeam> getSomeDefaultTeamData() {
         ArrayList<ITeam> teams = new ArrayList<>();
 
+        // create 10 teams in total
         for (int i = 1; i <= 10; i++) {
             ICar car = new CarImpl(i, "car" + i, 1, 1, 1, 1);
-            IDriver driver1 = new DriverImpl(i * 2 - 1, "driver" + (i * 2 - 1), i, 1, 1, 1, 1);
-            IDriver driver2 = new DriverImpl(i * 2, "driver" + (i * 2), i, 1, 1, 1, 1);
-            teams.add(new TeamImpl(i, "team" + i, car, driver1, driver2));
+            IDriver driver1 = new DriverImpl(i * 2 - 1, "driver" + (i * 2 - 1), 1, 1, 1, 1);
+            IDriver driver2 = new DriverImpl(i * 2, "driver" + (i * 2), 1, 1, 1, 1);
+            ITeam team = new TeamImpl(i, "team" + i, car, driver1, driver2);
+            driver1.setTeam(team);
+            driver2.setTeam(team);
+            teams.add(team);
         }
 
         return teams;
