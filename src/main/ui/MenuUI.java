@@ -166,6 +166,18 @@ public class MenuUI extends AUI {
             }
         });
 
+        RaceList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                IDriverResult selectedDriver = (IDriverResult) RaceList.getSelectedValue();
+                JOptionPane.showMessageDialog(null, "You selected: " +
+                        selectedDriver.getDriver().getName() + ".\n" +
+                        "They currently have " + selectedDriver.getDriver().getPoints() + " points.\n" +
+                        "They have completed " + selectedDriver.getLaps().size() + " laps.\n" +
+                        "Their team is " + selectedDriver.getDriver().getTeam().getName() + ".\n"
+                );
+            }
+        });
+
         ActionListener actionListener = event -> {
             IUI chooseTeam = new ChooseTeamUI(formulaOne);
             chooseTeam.updatePane(chooseTeam);
