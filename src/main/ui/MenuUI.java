@@ -68,6 +68,7 @@ public class MenuUI extends AUI {
         }
     }
 
+    //DO NOT REMOVE THIS METHOD EVEN IF SAFE DELETE SAYS IT IS UNUSED
     public void getData(MenuUI data) {
     }
 
@@ -165,6 +166,21 @@ public class MenuUI extends AUI {
             }
         });
 
+        RaceList.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (RaceList.getSelectedValue() != "No races have been completed yet.") {
+                    IDriverResult selectedDriver = (IDriverResult) RaceList.getSelectedValue();
+                    JOptionPane.showMessageDialog(null, "You selected: " +
+                            selectedDriver.getDriver().getName() + ".\n" +
+                            "They currently have " + selectedDriver.getDriver().getPoints() + " points.\n" +
+                            "They have completed " + selectedDriver.getLaps().size() + " laps.\n" +
+                            "With an average time of " + selectedDriver.getTime()/selectedDriver.getLaps().size() + " seconds pr. lap.\n" +
+                            "Their team is " + selectedDriver.getDriver().getTeam().getName() + ".\n"
+                    );
+                }
+            }
+        });
+
         ActionListener actionListener = event -> {
             IUI chooseTeam = new ChooseTeamUI(formulaOne);
             chooseTeam.updatePane(chooseTeam);
@@ -182,6 +198,7 @@ public class MenuUI extends AUI {
         };
         DoRace.addActionListener(actionListener1);
     }
+    
     private void setFonts() {
         if (currentUser != null) {
             ArrayList<Font> fonts = new ArrayList<>();
@@ -239,6 +256,7 @@ public class MenuUI extends AUI {
         }
     }
 
+    //DO NOT REMOVE THIS METHOD EVEN IF SAFE DELETE SAYS IT IS UNUSED
     public boolean isModified(MenuUI data) {
         return false;
     }

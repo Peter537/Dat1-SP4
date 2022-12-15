@@ -146,7 +146,7 @@ public class DriverResultImpl implements IDriverResult {
         int minutes = (int) (getTime() / 60);
         int seconds = (int) (getTime() % 60);
         int milliseconds = (int) ((getTime() * 1000) % 1000);
-        String timeString = String.format("%02d:%02d:%03d", minutes, seconds, milliseconds);
+        String timeString = String.format("%02d:%02d.%03d", minutes, seconds, milliseconds);
         String placementString = String.format("%02d", getPlacement());
         if (placement == 21)
             placementString = "DNF";
