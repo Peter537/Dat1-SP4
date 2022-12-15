@@ -23,14 +23,17 @@ public class RaceAlgorithmStraightImpl implements IRaceAlgorithmStraight {
 		double sProcent = getSpeedProcent(driver, race.getWeatherCondition()); //getSpeedProcent(driver, race.getWeatherCondition());
 		while (distance <= maxDistance) {
 			// current acceleration of the car measured in m/s^2
-			double currentAcceleration = getAcceleration(car, currentSpeed); //get acceleration from the car
+			double currentAcceleration = getAcceleration(car, currentSpeed) * sProcent; //get acceleration from the car
 			double s = getSpeed(currentSpeed, currentAcceleration); //get speed from the acceleration
-			currentSpeed = s * sProcent; //get speed from the driver
+			currentSpeed = s; //get speed from the driver
 			//currentSpeed = getSpeed(currentSpeed, currentAcceleration) * getSpeedProcent(driver, race.getWeatherCondition()); //	get speed from the car
-			distance = distance + currentSpeed * dTime; //calculate distance traveled
+			distance = distance + (currentSpeed * dTime); //calculate distance traveled
 			time = time + dTime; //calculate time
+			//System.out.println("Acceleration: " + getAcceleration(car, currentSpeed) +" Speed: " + currentSpeed + " Time: " + time);
+
 		}
 		race.setNewSpeed(driver, currentSpeed);
+		//System.out.println("SpeedProcent: " + sProcent + " CarHP " + car.getHorsePower() + " Weight " + car.getWeight() + " drag " + car.getAerodynamics() + " RR " + car.getTraction());
 		return time;
 	}
 
@@ -39,7 +42,7 @@ public class RaceAlgorithmStraightImpl implements IRaceAlgorithmStraight {
 		double mass = car.getWeight(); // 1000 kg
 		double drag = car.getAerodynamics(); // 10% drag
 		double rollResistance = car.getTraction(); // 10% roll resistance
-		return (power - drag * currentSpeed * currentSpeed - rollResistance * currentSpeed) / mass; // F = ma -> a = F/m -> a = (P - Dv^2 - Rv) / m
+		return (power - (drag * currentSpeed * currentSpeed + rollResistance * currentSpeed)) / mass; // F = ma -> a = F/m -> a = (P - Dv^2 - Rv) / m
 	}
 
 	private double getSpeed(double currentSpeed, double currentAcceleration) {
@@ -70,7 +73,7 @@ public class RaceAlgorithmStraightImpl implements IRaceAlgorithmStraight {
 		int consistency = driver.getConsistency();
 		int acceleration = driver.getAcceleration();
 
-		double speedProcent = 0.8;
+		double speedProcent =0.8;
 		speedProcent += (experience) * 0.0007; // 0.0 -> 0.0003
 		speedProcent += (corner) * 0.0002; // 0.0 -> 0.0001
 		speedProcent += (consistency) * 0.0008; // 0.0 -> 0.0004

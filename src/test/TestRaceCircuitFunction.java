@@ -42,7 +42,7 @@ public class TestRaceCircuitFunction {
 
         // create 10 teams in total
         for (int i = 1; i <= 10; i++) {
-            ICar car = new CarImpl(i, "car" + i, r.nextInt(50) + 1000, r.nextInt(50) + 1000, r.nextDouble(0.5) + 0.5, r.nextDouble(0.5) + 0.5);
+            ICar car = new CarImpl(i, "car" + i, r.nextInt(50) + 1000, r.nextInt(50) + 1000, 1- (r.nextDouble(0.2) + 0.7), 1- (r.nextDouble(0.2) + 0.7));
             //IDriver driver1 = new DriverImpl(i * 2 - 1, "driver" + (i * 2 - 1), r.nextInt(20) + 60, r.nextInt(20) + 60, r.nextInt(20) + 60, r.nextInt(20) + 60);
             //IDriver driver2 = new DriverImpl(i * 2, "driver" + (i * 2), r.nextInt(20) + 60, r.nextInt(20) + 60, r.nextInt(20) + 60, r.nextInt(20) + 60);
             IDriver driver1 = new DriverImpl(i * 2 - 1, "driver" + (i * 2 - 1), 60, 60, 60, 60);
@@ -69,6 +69,6 @@ public class TestRaceCircuitFunction {
 
         //components.add(new CircuitComponentStraightImpl(80000, Direction.LEFT, Direction.RIGHT));
 
-        return new CircuitImpl(2022, "Circuit1", "Country1", 58, components);
+        return new CircuitImpl(2022, "Circuit1", "Country1", 60, components);
     }
 }
