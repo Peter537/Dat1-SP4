@@ -8,6 +8,8 @@ import main.race.ICircuit;
 import main.race.IRace;
 import main.race.circuit.ICircuitComponent;
 
+import java.util.Random;
+
 public class RaceAlgorithmStraightImpl implements IRaceAlgorithmStraight {
 
 	private final double dTime = 0.1; //time step measured in s
@@ -29,12 +31,12 @@ public class RaceAlgorithmStraightImpl implements IRaceAlgorithmStraight {
 			//currentSpeed = getSpeed(currentSpeed, currentAcceleration) * getSpeedProcent(driver, race.getWeatherCondition()); //	get speed from the car
 			distance = distance + (currentSpeed * dTime); //calculate distance traveled
 			time = time + dTime; //calculate time
-			//System.out.println("Acceleration: " + getAcceleration(car, currentSpeed) +" Speed: " + currentSpeed + " Time: " + time);
 
 		}
+		Random r = new Random();
+
 		race.setNewSpeed(driver, currentSpeed);
-		//System.out.println("SpeedProcent: " + sProcent + " CarHP " + car.getHorsePower() + " Weight " + car.getWeight() + " drag " + car.getAerodynamics() + " RR " + car.getTraction());
-		return time;
+		return time * r.nextGaussian(1.1, 0.01);
 	}
 
 	private double getAcceleration(ICar car, double currentSpeed) {

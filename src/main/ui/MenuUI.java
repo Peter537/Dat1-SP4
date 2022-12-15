@@ -37,6 +37,7 @@ public class MenuUI extends AUI {
     private JLabel driver1Stats;
     private JLabel driver2Stats;
     private JLabel carpng2;
+    private JLabel typeOfRace;
     private FormulaOne formulaOne;
     private IUser currentUser;
 
@@ -129,10 +130,13 @@ public class MenuUI extends AUI {
         if (race.getResult() == null) {
             if (race.getQualifier().getResult() != null) {
                 results.addAll(race.getQualifier().getResult().getSortedResults());
+                typeOfRace.setText("Qualifier for " + race.getCircuit().getName() + " circuit");
             }
         }
-        else
+        else {
             results.addAll(race.getResult().getSortedResults());
+            typeOfRace.setText("Race for " + race.getCircuit().getName() + " circuit");
+        }
 
         if (results.isEmpty() || results.get(0) == null) {
             String[] noraces = {"No races have been completed yet."};
@@ -197,7 +201,8 @@ public class MenuUI extends AUI {
             smallfonts.add(new Font("Tahoma", Font.PLAIN, 12));
             smallfonts.add(new Font("Calibri", Font.PLAIN, 12));
 
-            RaceListTitle.setFont(fonts.get((int) (Math.random() * fonts.size())));
+            typeOfRace.setFont(fonts.get((int) (Math.random() * fonts.size())));
+            RaceListTitle.setFont(smallfonts.get((int) (Math.random() * fonts.size())));
 
             if (currentUser.getTeam() != null) {
                 myTeam.setText(currentUser.getTeam().getName());
