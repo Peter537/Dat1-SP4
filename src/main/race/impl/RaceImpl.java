@@ -21,7 +21,6 @@ public class RaceImpl implements IRace {
     private final ArrayList<ITeam> teams;
     private final ArrayList<IDriver> drivers;
     private final IQualifier qualifier;
-    private final HashMap<IDriver, ICar> driverCarMap = new HashMap<>();
     private final HashMap<IDriver, Double> driverCurrentSpeedMap = new HashMap<>();
 
     private IResult result;
@@ -36,8 +35,6 @@ public class RaceImpl implements IRace {
         for (ITeam team : getTeams()) {
             drivers.add(team.getDriver1());
             drivers.add(team.getDriver2());
-            driverCarMap.put(team.getDriver1(), team.getCar());
-            driverCarMap.put(team.getDriver2(), team.getCar());
             driverCurrentSpeedMap.put(team.getDriver1(), 0.0);
             driverCurrentSpeedMap.put(team.getDriver2(), 0.0);
         }
@@ -116,7 +113,7 @@ public class RaceImpl implements IRace {
             return new Random().nextFloat() * 60;
         }
 
-        ICar car = getDriverCarMap().get(driver);
+        ICar car = driver.getTeam().getCar();
 
         float totalTime = 0f;
         for (ICircuitComponent component : getCircuit().getComponents()) {
@@ -236,9 +233,5 @@ public class RaceImpl implements IRace {
 
     private ArrayList<IDriver> getDrivers() {
         return this.drivers;
-    }
-
-    private HashMap<IDriver, ICar> getDriverCarMap() {
-        return this.driverCarMap;
     }
 }
