@@ -123,17 +123,16 @@ public class MenuUI extends AUI {
         }
         driverLeaderboard.setListData(driverValues.toArray());
 
-        ArrayList<IRace> races = formulaOne.getSessionCache().getCurrentSeason().getRaces();
+        IRace race = formulaOne.getSessionCache().getCurrentSeason().getCurrentRace();
         ArrayList<IDriverResult> results = new ArrayList<>();
-        for (IRace race : races) {
-            if (race.getResult() == null)
-                if (race.getQualifier().getResult() == null)
-                    break;
-                else
-                    results.addAll(race.getQualifier().getResult().getSortedResults());
-            else
-                results.addAll(race.getResult().getSortedResults());
+
+        if (race.getResult() == null) {
+            if (race.getQualifier().getResult() != null) {
+                results.addAll(race.getQualifier().getResult().getSortedResults());
+            }
         }
+        else
+            results.addAll(race.getResult().getSortedResults());
 
         if (results.isEmpty() || results.get(0) == null) {
             String[] noraces = {"No races have been completed yet."};
