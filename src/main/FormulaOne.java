@@ -65,9 +65,6 @@ public class FormulaOne {
         });
         page.pack();
         page.setVisible(true);
-        ArrayList<IRace> TESTraces = new ArrayList<>(); //TODO: Remove this when real season is made
-        TESTraces.add(new RaceImpl(1, null, sessionCache.getTeams()));
-        sessionCache.setCurrentSeason(new SeasonImpl(1, TESTraces , sessionCache.getTeams()));
         IUI menu = new MenuUI(this);
         menu.updatePane(menu);
     }
